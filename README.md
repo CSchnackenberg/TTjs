@@ -11,7 +11,7 @@ Demos and details will follow.
 
 ====
 
-extern libs
+used libs
 
 * Sylvester - Vector and Matrix mathematics modules for JavaScript (MIT, Copyright (c) 2007 James Coglan)
 * jQuery - JavaScript Library v1.9.1 (MIT, Copyright 2005, 2012 jQuery Foundation, Inc. and other contributors)
