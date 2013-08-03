@@ -57,7 +57,7 @@ function(
 		 * 
 		 * TODO: impl a reference counting system for the resources
 		 * 
-		 * @param {type} resources
+		 * @param {Array} resources 
 		 * @param {type} callback
 		 * @returns {undefined}
 		 */

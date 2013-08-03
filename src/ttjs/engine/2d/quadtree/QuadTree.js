@@ -17,12 +17,12 @@ define(['ttjs/lib/lodash'], function(_) {
 	function QuadTree(minQuadSize, left, top, width, height) {		
 		var x = left || 0;
 		var y = top || 0;
-		width = width || 1024;
-		height = height || width;
+		var w = width || 1024;
+		var h = height || width;
 		this.forceQuad = true;
 		this.minQuadSize = minQuadSize || 100;
 		this._inRebuild = false;		
-		this._root = new QuadTree.QuadTreeNode(this, x, y, width, height);				
+		this._root = new QuadTree.QuadTreeNode(this, x, y, w, h);				
 	}
 	
 	/**
@@ -173,15 +173,17 @@ define(['ttjs/lib/lodash'], function(_) {
 		getSubQudrantSize: function() {
 			return Math.min(this.quad.w*0.5, this.quad.h*0.5);
 		},
-		getIntersectingElements: function(queryShape, outList) {
+		getIntersectingElements: function(queryShape, outList, d) {
+            
+           
 			if (this.quad.intersects(queryShape)) {
 				//outList.concat(this.elements);
 				outList.push.apply(outList, this.elements);
 				if (this.quadrants) {
-					this.quadrants[0].getIntersectingElements(queryShape, outList);
-					this.quadrants[1].getIntersectingElements(queryShape, outList);
-					this.quadrants[2].getIntersectingElements(queryShape, outList);
-					this.quadrants[3].getIntersectingElements(queryShape, outList);
+					this.quadrants[0].getIntersectingElements(queryShape, outList, d+1);
+					this.quadrants[1].getIntersectingElements(queryShape, outList, d+1);
+					this.quadrants[2].getIntersectingElements(queryShape, outList, d+1);
+					this.quadrants[3].getIntersectingElements(queryShape, outList, d+1);
 				}
 			}			
 		}
@@ -350,10 +352,10 @@ define(['ttjs/lib/lodash'], function(_) {
 				return [];
 			}
 			var elements = [];
-			this._root.getIntersectingElements(queryShape, elements);
+			this._root.getIntersectingElements(queryShape, elements, 0);
 			return elements;
 		},		
-		collectAllElements: function(outList, internNode) {
+		collectAllElements: function(outList, internNode) {            
 			internNode = internNode || this._root;			
 			outList.push.apply(outList, internNode.elements);		
 			if (internNode.quadrants) {				
@@ -370,6 +372,26 @@ define(['ttjs/lib/lodash'], function(_) {
 	// -------------------------------------------------------
 	
 	QuadTree.CanvasDebugDrawer = { 		
+        
+        count: function(qt) {
+			this._countNode(qt._root, 0);
+		},
+		_countNode: function(quadNode, depth) {            
+            if (!quadNode)
+                return;
+            
+            if (quadNode.elements.length > 10) {
+                console.log(quadNode.quad.w, quadNode.quad.h, depth, " elements: ", quadNode.elements.length, quadNode);
+            }                    
+            
+            if (quadNode.quadrants) {
+				this._countNode(quadNode.quadrants[0], depth+1);
+				this._countNode(quadNode.quadrants[1], depth+1);
+				this._countNode(quadNode.quadrants[2], depth+1);
+				this._countNode(quadNode.quadrants[3], depth+1);
+			}
+        },
+        
 		draw: function(qt, ctx, elements) {
 			this._drawNode(qt._root, ctx, elements);
 		},
@@ -379,15 +401,16 @@ define(['ttjs/lib/lodash'], function(_) {
                 ctx.lineWidth = 6;
 			}
 			else {
-				ctx.strokeStyle = "#000";
+				ctx.strokeStyle = "rgba(255,255,0,0.01)";
                 ctx.lineWidth = 1;
             }
-			ctx.strokeRect(
-				quadNode.quad.x,
-				quadNode.quad.y,
-				quadNode.quad.w,
-				quadNode.quad.h
-			);			
+
+            ctx.strokeRect(
+                quadNode.quad.x+1,
+                quadNode.quad.y+1,
+                quadNode.quad.w-2,
+                quadNode.quad.h-2
+            );	                
 			if (quadNode.quadrants) {
 				this._drawNode(quadNode.quadrants[0], ctx, elements);
 				this._drawNode(quadNode.quadrants[1], ctx, elements);
