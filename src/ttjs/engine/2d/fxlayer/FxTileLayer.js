@@ -1,3 +1,11 @@
+/**
+ * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
+ *
+ * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
+ *
+ * Released under the MIT license
+ * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
+ */
 define([
 	'env',
     'ttjs/engine/2d/fxlayer/FxLayer'
