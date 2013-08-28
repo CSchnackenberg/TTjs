@@ -40,9 +40,22 @@ define(["env"], function (Env) {
 
             fileName = require.toUrl(fileName);
 
-            console.log(fileName);
+            //console.log(fileName);
 
             this.setImage(fileName);
+        },
+        
+         initializeWithImage: function (startId, tileWidth, tileHeight, imageElement, imageWidth, imageHeight) {
+            this._tileWidth = tileWidth;
+            this._tileHeight = tileHeight;
+            this._imageWidth = imageWidth;
+            this._imageHeight = imageHeight;
+            this._amountTilesX = imageWidth / tileWidth;
+            this._amountTilesY = imageHeight / tileHeight;
+            this._amountTilesTotal = this._amountTilesX * this._amountTilesY;
+            this._startId = startId;
+            this._isLoaded = true;
+            this._imageElement = imageElement
         },
 
         getImageWidth: function () {
@@ -93,7 +106,7 @@ define(["env"], function (Env) {
         },
 
         onImageLoaded: function (event) {
-            console.log("Loaded image", this);
+            //console.log("Loaded image", this);
             this._isLoaded = true;
         },
 

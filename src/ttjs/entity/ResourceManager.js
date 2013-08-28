@@ -195,7 +195,7 @@ function(
         },
         getResource: function(type, url) {
             var resInfo = this.getResourceInfo(type, url);
-            if (resInfo) {				
+            if (resInfo && resInfo.state === "loaded") {				
                 return resInfo.resource;
             }
             return null;
