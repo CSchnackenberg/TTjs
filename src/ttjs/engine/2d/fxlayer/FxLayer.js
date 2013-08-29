@@ -28,6 +28,14 @@ define([
         removeChild: function(fxlayer) {
             console.error("FxLayer.removeChild: NOT IMPLEMENTED!");
         },
+        findChild: function(name) {
+            var num = this._children.length;            
+            for (var i=0; i<num; i++) {
+                if (this._children[i].name === name)
+                    return this._children[i];
+            }
+            return null;
+        },
         /**
          * Draws the layer and all children
          * @param {FxContext} fxContext        

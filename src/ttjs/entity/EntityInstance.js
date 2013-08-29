@@ -21,8 +21,7 @@ define([], function() {
 	 * @param {type} instanceProperties unpared(!) properties of the instance
 	 * @returns {EntityInstance}
 	 */
-    function EntityInstance(name, entityDefName, spatial, instanceProperties)
-    {
+    function EntityInstance(name, entityDefName, spatial, instanceProperties) {
 		this.name = name || "";
 		this.entityDefinitionName = entityDefName;
 		this.spatial = spatial;

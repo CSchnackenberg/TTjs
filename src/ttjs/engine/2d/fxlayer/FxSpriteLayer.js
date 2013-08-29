@@ -19,14 +19,19 @@ define([
 	"use strict";
     var FxSpriteLayer = function(canvas) {        
         FxLayer.call(this); // < super()        
-        this.stage = new Fx.Stage(canvas);
+        this.stage = new Fx.Stage(canvas);        
         Fx.Touch.enable(this.stage);
-        this.stage.autoClear = false;                       
+        this.stage.autoClear = false;         
+        this._root = new Fx.Container();
+        this.stage.addChild(this._root);                
 	};
     env.inherits(FxSpriteLayer, FxLayer);;
 
     FxSpriteLayer.prototype._drawLayer = function(fxContext) {            
-        this.stage.update();        
+        this.stage.update(); 
+    };        
+    FxSpriteLayer.prototype.getRoot = function() {        
+        return this._root;
     };        
         
 	return FxSpriteLayer;

@@ -62,6 +62,14 @@ define([
                     dh: fxContext.canvas.height,
                 };
                 break;
+             case "fitHeight":
+                this._coords = {
+                    dx: 0,
+                    dy: 0,
+                    dw: fxContext.canvas.width,
+                    dh: fxContext.canvas.height,
+                };
+                break;
         }
     }
         
