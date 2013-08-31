@@ -25,9 +25,14 @@ define([
         this._root = new Fx.Container();
         this.stage.addChild(this._root);                
 	};
-    env.inherits(FxSpriteLayer, FxLayer);;
+    env.inherits(FxSpriteLayer, FxLayer);
 
-    FxSpriteLayer.prototype._drawLayer = function(fxContext) {            
+    FxSpriteLayer.prototype._drawLayer = function(fxContext) {
+                
+        var vp = this._calcViewport(fxContext);
+        this._root.x = -vp.x;
+        this._root.y = -vp.y;
+        
         this.stage.update(); 
     };        
     FxSpriteLayer.prototype.getRoot = function() {        

@@ -15,6 +15,13 @@ define([
 		this._children = [];
         this.parent = null;
         this.name = "";
+        
+        this._vp = {
+            x: 0,
+            y: 0,
+            w: 0,
+            h: 0
+        };
 	};
 
     FxLayer.prototype = {        
@@ -36,6 +43,13 @@ define([
             }
             return null;
         },
+        _calcViewport: function(fxContext) {            
+            this._vp.x = fxContext.viewport.x;
+            this._vp.y = fxContext.viewport.y;
+            this._vp.w = fxContext.viewport.w;
+            this._vp.h = fxContext.viewport.h;
+            return this._vp;
+        },
         /**
          * Draws the layer and all children
          * @param {FxContext} fxContext        
@@ -46,7 +60,13 @@ define([
             for (var i=0; i<num; i++) {
                 this._children[i].draw(fxContext);                
             }
-        },        
+        },
+        /**
+         * 
+         * @private
+         * @param {type} fxContext
+         * @returns {undefined}
+         */
         _drawLayer: function(fxContext) {
             // overwrite 
         }

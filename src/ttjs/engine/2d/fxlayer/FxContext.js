@@ -29,6 +29,12 @@ define([
         initCanvas: function(canvas, ctx) {
             this.canvas = canvas;
             this.ctx = ctx;
+            this.viewport = {
+                x: 0,
+                y: 0,
+                w: this.canvas.width,
+                h: this.canvas.height
+            };
         },
         draw: function() {
             this._root.draw(this);
