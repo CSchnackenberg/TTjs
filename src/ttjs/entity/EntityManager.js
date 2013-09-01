@@ -26,14 +26,16 @@ function(
      * @returns {EntityManager}
      */
     function EntityManager(_entityActivator, factory) {
+        
+        /** @type BaseEntityActivator */
+        this.entityActivator = _entityActivator;
+        
         /** active entities */
         this._actives = [];
         /** active entities */
         this._alwaysActives = [];
         /** active entities */
         this._deactives = [];	
-        /** @type BaseEntityActivator */
-        this._entityActivator = _entityActivator;
         /** @type Array */
         this._newEntities = []; 
 		/** @type EntityFactory */
@@ -125,7 +127,7 @@ function(
         },
         firstUpdate: function() {
             // perform activation
-            this._entityActivator.updateEntityActivation(
+            this.entityActivator.updateEntityActivation(
                     this._newEntities,
                     this._alwaysActives,
                     this._actives,
@@ -135,22 +137,26 @@ function(
         update: function(time) {
             // update
             var i;
-            var len;
+            var len;            
+            var all = 0;
             len = this._actives.length;		
             for (i=0; i<len; i++)
                 this._actives[i].onUpdate(time);
+            all += len;
 
             len = this._alwaysActives.length;		
             for (i=0; i<len; i++)
                 this._alwaysActives[i].onUpdate(time);
+            all += len;
 
             // perform activation
-            this._entityActivator.updateEntityActivation(
+            this.entityActivator.updateEntityActivation(
                     this._newEntities,
                     this._alwaysActives,
                     this._actives,
                     this._deactives
                 );
+            return all;
         },
 		getResource: function(type, url) {
 			return this._factory._resourceManager.getResource(type, url);
