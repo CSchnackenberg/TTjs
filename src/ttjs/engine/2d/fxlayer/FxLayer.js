@@ -16,6 +16,7 @@ define([
         this.parent = null;
         this.name = "";
         
+        this.parallax = {x: 1, y: 1};
         this._vp = {
             x: 0,
             y: 0,
@@ -43,9 +44,9 @@ define([
             }
             return null;
         },
-        _calcViewport: function(fxContext) {            
-            this._vp.x = fxContext.viewport.x;
-            this._vp.y = fxContext.viewport.y;
+        _calcViewport: function(fxContext) {
+            this._vp.x = fxContext.viewport.x * this.parallax.x;
+            this._vp.y = fxContext.viewport.y * this.parallax.y;
             this._vp.w = fxContext.viewport.w;
             this._vp.h = fxContext.viewport.h;
             return this._vp;

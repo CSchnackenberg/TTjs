@@ -50,7 +50,6 @@ define([
         // scale to match size
         if (!this._stretch) {      
             this._stretch = this._newStretch;
-            console.error(this.scaleX, this.scaleY, "<<<<<<<<");
             switch(this._newStretch) {
             default:
             case "none":
