@@ -53,10 +53,14 @@ function(
 		 * c) everything is glued together
 		 * 
 		 * If the data is already loaded than it'll return
-		 * instantly. 
+		 * instantly.
+         * 
+         * If the entity cannot be created a error is sent to
+         * the logger.error function. OnReady will still
+         * be called. 
 		 * 
 		 * @param {mixed} instance
-		 * @param {function} onReady
+		 * @param {function} onReady 1. parameter is the array with the created entity instances
 		 * @returns {undefined}
 		 */
 		injectEntity: function(instance, onReady, logger) {					
@@ -110,6 +114,14 @@ function(
 			}
 			return validEntities;
 		},
+        /**
+         * Send a message to all entities in the scene.
+         * 
+         * @param {String} name identifyer of the message
+         * @param {type} params data you want to send
+         * @param {type} activesOnly true: only active entities get the message
+         * @returns {undefined}
+         */
         sendMessage: function(name, params, activesOnly) {
             var i;
             var len;
@@ -134,19 +146,27 @@ function(
                     this._deactives
                 );  
         },
-        update: function(time) {
+        /**
+         * Should be called once per frame. It updates
+         * all entities, all componentens and performs
+         * the activation/deactivation process.
+         * 
+         * @param {Number} elapsedTime number of seconds that elapsed since last update
+         * @returns {Number} number of updated elements
+         */
+        update: function(elapsedTime) {
             // update
             var i;
             var len;            
             var all = 0;
             len = this._actives.length;		
             for (i=0; i<len; i++)
-                this._actives[i].onUpdate(time);
+                this._actives[i].onUpdate(elapsedTime);
             all += len;
 
             len = this._alwaysActives.length;		
             for (i=0; i<len; i++)
-                this._alwaysActives[i].onUpdate(time);
+                this._alwaysActives[i].onUpdate(elapsedTime);
             all += len;
 
             // perform activation

@@ -139,11 +139,11 @@ define(['env'], function(env) {
         /* sends message to all components */
         sendMessage: function(name, params) {
             var len = this._components.length;
+            var msgName = "onMessage_"+name;
             for(var i=0; i<len; i++) {
-                var cmp = this._components[i];	
-                //if (typeof cmp["onMessage_"+name] === "function")
-				if (cmp["onMessage_"+name])
-                    cmp["onMessage_"+name](this, params);
+                var cmp = this._components[i];	                
+				if (cmp[msgName])
+                    cmp[msgName](this, params);
             }
         }        
     };
