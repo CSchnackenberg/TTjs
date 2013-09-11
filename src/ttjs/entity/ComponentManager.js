@@ -29,6 +29,7 @@ define(['env'], function(env)
 		 * This is AFTER downloading the file so three seconds should be more than enough.
 		 **/
 		sourceTimeout: 3,
+        out: console,
 	
 		newInstance: function(cmpClassName)
 		{
@@ -105,7 +106,7 @@ define(['env'], function(env)
 			var chunkCallback = function()
 			{				
 				numPending--;
-				console.log("Pending: ", numPending);
+				thiz.out.log("Pending: ", numPending);
 				if (numPending === 0)	
 					callback(thiz);				
 			};	
@@ -118,11 +119,11 @@ define(['env'], function(env)
 				var val = localNew[k];
 				if (val === "err")
 				{
-					console.log("error => pending: ", k);
+					this.out.log("error => pending: ", k);
 					delete this._error[k];
 				}
 				else
-					console.log("new => pending: ", k);
+					this.out.log("new => pending: ", k);
 				this._pending[k] = [chunkCallback];
 				scripts.push(k);
 				numNew++;
@@ -151,7 +152,7 @@ define(['env'], function(env)
                         var callbacks = thiz._pending[scriptName];
                         if (callbacks)
                         {
-                            console.log("pending => pending (script_loaded) ", scriptName);                               
+                            thiz.out.log("pending => pending (script_loaded) ", scriptName);                               
                             if (thiz.sourceTimeout > 0)
                                 setTimeout(function(scriptName)
 							{        
@@ -169,7 +170,7 @@ define(['env'], function(env)
                     }
                     else
                     { 
-                        console.error("pending => error: ", scriptName);
+                        thiz.out.error("pending => error: ", scriptName);
 						var callbacks = thiz._pending[scriptName];
 						delete thiz._pending[scriptName];						
 						thiz._error[scriptName] = "Unable to load script.";
@@ -186,11 +187,11 @@ define(['env'], function(env)
 			var callbacks = this._pending[className];
 			if (!callbacks)
 			{
-				console.error("Unexpected component callback in component \"",scriptName,"\"."); 
+				this.out.error("Unexpected component callback in component \"",scriptName,"\"."); 
 				return;
 			}
 			
-			console.log("pending => ready: ", className, " ", componentClass);
+			this.out.log("pending => ready: ", className, " ", componentClass);
 			delete this._pending[className];						
 			this._classes[className] = componentClass;
 

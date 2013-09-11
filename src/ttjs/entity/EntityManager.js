@@ -105,7 +105,7 @@ function(
 				}
 				instance.onInit();
 				if (instance.getState() !== 'inited') {
-					logger.error("Inject entity failed. OnInit returned status '"+ instance.getState() + "'", instance);
+					logger.error("Inject entity failed. OnInit returned status '"+ instance.getState() + "' with reason '" + instance.getStateDescription() + "'", instance);
 					instance.manager = null;
 					continue;
 				}						
