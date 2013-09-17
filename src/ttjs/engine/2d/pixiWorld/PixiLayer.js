@@ -5,9 +5,8 @@ define([
 )
 {    
 	"use strict";
-    function PixiLayer(name, parent) {
+    function PixiLayer(name) {
         this._children = [];
-        this.parent = null;
         this.name = name || "";
         this.parallax = {x: 1, y: 1};
         this._vp = {
@@ -17,7 +16,6 @@ define([
             h: 0
         };        
         this.layer = new PIXI.DisplayObjectContainer();
-        parent.addChild(this.layer);
     };
 	
     PixiLayer.prototype = {      
@@ -31,16 +29,39 @@ define([
         getNumChildren: function() {
             return this._children.lenght;
         },
-        addChild: function(pixiLayer) {
+        addChild: function(pixiLayer) {            
             this._children.push(pixiLayer);
             pixiLayer.parent = this;
+            this.layer.addChild(pixiLayer.layer);
         },
         removeChild: function(pixiLayer) {
-            console.error("FxLayer.removeChild: NOT IMPLEMENTED!");
+            throw new Error("PixiLayer.removeChild: NOT IMPLEMENTED!");
         },
+        update: function(pixiWorld) {
+            this._update(pixiWorld);            
+            var num = this._children.length;            
+            for (var i=0; i<num; i++) {
+                this._children[i].update(pixiWorld);                
+            }
+        },
+        findByName: function(name) {
+            if (name === this.name)
+                return this;
+            var num = this._children.length;             
+            for (var i=0; i<num; i++) {
+                var found = this._children[i].findByName(name);
+                if (found)
+                    return found;
+            }
+        },        
+        /**
+         * @private
+         * @param {type} pixiWorld
+         * @returns {undefined}
+         */
         _update: function(pixiWorld) {
-            
-        },
+            // TODO overwrite
+        }
     };
         
 	return PixiLayer;

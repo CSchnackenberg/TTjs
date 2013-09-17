@@ -1,7 +1,13 @@
 define([
-   'PIXI'
+   'PIXI',
+   'ttjs/engine/2d/pixiWorld/PixiLayer',
+   'ttjs/engine/2d/pixiWorld/PixiFillImageLayer',
+   'ttjs/engine/2d/pixiWorld/PixiTileLayer'
 ], function(
-    PIXI
+    PIXI,
+    PixiLayer,
+    PixiFillImageLayer,
+    PixiTileLayer
     )
 {    
 	"use strict";
@@ -13,18 +19,18 @@ define([
      * @param {type} stage
      * @returns {PixiWorld}
      */
-    var PixiWorld = function(stage, tiledMapJson) {
+    var PixiWorld = function(stage, stageW, stageH, tiledMapJson) {
         this.stage = stage;
         this._callback = {};
         this.viewport = {
             x: 0,
             y: 0,
-            w: this.stage.width,
-            h: this.stage.height
+            w: stageW,
+            h: stageH
         };
-        this.map = tiledMapJson;
-        this.layer = {};
-        this.assetLader 
+        this.map = tiledMapJson;        
+        this.root = new PixiLayer("root");
+        stage.addChild(this.root.layer);
         this.loaded = false;
     };
     
@@ -53,17 +59,16 @@ define([
 				var layerData = mapData.layers[a];				
 				if (layerData.visible === false)
 					continue;
-                //var newLayer = null;
                 if (layerData.image) { // imageLayer
-                    //var imagePath = this._assetPath(layerData.image);
-                    this.pixiAssets.push(layerData.image);
+                    var imagePath = this._assetPath(layerData.image);
+                    this.pixiAssets.push(imagePath);
                 }
 				else { // object layer
 					var layerName = layerData.name;					                                        
 					if (layerName.indexOf(":") > -1)
 					{
 						var parts = layerName.split(":");
-						if (parts.length === 2) {
+						if (parts.length === 2) {                           
 //							if (parts[1] === "sprites") {                                                               
 //      						var name = parts[0] || "";
 //							}                                                    
@@ -78,66 +83,79 @@ define([
 			}
             var that = this;
             this.assetLoader = new PIXI.AssetLoader(this.pixiAssets);
-            this.assetLoader.addEventListener('onComplete', function(evt) {
-                that._initLayer();
+            this.assetLoader.addEventListener('onComplete', function(evt) {                
                 if (that._callback.onProgress)
                     that._callback.onProgress("Assets loaded");
+                that._initTileSets();
             });
+            // TODO add error-handling
             this.assetLoader.load();
+        },
+        _initTileSets:function() {            
+            var tiles = [];
+            tiles.push({tex: null, tId: 0});            
+            this.tilesets = [];
+            for (var b = 0; b < this.map.tilesets.length; b++) {
+				var ts = this.map.tilesets[b];                				
+                var tex = new PIXI.Texture.fromImage(this._assetPath(ts.image));
+                var tId = ts.firstgid;
+                var numX = ts.imagewidth / ts.tilewidth;
+                var numY = ts.imageheight / ts.tileheight;                
+                this.tilesets.push(ts);
+                for(var y=0; y<numY; y++)
+                    for(var x=0; x<numX; x++) {
+                        var tileInfo = {
+                            tex: tex,
+                            tId: tId,
+                            x: x*ts.tilewidth,
+                            y: y*ts.tileheight
+                        };
+                        tiles.push(tileInfo);
+                        tId++;
+                    }
+			}            
+            this.tiles = tiles;
+            this._initLayer();
         },
         _initLayer: function() {
             var mapData = this.map;
 			var layerIndex = 0;
             var globalLayerIndex = -1;
             this.objectsRaw = [];
-            
+            var parentLayer = this.root;
 			for (var a = 0; a < mapData.layers.length; a++) {				
 				var layerData = mapData.layers[a];				
 				if (layerData.visible === false)
 					continue;
                 globalLayerIndex++;
                 var newLayer = null;
-				if (layerData.data) { // tilelayer
-//                    var layer = new LayerModel();
-//					layer.initialize(layerData.name,
-//                                     layerData.width,
-//                                     layerData.height,
-//                                     mapData.tilewidth,
-//                                     mapData.tileheight,
-//                                     layerData.data);
-//                    var tl = new FxTileLayer(layer, layerIndex++);
-//                    newLayer = tl;
-//                    tl.name = layerData.name || "";
-//                    this.fxLayer.getRoot().addChild(tl);                    
-//                    mapRenderModel.addLayer(layer);
+				if (layerData.data) { // tilelayer                    
+                    newLayer = new PixiTileLayer(layerData.name,
+                                     layerData.data,
+                                     layerData.width,
+                                     layerData.height,
+                                     mapData.tilewidth,
+                                     mapData.tileheight);
+                    parentLayer.addChild(newLayer);
 				}
                 if (layerData.image) { // imageLayer
-//                    var imagePath = this._assetPath(layerData.image);
-//                    additionalAssets.push({type:"jsImage", url: imagePath });
-//                    var filler = new FxFillImage();
-//                    newLayer = filler;
-//                    filler.name = layerData.name;
-//
-//                    if (layerData.properties) {
-//                        if (layerData.properties.repeat)
-//                           filler.repeat = layerData.properties.repeat;
-//                        if (layerData.properties.stretch)
-//                            filler.setStretch(layerData.properties.stretch);
-//                        if (layerData.properties.offsetX)
-//                            filler.offsetX = Number(layerData.properties.offsetX);
-//                        if (layerData.properties.offsetY)
-//                            filler.offsetY = Number(layerData.properties.offsetY);
-//                        if (layerData.properties.addScaleX)
-//                            filler.scaleX = Number(layerData.properties.addScaleX);
-//                        if (layerData.properties.addScaleY)
-//                            filler.scaleY = Number(layerData.properties.addScaleY);
-//                    }
-//
-//                    this.fxLayer.getRoot().addChild(filler);
-//                    pendingImageFills.push({
-//                        fxFiller: filler,
-//                        imageUrl: imagePath
-//                    });
+                    var imagePath = this._assetPath(layerData.image);                    
+                    newLayer = new PixiFillImageLayer(layerData.name, PIXI.Texture.fromImage(imagePath));
+                    parentLayer.addChild(newLayer);
+                    if (layerData.properties) {
+                        if (layerData.properties.repeat)
+                           newLayer.repeat = layerData.properties.repeat;
+                        if (layerData.properties.stretch)
+                            newLayer.setStretch(layerData.properties.stretch);
+                        if (layerData.properties.offsetX)
+                            newLayer.offsetX = Number(layerData.properties.offsetX);
+                        if (layerData.properties.offsetY)
+                            newLayer.offsetY = Number(layerData.properties.offsetY);
+                        if (layerData.properties.addScaleX)
+                            newLayer.offsetScaleX = Number(layerData.properties.addScaleX);
+                        if (layerData.properties.addScaleY)
+                            newLayer.offsetScaleY = Number(layerData.properties.addScaleY);
+                    }
                 }
 				else { // object layer
 					var layerName = layerData.name;					                                        
@@ -145,13 +163,10 @@ define([
 					{
 						var parts = layerName.split(":");
 						if (parts.length === 2) {
-							if (parts[1] === "sprites" || parts[1] === "spr") {
-                                
-                                if (parts[0] && parts[0] !== "") {
-                                    //var sprites = new FxSpriteLayer(this.gameContext.canvas);
-                                    //newLayer = sprites;
-                                    //sprites.name = parts[0] || "";
-                                    //this.fxLayer.getRoot().addChild(sprites);
+							if (parts[1] === "sprites" || parts[1] === "spr") {                                
+                                if (parts[0] && parts[0] !== "") {                                    
+                                    newLayer = new PixiLayer(parts[0] || "");
+                                    parentLayer.addChild(newLayer);                                    
                                 }
                                 else {
                                     console.warn("SpriteLayer must have a name.", parts, layerData);
@@ -163,13 +178,7 @@ define([
                                     layer: layerData,
                                     layerIndex: globalLayerIndex
                                 });
-							}                           
-                            else if (parts[1] === "fade_random") {                                
-//                                var filler = new FxFillGradient(this.gameContext.canvas);
-//                                newLayer = filler;
-//                                filler.name = parts[0] || "";
-//                                this.fxLayer.getRoot().addChild(filler);
-                            }                            
+							}
 						}
 					}
 				}
@@ -177,6 +186,10 @@ define([
                     if (layerData.properties &&
                         layerData.properties.parallax) {
                         switch(layerData.properties.parallax) {
+                            case "fixed":
+                                newLayer.parallax.x = 0;
+                                newLayer.parallax.y = 0;
+                                break;
                             case "back0":
                                 newLayer.parallax.x = 0.1;
                                 newLayer.parallax.y = 0;
@@ -191,44 +204,8 @@ define([
 			}
             if (this._callback.onLoaded)
                 this._callback.onLoaded("Assets loaded");
-//            
-//			// buildup tilesets            
-//            for (var b = 0; b < mapData.tilesets.length; b++) {
-//				
-//			}
-//            for (var i=0; i<additionalAssets.length; i++)
-//                requiredAssets.push(additionalAssets[i]);
-//            var that = this;
-//            this.res.request(requiredAssets, function() {
-//                that.gameContext.setState("initTilesets");                
-//    			for (var b = 0; b < mapData.tilesets.length; b++) {
-//    				var tileSet = new TileSetModel();			
-//    				var tileSetData = mapData.tilesets[b];
-//    				var tsImage = requiredAssets[b];
-//                    var img = that.res.getResource(tsImage.type, tsImage.url);
-//    				if (img) {                    
-//                        tileSet.initializeWithImage(tileSetData.firstgid,
-//                            tileSetData.tilewidth,
-//                            tileSetData.tileheight, 
-//                            img,
-//                            tileSetData.imagewidth, 
-//                            tileSetData.imageheight);
-//                        mapRenderModel.addTileSet(tileSet);
-//                    }
-//                    else {
-//                        that.gameContext.setError("Cannot load tileset " + tsImage);
-//                        return;
-//                    }
-//    			}
-//                // load images
-//                for (b=0; b<pendingImageFills.length; b++) {
-//                    var data = pendingImageFills[b];
-//                    var img = that.res.getResource("jsImage", data.imageUrl);
-//                    data.fxFiller.setImage(img);
-//                }                
-//                that._initGameObjects();
-//            });
         },
+        /** @private */
         _assetPath: function(tsImage) {
             var cutPos = tsImage.lastIndexOf("../");
             if (cutPos > -1) {
@@ -236,13 +213,13 @@ define([
             }	
             return tsImage;        
         }, 
+        update: function() {
+            this.root.update(this);
+        },
         getLayer: function(name) {
-            return this.layer[name];
+            return this.root.findByName(name);
         }
-        
     };
-
-    
         
 	return PixiWorld;
 });
