@@ -1,4 +1,5 @@
 # TTjs - PixiWorld #
+[work in progress]
 
 A simple 2D API that utilizes 'PIXI' for rendering
 a parallax 2D scrolling world loaded from a map created with 'Tiled'.
@@ -44,3 +45,8 @@ Currently we support the following layer-types:
 
 Internally each layer is represented by a PIXI.DisplayObjectContainer
 and therefore offer the entire featureset of PIXI.  
+
+
+===
+
+I stopped working on this for now and concentrate on fxlayer
