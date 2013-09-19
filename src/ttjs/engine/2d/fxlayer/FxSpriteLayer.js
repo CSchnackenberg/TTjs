@@ -27,9 +27,9 @@ define([
 	};
     env.inherits(FxSpriteLayer, FxLayer);
 
-    FxSpriteLayer.prototype._drawLayer = function(fxContext) {
+    FxSpriteLayer.prototype._drawLayer = function(fxWorld) {
                 
-        var vp = this._calcViewport(fxContext);
+        var vp = this._calcViewport(fxWorld);
         this._root.x = -vp.x;
         this._root.y = -vp.y;
         

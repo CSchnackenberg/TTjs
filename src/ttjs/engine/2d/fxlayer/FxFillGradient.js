@@ -39,7 +39,7 @@ define([
 	};
     env.inherits(FxFillGradient, FxLayer);
     
-    FxFillGradient.prototype._drawLayer = function(fxContext) {                    
+    FxFillGradient.prototype._drawLayer = function(fxWorld) {                    
         this.stage.update(); 
     };
 

@@ -19,11 +19,11 @@ define([
     };
 	
     PixiLayer.prototype = {      
-        _calcViewport: function(fxContext) {
-            this._vp.x = fxContext.viewport.x * this.parallax.x;
-            this._vp.y = fxContext.viewport.y * this.parallax.y;
-            this._vp.w = fxContext.viewport.w;
-            this._vp.h = fxContext.viewport.h;
+        _calcViewport: function(FxWorld) {
+            this._vp.x = FxWorld.viewport.x * this.parallax.x;
+            this._vp.y = FxWorld.viewport.y * this.parallax.y;
+            this._vp.w = FxWorld.viewport.w;
+            this._vp.h = FxWorld.viewport.h;
             return this._vp;
         },
         getNumChildren: function() {

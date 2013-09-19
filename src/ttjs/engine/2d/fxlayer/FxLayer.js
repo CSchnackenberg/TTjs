@@ -44,31 +44,31 @@ define([
             }
             return null;
         },
-        _calcViewport: function(fxContext) {
-            this._vp.x = fxContext.viewport.x * this.parallax.x;
-            this._vp.y = fxContext.viewport.y * this.parallax.y;
-            this._vp.w = fxContext.viewport.w;
-            this._vp.h = fxContext.viewport.h;
+        _calcViewport: function(fxWorld) {
+            this._vp.x = fxWorld.viewport.x * this.parallax.x;
+            this._vp.y = fxWorld.viewport.y * this.parallax.y;
+            this._vp.w = fxWorld.viewport.w;
+            this._vp.h = fxWorld.viewport.h;
             return this._vp;
         },
         /**
          * Draws the layer and all children
-         * @param {FxContext} fxContext        
+         * @param {FxWorld} fxWorld        
          */
-        draw: function(fxContext) {
-            this._drawLayer(fxContext);            
+        draw: function(fxWorld) {
+            this._drawLayer(fxWorld);            
             var num = this._children.length;            
             for (var i=0; i<num; i++) {
-                this._children[i].draw(fxContext);                
+                this._children[i].draw(fxWorld);                
             }
         },
         /**
          * 
          * @private
-         * @param {type} fxContext
+         * @param {type} fxWorld
          * @returns {undefined}
          */
-        _drawLayer: function(fxContext) {
+        _drawLayer: function(fxWorld) {
             // overwrite 
         }
     };

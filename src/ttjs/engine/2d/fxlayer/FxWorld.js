@@ -17,15 +17,15 @@ define([
     /**
      * 
      * @param {TileRenderer} A TileRenderer object from 'ttjs/engine/2d/tileRenderer'
-     * @returns {FxContext}
+     * @returns {FxWorld}
      */
-    var FxContext = function(tileRenderer, mapRenderModel) {
+    var FxWorld = function(tileRenderer, mapRenderModel) {
         this._root = new FxLayer();
         this.tileRenderer = tileRenderer;
         this.mapRenderModel = mapRenderModel;
 	};
 
-    FxContext.prototype = {              
+    FxWorld.prototype = {              
         initCanvas: function(canvas, ctx) {
             this.canvas = canvas;
             this.ctx = ctx;
@@ -44,5 +44,5 @@ define([
         }
     };
         
-	return FxContext;
+	return FxWorld;
 });

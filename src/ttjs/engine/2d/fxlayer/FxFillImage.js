@@ -39,11 +39,11 @@ define([
         this._newStretch = strMode;
     };
 
-    FxFillImage.prototype._drawLayer = function(fxContext) {                    
+    FxFillImage.prototype._drawLayer = function(fxWorld) {                    
         if (!this.image)
             return;
         
-        var vp = this._calcViewport(fxContext);
+        var vp = this._calcViewport(fxWorld);
         vp.x += this.offsetX;
         vp.y += this.offsetY;
         
@@ -79,31 +79,31 @@ define([
             default:
             case "none":            
             case "false":
-                this._drawNoRepeat(fxContext, vp, imgW, imgH);       
+                this._drawNoRepeat(fxWorld, vp, imgW, imgH);       
                 break;
             case "both":
             case "repeat-both":
-                this._drawRepeatBoth(fxContext, vp, imgW, imgH);       
+                this._drawRepeatBoth(fxWorld, vp, imgW, imgH);       
                 break;
             case "x":
             case "repeat-x":
-                this._drawRepeatX(fxContext, vp, imgW, imgH);       
+                this._drawRepeatX(fxWorld, vp, imgW, imgH);       
                 break;    
             case "y":
             case "repeat-y":
-                this._drawRepeatY(fxContext, vp, imgW, imgH);       
+                this._drawRepeatY(fxWorld, vp, imgW, imgH);       
                 break;    
         }
     };
     
-    FxFillImage.prototype._drawNoRepeat = function(fxContext, vp, imgW, imgH) {        
-        fxContext.ctx.drawImage(this.image, 
+    FxFillImage.prototype._drawNoRepeat = function(fxWorld, vp, imgW, imgH) {        
+        fxWorld.ctx.drawImage(this.image, 
             Math.floor(-vp.x), 
             Math.floor(-vp.y),
             imgW, imgH);
     }
     
-    FxFillImage.prototype._drawRepeatBoth = function(fxContext, vp, imgW, imgH) {        
+    FxFillImage.prototype._drawRepeatBoth = function(fxWorld, vp, imgW, imgH) {        
         var numToDrawX = Math.ceil(vp.w / imgW) + 1;
         var ox = vp.x - Math.floor(vp.x / imgW)*imgW;
         var numToDrawY = Math.ceil(vp.h / imgH) + 1;
@@ -111,7 +111,7 @@ define([
         var nd = 0;
         for (var y=0; y<numToDrawY; y++)
             for (var x=0; x<numToDrawX; x++) {      
-                fxContext.ctx.drawImage(this.image, 
+                fxWorld.ctx.drawImage(this.image, 
                     Math.floor(-ox + x*imgW), 
                     Math.floor(-oy + y*imgH),
                     imgW, imgH);
@@ -119,12 +119,12 @@ define([
             }
     }
     
-    FxFillImage.prototype._drawRepeatX = function(fxContext, vp, imgW, imgH) {        
+    FxFillImage.prototype._drawRepeatX = function(fxWorld, vp, imgW, imgH) {        
         var numToDrawX = Math.ceil(vp.w / imgW) + 1;
         var ox = vp.x - Math.floor(vp.x / imgW)*imgW;        
         var nd = 0;
         for (var x=0; x<numToDrawX; x++) {      
-            fxContext.ctx.drawImage(this.image, 
+            fxWorld.ctx.drawImage(this.image, 
                 Math.floor(-ox + x*imgW), 
                 -vp.y,
                 imgW, imgH);
@@ -132,12 +132,12 @@ define([
         }
     }
     
-    FxFillImage.prototype._drawRepeatY = function(fxContext, vp, imgW, imgH) {        
+    FxFillImage.prototype._drawRepeatY = function(fxWorld, vp, imgW, imgH) {        
         var numToDrawY = Math.ceil(vp.h / imgH) + 1;
         var oy = vp.y - Math.floor(vp.y / imgH)*imgH;
         var nd = 0;
         for (var y=0; y<numToDrawY; y++) {            
-            fxContext.ctx.drawImage(this.image, 
+            fxWorld.ctx.drawImage(this.image, 
                 -vp.x, 
                 Math.floor(-oy + y*imgH),
                 imgW, imgH);

@@ -36,15 +36,15 @@ define([
 	};
     env.inherits(FxTileLayer, FxLayer);
     
-    FxTileLayer.prototype._drawLayer = function(fxContext) {  
+    FxTileLayer.prototype._drawLayer = function(fxWorld) {  
         
-        var vp = this._calcViewport(fxContext);
+        var vp = this._calcViewport(fxWorld);
         this.position.src.x = Math.floor(vp.x);
         this.position.src.y = Math.floor(vp.y);
         
-        fxContext.tileRenderer.drawLayer(
-            fxContext.ctx,           
-            fxContext.mapRenderModel,
+        fxWorld.tileRenderer.drawLayer(
+            fxWorld.ctx,           
+            fxWorld.mapRenderModel,
             this.layerIndex,
             this.position
         );
