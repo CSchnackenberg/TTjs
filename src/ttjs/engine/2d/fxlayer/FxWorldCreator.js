@@ -56,6 +56,7 @@ define([
         this.fxWorld = new FxWorld(this.tileRenderer, this.mapRenderModel);
         this.fxWorld.initCanvas(canvas, canvas.getContext("2d"));
         this.canvas = canvas;
+        this.objectsRaw = [];
         
         this.res = new ResourceManager();
         this.res.addManager(new ImageResources());
@@ -144,11 +145,11 @@ define([
                                 }
 							}
                             else if (parts[1] === "obj") {
-//                                this.objectsRaw.push({
-//                                    name: parts[0] || "",
-//                                    layer: layerData,
-//                                    layerIndex: globalLayerIndex
-//                                });
+                                this.objectsRaw.push({
+                                    name: parts[0] || "",
+                                    layer: layerData,
+                                    layerIndex: globalLayerIndex
+                                });
 							}
                             else if (parts[1] === "fade_random") {                                
                                 var filler = new FxFillGradient(this.canvas);
