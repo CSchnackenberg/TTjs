@@ -38,19 +38,13 @@
  * Copyright (c) Richard Lord 2008-2011
  * http://flintparticles.org
  *
- *
- * Used in the Flint Particle System which is licenced under the MIT license. As per the
- * original license for Robert Penner's classes, these specific classes are released under
- * the BSD License.
- * 
- * ==================================================
- * 
  * Port to JavaScript:
  * 
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
  *
- * Released under the MIT license
- * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
+ * Used in the Flint Particle System - JavaScript-Port which is licenced under the MIT license. As per the
+ * original license for Robert Penner's classes, these specific classes are released under
+ * the BSD License.
  */
 define([    
 ], function(

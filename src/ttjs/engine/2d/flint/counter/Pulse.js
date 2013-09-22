@@ -39,28 +39,49 @@
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
  * 
  */
-define([   
-    'ttjs/lib/easeljs-0.6.0.min'
+define([    
 ], function(
-    Fx
 )
 {    
-    "use strict";
-    var Position = function(pos) {        
-        var pos = pos || {x: 0, y: 0};
-        var reg = reg || {x: 0, y: 0};
-        this.pos = {
-            x: pos.x || 0,
-            y: pos.y || 0
-        };
+	"use strict";
+    function Pulse(period, quantity, started) {        
+        this._started = started || true;
+        
+        this._timeToNext = 0;
+		this._period = period;
+		this._quantity = quantity || 0;
+		this._stop = 0;        
     };
     
-    Position.prototype = {
-        init: function(emitter, p) {
-            p.position.x += this.pos.x;
-            p.position.y += this.pos.y;
-        }    
+    Pulse.prototype = {
+        startEmitter: function(e)
+		{
+			this._timeToNext = this._period;
+			return this._quantity;
+		},
+        spawnParticles: function(e, time) {
+            if( !this._started )			
+				return 0;			
+
+			var count = 0;
+			this._timeToNext -= time;
+			while(this._timeToNext <= 0 )
+			{
+				count += this._quantity;
+				this._timeToNext += this._period;
+			}
+			return count;
+        },
+        isCompleted: function(){
+            return false;
+        },
+        start: function() {
+            this._started = true;
+        },
+        stop: function() {
+            this._started = false;
+        }
     };
     
-    return Position;
+    return Pulse;
 });

@@ -39,28 +39,42 @@
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
  * 
  */
-define([   
-    'ttjs/lib/easeljs-0.6.0.min'
+define([    
 ], function(
-    Fx
 )
 {    
-    "use strict";
-    var Position = function(pos) {        
-        var pos = pos || {x: 0, y: 0};
-        var reg = reg || {x: 0, y: 0};
-        this.pos = {
-            x: pos.x || 0,
-            y: pos.y || 0
-        };
+	"use strict";
+    function Blast(maxCount, started) {                
+		this.maxCount = maxCount;
+        
+        this._started = started || true;
+		this._blasted = false;
     };
     
-    Position.prototype = {
-        init: function(emitter, p) {
-            p.position.x += this.pos.x;
-            p.position.y += this.pos.y;
-        }    
+    Blast.prototype = {
+        
+        startEmitter: function(e)
+		{			
+			return 0;
+		},
+        spawnParticles: function(e, time) {            
+			if (this._blaseted)
+				return 0;
+
+			this.blaseted = true;
+			return this.maxCount;
+        },
+        isCompleted: function(){
+            return false;
+        },
+        start: function() {
+            this._started = true;
+            this._blasted = false;
+        },
+        stop: function() {
+            this._started = false;
+        }
     };
     
-    return Position;
+    return Blast;
 });

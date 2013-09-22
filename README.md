@@ -20,5 +20,7 @@ used libs
 * gl-matrix, (MIT, Copyright (c) 2013, Brandon Jones, Colin MacKenzie IV.)
 * EaselJS, (MIT, https://github.com/CreateJS/EaselJS/)
 * BitmapText, (MIT, (c) 2010-2012 Christoph Martens (@martensms))
-* Box2DWeb, Copyright (c) 2006-2007 Erin Catto http://www.gphysics.com
-* Poly2Tri, Copyright (c) 2009-2013, Poly2Tri Contributors
+* Box2DWeb, MIT, Copyright (c) 2006-2007 Erin Catto http://www.gphysics.com
+* Poly2Tri, MIT, Copyright (c) 2009-2013, Poly2Tri Contributors
+* Flint Particles, MIT, Copyright (C) Richard Lord 2008-2011
+* Tweens, BSD, Copyright (c) 2001 Robert Penner
