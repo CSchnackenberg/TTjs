@@ -1,7 +1,6 @@
 /**
  * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
  *
- * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
  * Copyright (c) 2013, Johannes Brosi <mail@jbrosi.de>
  *
  * Released under the MIT license

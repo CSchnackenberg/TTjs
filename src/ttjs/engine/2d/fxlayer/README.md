@@ -1,5 +1,5 @@
-TTjs - FxLayer
-====
+# TTjs - FxLayer #
+[work in progress]
 
 A simple 2D API that utilizes 'ttjs/engine/2d/tileRenderer' and easeljs
 for scenes created with tile layer and sprites.
