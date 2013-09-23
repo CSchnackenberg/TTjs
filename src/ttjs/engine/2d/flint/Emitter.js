@@ -151,11 +151,12 @@ define([
             }
 
             // update pos, remove dead
-            var p=0; lenP = this._particles.length;
-            for(;p<lenP; p++) {
+            var p=0;  // lenP = this._particles.length;
+            for(;p<this._particles.length; p++) {
                 var it = this._particles[p];
                 if (it.isDead) {
                     this._destroyParticle(it);
+                    this._particles.splice(p, 1);
                 }
                 else {
                     it.applyToSprite();

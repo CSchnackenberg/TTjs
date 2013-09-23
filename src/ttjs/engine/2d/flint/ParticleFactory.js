@@ -58,8 +58,9 @@ define([
     };
     ParticleFactory.prototype.destroyParticle = function(particle)
 	{
-		// gc will do that
-	}    
+		// gc will do that (for now)       
+
+	};   
     
     return ParticleFactory;
 });
