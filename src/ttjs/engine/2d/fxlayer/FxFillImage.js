@@ -75,6 +75,16 @@ define([
         }
         var imgW = Math.floor(this.image.width * this._scale.x);
         var imgH = Math.floor(this.image.height * this._scale.y); 
+        
+        
+        if (this.alpha && this.alpha < 1) {            
+            fxWorld.ctx.globalAlpha = this.alpha;
+        }
+        
+        if (this.composite) {
+            fxWorld.ctx.globalCompositeOperation = this.composite;
+        }            
+        
         switch(this.repeat) {
             default:
             case "none":            
@@ -94,6 +104,12 @@ define([
                 this._drawRepeatY(fxWorld, vp, imgW, imgH);       
                 break;    
         }
+        if (this.alpha && this.alpha < 1) {
+            fxWorld.ctx.globalAlpha = 1;                       
+        }
+        if (this.composite) {
+            fxWorld.ctx.globalCompositeOperation = "source-over";
+        }            
     };
     
     FxFillImage.prototype._drawNoRepeat = function(fxWorld, vp, imgW, imgH) {        

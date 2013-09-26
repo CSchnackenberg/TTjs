@@ -107,6 +107,9 @@ define([
                     newLayer = filler;
                     filler.name = layerData.name;
                     if (layerData.properties) {
+                        if (layerData.opacity) {
+                           filler.alpha = layerData.opacity;
+                        }
                         if (layerData.properties.repeat)
                            filler.repeat = layerData.properties.repeat;
                         if (layerData.properties.stretch)
@@ -119,6 +122,8 @@ define([
                             filler.scaleX = Number(layerData.properties.addScaleX);
                         if (layerData.properties.addScaleY)
                             filler.scaleY = Number(layerData.properties.addScaleY);
+                        if (layerData.properties.composite)
+                            filler.composite = layerData.properties.composite || "";                        
                     }
                     this.fxWorld.getRoot().addChild(filler);
                     pendingImageFills.push({
@@ -183,6 +188,18 @@ define([
                             case "back1":
                                 newLayer.parallax.x = 0.3;
                                 newLayer.parallax.y = 0.3;
+                                break;
+                            case "back2":
+                                newLayer.parallax.x = 0.5;
+                                newLayer.parallax.y = 0;
+                                break;
+                            case "back3":
+                                newLayer.parallax.x = 0.7;
+                                newLayer.parallax.y = 0;
+                                break;
+                            case "front1":
+                                newLayer.parallax.x = 1.3;
+                                newLayer.parallax.y = 0;
                                 break;
                         }
                     }

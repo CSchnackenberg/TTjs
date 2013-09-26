@@ -25,7 +25,7 @@ define([
         if (!this.shape) {
             this.shape = new Fx.Shape();
             this.shape.graphics.beginLinearGradientFill(
-                ["rgba(0,0,0,0)","rgba(0,0,128,1)"], 
+                ["rgba(0,0,0,0)","rgba(255,128,0,1)"], 
                 [0, 1], 
                 0, 0, 
                 0, canvas.height).drawRect(
