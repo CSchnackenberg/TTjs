@@ -177,7 +177,7 @@ define(['env'], function(env)
 						
 						for (var i2=0; i2<callbacks.length; i2++)						
 							callbacks[i2]();
-                    }                   
+                    }
                 }
 			}, this.pathPrefix);
 		},

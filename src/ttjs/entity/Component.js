@@ -52,9 +52,7 @@ define([], function()
         findComponent: function(cmpName)
         {
             return this.entity.findComponent(cmpName);
-        },   
-   
-        e:"e"
+        }
     };
     
     return Component;
