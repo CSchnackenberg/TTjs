@@ -45,7 +45,7 @@ function(
 	 * 
 	 * Type is expected to be "entity" if not provided.
 	 * 
-	 * To define a Property-Entry you have to spezify
+	 * To define a Property-Entry you have to specify
 	 * the type, properties and may NOT set components.
 	 * 
 	 * The "source" element is optional. It allows you
