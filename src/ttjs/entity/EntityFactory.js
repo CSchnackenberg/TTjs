@@ -16,46 +16,34 @@ define([
 	'ttjs/entity/parser/EnumPropertyParser',
 	'ttjs/entity/parser/AnyPropertyParser',
 	'ttjs/entity/ResourceManager',
-	'ttjs/entity/EntityInstance'
+	'ttjs/entity/EntityInstance',
+	'ttjs/entity/EntityLinker'
 ],
 function(
-		env,
-		_,
-		ComponentManager,
-        NumberPropertyParser,
-		StringPropertyParser,
-		EnumPropertyParser,
-		AnyPropertyParser,
-		ResourceManager,
-		EntityInstance
+	env,
+	_,
+	ComponentManager,
+	NumberPropertyParser,
+	StringPropertyParser,
+	EnumPropertyParser,
+	AnyPropertyParser,
+	ResourceManager,
+	EntityInstance,
+	EntityLinker
 ) 
 {    
     "use strict";
 	
-	
-	/** @class  */
-    function LinkedEntityDefinition()
-    {
-        /** @type bool static entites are always instantiated */
-        this.isStatic = false;
-        /** @type Array */
-        this.components = [];        
-        /** unparsed properties */
-        this.properties = {};     
-		this.type = "";
-        this.name = "";     		
-	}    
-
 	/**
 	 * @class 	 
-	 * 	 
+	 * 
+	 * @param {ResourceManager} resourceManager description
 	 * @returns {EntityFactory}
 	 */
     function EntityFactory(resourceManager)
     {
-        this._linked = false;
-        this._definitions = {};
-		this._linkedDefinitions = {};        
+		this._linkedDefinitions = {};        		
+		this._linker = new EntityLinker();		
         this._resourceManager = resourceManager || new ResourceManager();
 		this.nextEntityId = 1;
         
@@ -70,9 +58,7 @@ function(
 
     EntityFactory.prototype = {
         addDefinitions: function(defs) {
-            for (var k in defs)        
-                this._definitions[k] = defs[k];                
-            this._linked = false;                        
+			this._linker.addDefinitions(defs);
         },		
 		/**
 		 * This function loads all data that is required for the
@@ -83,8 +69,9 @@ function(
 		 */		
 		preloadEntities: function(entityInstances, onReady, logger, depth)  {
 			depth = depth || 0;
-            if (!this._linked)
-                this._link(logger);            
+            if (!this._linker.linked) {
+				this._linkedDefinitions = this._linker.link(logger); 
+			}
 			if (!_.isArray(entityInstances)) 
 				entityInstances = [entityInstances];			
 			if (depth > 20) {
@@ -520,185 +507,7 @@ function(
             }
 			
             return res;
-        },
-       
-
-		/**
-		 * @private
-		 **/
-        _link: function(logger) {
-			
-			// FIXME: Implement a dependency-sort
-			// Currently this approach relies on an order within
-			// the "_definitition" object. JavaScript-objects
-			// do not garantuee that order so we cannot rely
-			// on it here.
-			// 			
-			// BACKGROUND:			
-			// Imagine this random list (read -> as requirs):
-			// [0] EntityC -> EntityA, PropFamA, PropFamB
-			// [1] PropFamB
-			// [2] EntityA -> PropFamA
-			// [3] PropFamA
-			// 
-			// If JavaScript loops over the given JSObject in
-			// that order we would have our first issue when EntityC 
-			// is parsed. By that time EntityA is unknown and
-			// thus cannot be solved.
-			// 
-			// To fix this we can push all _definition entries
-			// into an array and consider their dependencies.
-			// 
-			// In the given example a compatible order would be:
-			// [0] PropFamA
-			// [1] PropFamB
-			// [2] EntityA -> PropFamA
-			// [3] EntityC -> EntityA, PropFamA, PropFamB
-			// 
-			// IMPLEMENTATION RECURSIVE APPROACH:
-			// 1) Create an 'included' set
-			// 2) Create a new empty list
-			// 3) Create a copy of the source-set into
-			//    an array (unordered-source)
-			// 4) Go over all elements of the unordered-source:
-			//    4.1) If the element has no dependency
-			//	       4.1.1) Put it into the included set
-			//	       4.1.2) Push it into the new list
-			//	       4.1.3) Remove element from the unordered-source
-			//	  4.2) If not: leave it in the list
-			// 5) Go over all elements of the unordered-source:
-			//    5.1) 
-			// 
-			// ISSUE CIRCULAR DEPENDENCY:
-			// With this we also have a new error class: circular
-			// dependency. 
-			// 
-			// In an easy case it is
-			// EntityA -> EntityB
-			// EntityB -> EntityA
-			// 
-			// A more advance case:
-			// EntityA -> PropA
-			// EntityB -> EntityA, PropB
-			// PropA -> PropD, PropC
-			// PropD -> PropB
-			// 
-			// Both cases will cause an error that may be hard
-			// to communicate to the developer.
-			// 
-			// ISSUE PERFORMANCE:
-			// This extra step of sorting is of course an performance
-			// issue. An alternative solution would be a preprocessor
-			// step that does the sorting before that and puts
-			// into a Json file. That however would make the config
-			// more complex as we have ensure the order and an less
-			// intuitive json-format. 
-			// 
-			// So until this sorting step does not proof to be
-			// an performance issue I think its best to have
-			// a simple config over a fast linking.
-			
-            // link definitions and properties
-			this._linkedDefinitions = {};			
-			var i, len;			
-			for (var definitionName in this._definitions) {
-				var def = this._definitions[definitionName];
-				var newDefinition = new LinkedEntityDefinition();
-                newDefinition.name = def.name;
-                if (!def.type)
-                    def.type = "entity";
-				
-				// inherit from parent					
-				if (def.parent) {
-					/* @type {LinkedEntityDefinition}  */
-					var parentEntity = this._linkedDefinitions[def.parent]; 					
-					if (!parentEntity) {
-						logger.error('Link-error in Entity "' + definitionName + '". Cannot find parent: "' + def.parent + '".', def.source);
-						continue;
-					}
-					else if (parentEntity.type !== "entity") {
-						logger.error('Link-error in Entity "' + definitionName + '". Parent must be an entity. "' + def.parent + '" is not.', def.source);
-						continue;
-					}
-					else if (def.components.length > 0) {
-						logger.error('Link-error in Entity "' + definitionName + '". An entity cannot inherit from a parent and provide components itself. Parent: "' + def.parent + '".', def.source);
-						continue;
-					}
-					len = parentEntity.components.length;
-					for (i=0; i<len; i++)
-						newDefinition.components.push(parentEntity.components[i]);
-
-					// set properties 
-					newDefinition.properties = env.combineObjects(def.properties, parentEntity.properties);                        
-				}
-												
-				// set own components                
-                len = def.components ? def.components.length : 0;
-				if (def.type === "entity" && len === 0 && newDefinition.length === 0) {
-					logger.error('Link-error in Entity "' + definitionName + '". No components found.', def.source);
-					continue;
-				}
-				for (i=0; i<len; i++)
-					newDefinition.components.push(def.components[i]);
-
-				// inherit properties from family                
-                len = def.family ? def.family.length : 0;
-                var familyEntryOk = true;
-                for (i=0; i<len; i++) {
-                    var famPropsRef = def.family[i];					
-                    var familyEntry = famPropsRef;
-                    familyEntry = familyEntry.toLowerCase();
-                    if (!this._linkedDefinitions.hasOwnProperty(familyEntry)) {                                    
-                        logger.error('Link-error in Entity "' + definitionName + '". Cannot find property family "' + familyEntry + '".' , def.source);
-                        familyEntryOk = false;
-                        break;
-                    }
-                    var familyEntryObj = this._linkedDefinitions[familyEntry];
-                    if (familyEntryObj.type !== "property") {                                    
-                        logger.error('Link-error in Entity "' + definitionName + '". A property family reference must be of type Property. Found type "' + familyEntryObj.type + '".' , def.source);
-                        familyEntryOk = false;
-                        break;
-                    }
-                    newDefinition.properties = env.combineObjects(newDefinition.properties, familyEntryObj.properties);
-                }
-                
-				// do not add
-				if (!familyEntryOk)
-					continue;
-				
-				// combine own properties                    
-				newDefinition.properties = env.combineObjects(newDefinition.properties, def.properties);
-
-				// unwrap peoperty links
-				for (var key in newDefinition.properties) {
-					var linkProp = newDefinition.properties[key];
-					if (key[0] === "$") {
-						var linkSuccess = false;
-						if (key.length > 1 &&
-							typeof(linkProp) === "string") {
-							delete newDefinition.properties[key];
-							var parts = linkProp.split('.');
-							if (parts.length === 2 &&
-								this._linkedDefinitions.hasOwnProperty(parts[0].toLowerCase())) {                                    
-								var newVal = this._linkedDefinitions[parts[0].toLowerCase()].properties[parts[1]];
-								if (newVal) {
-								   newDefinition.properties[key.substring(1)] = newVal;
-								   linkSuccess = true;
-								}                                
-							}
-						}
-						if (!linkSuccess) {
-							logger.error('Link-error in Entity "' + definitionName + ". unresolved link \""+ key + " = " + linkProp +"\"" , def.source);
-						}
-					}
-				}
-				newDefinition.type = def.type;
-				newDefinition.isStatic = def.isStatic;				
-				this._linkedDefinitions[definitionName.toLowerCase()] = newDefinition;
-			}
-						
-            this._linked = true;
-        }    				
+        }  				
     };
     
     return EntityFactory;
