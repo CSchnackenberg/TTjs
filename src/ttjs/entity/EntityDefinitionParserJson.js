@@ -23,23 +23,7 @@ function(
 	 * entities and components to help exposing  simple
 	 * and understandable game objects in the design
 	 * process.
-	 * 
-	 * -----------------------------------------------------------------			
-	 * FIXME undefined behavior.
-	 * 
-	 * The following code expects the JavaScripts objects
-	 * to ensure an ordered key-list. That is not the
-	 * case and therefore may cause various issues.
-	 * 
-	 * This effects the source-format. It may not be
-	 * { <entityName>: { ... }, <more entities> }
-	 * 
-	 * But instead has to be
-	 * 
-	 * [ {name: <entityName>, ... }, <more entities> ]	
-	 * 
-	 * -----------------------------------------------------------------
-	 * 
+	 *
 	 * ENTRY-FORMAT:
 	 * 
 	 * %name%: {
@@ -246,72 +230,6 @@ function(
 				result = env.combineObjects(result, this._sources[i]);
 			return result;
 		}
-		
-		
-		/*
-		 * 
-		 * 
-		 * lodash combined with jQuery.extend should solve the issue
-		 * 
-		
-			var x1 = [
-				{	name: "Witch",
-					components: [
-						"AlwaysActive",                
-						"FxNode",
-						"Sprite",            
-						"WitchOnScreen",
-						"PositionApproacher",
-						"Figure"
-					],
-					properties: {
-						spriteSheetUrl: "assets/sprites/witch.json",
-						startAnim: "fly"
-					}
-				},
-				{
-					name: "FishKopp",
-					properties: {yeah: true}
-				}
-				
-			];
-			
-			
-			var x2 = [
-				{	name: "Witch",
-					components: [
-						"Sega"
-					],
-					properties: {
-						isUgly: true,
-						startAnim: "superfly"
-					}
-				},
-				{
-					name: "LadyGaga"
-					
-				},
-				{
-					name: "FishKopp",
-					properties: {yeah: true}
-				}
-			];
-			
-			
-			var xx1 = _.groupBy(x1, function(x) {return x.name});
-			var xx2 = _.groupBy(x2, function(x) {return x.name});
-			
-			var sources = [xx1, xx2];
-			var len = sources.length;
-			var res = xx1;
-			for (var i=1; i<len; i++) {				
-				var newRes = {};
-				$.extend(true, newRes, res, sources[i]);
-				res = newRes;
-			}
-			
-			console.log(res);*/		
-		
     };
 	
 	return EntityDefinitionParserJson;

@@ -527,6 +527,77 @@ function(
 		 * @private
 		 **/
         _link: function(logger) {
+			
+			// FIXME: Implement a dependency-sort
+			// Currently this approach relies on an order within
+			// the "_definitition" object. JavaScript-objects
+			// do not garantuee that order so we cannot rely
+			// on it here.
+			// 			
+			// BACKGROUND:			
+			// Imagine this random list (read -> as requirs):
+			// [0] EntityC -> EntityA, PropFamA, PropFamB
+			// [1] PropFamB
+			// [2] EntityA -> PropFamA
+			// [3] PropFamA
+			// 
+			// If JavaScript loops over the given JSObject in
+			// that order we would have our first issue when EntityC 
+			// is parsed. By that time EntityA is unknown and
+			// thus cannot be solved.
+			// 
+			// To fix this we can push all _definition entries
+			// into an array and consider their dependencies.
+			// 
+			// In the given example a compatible order would be:
+			// [0] PropFamA
+			// [1] PropFamB
+			// [2] EntityA -> PropFamA
+			// [3] EntityC -> EntityA, PropFamA, PropFamB
+			// 
+			// IMPLEMENTATION RECURSIVE APPROACH:
+			// 1) Create an 'included' set
+			// 2) Create a new empty list
+			// 3) Create a copy of the source-set into
+			//    an array (unordered-source)
+			// 4) Go over all elements of the unordered-source:
+			//    4.1) If the element has no dependency
+			//	       4.1.1) Put it into the included set
+			//	       4.1.2) Push it into the new list
+			//	       4.1.3) Remove element from the unordered-source
+			//	  4.2) If not: leave it in the list
+			// 5) Go over all elements of the unordered-source:
+			//    5.1) 
+			// 
+			// ISSUE CIRCULAR DEPENDENCY:
+			// With this we also have a new error class: circular
+			// dependency. 
+			// 
+			// In an easy case it is
+			// EntityA -> EntityB
+			// EntityB -> EntityA
+			// 
+			// A more advance case:
+			// EntityA -> PropA
+			// EntityB -> EntityA, PropB
+			// PropA -> PropD, PropC
+			// PropD -> PropB
+			// 
+			// Both cases will cause an error that may be hard
+			// to communicate to the developer.
+			// 
+			// ISSUE PERFORMANCE:
+			// This extra step of sorting is of course an performance
+			// issue. An alternative solution would be a preprocessor
+			// step that does the sorting before that and puts
+			// into a Json file. That however would make the config
+			// more complex as we have ensure the order and an less
+			// intuitive json-format. 
+			// 
+			// So until this sorting step does not proof to be
+			// an performance issue I think its best to have
+			// a simple config over a fast linking.
+			
             // link definitions and properties
 			this._linkedDefinitions = {};			
 			var i, len;			
