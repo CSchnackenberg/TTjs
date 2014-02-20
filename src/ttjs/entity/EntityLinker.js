@@ -26,7 +26,17 @@ function($)
 
     function combineObjects(a, b) {
         var ex = {};
-        $.extend(true, ex, a, b);
+        // TODO replace to remove JQuery dependency        
+        // 
+        // possible option https://gist.github.com/p0rsche/2763377
+        // 
+        // ISSUE PERFORMANCE
+        // The to combine objects are only
+        // simple/plain java-script objects and arrays.
+        // Thus some expensive checks could be ignored in
+        // the 'extension' which might bring performance
+        //
+        $.extend(true, ex, a, b); 
         return ex;
     }
 
