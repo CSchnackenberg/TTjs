@@ -135,14 +135,14 @@ function($)
                     sortedDefinitionSet[definitionName] = true;
                 }
                 else {
-                    pendingDefinitions.push({
+                    pendingDefinitions.push({                        
                         def: rawDef,
                         dependsOn: depends
                     });
                 }
             }
             // Now we have to go over the pending definitions
-            // until all are the list is empty.
+            // until the list is empty.
             //
             // If we have one iteration without a new candidate
             // we must have a circular dependency.
