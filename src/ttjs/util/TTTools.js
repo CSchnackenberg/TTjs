@@ -8,7 +8,7 @@
  * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
  */
 define(['jquery'], function($) {
-    var env = {
+    var TTTools = {
         inherits: function(ctor, superCtor) 
         {
             ctor.super_ = superCtor;
@@ -53,7 +53,7 @@ define(['jquery'], function($) {
                 if (typeof val === "object")
                 {
                     console.log(tab + key + " = {");
-                    env.dumpTree(val, tab+"  ");
+                    TTTools.dumpTree(val, tab+"  ");
                     console.log(tab+"}");
                 }
                 else
@@ -97,7 +97,7 @@ define(['jquery'], function($) {
 			var result = {};
 			prefix = "" || prefix;
             var loadScripts = scripts.slice();
-            env._loadScripts(loadScripts.reverse(), ret, prefix, result);
+            TTTools._loadScripts(loadScripts.reverse(), ret, prefix, result);
         },
 
         /** @private */
@@ -114,12 +114,12 @@ define(['jquery'], function($) {
                .done(function(script, textStatus) 
                {
                    result[nextSrc] = "ok";
-                   env._loadScripts(scripts, ret, prefix, result);
+                   TTTools._loadScripts(scripts, ret, prefix, result);
                })
                .fail(function(jqxhr, settings, exception) 
                {
                    result[nextSrc] = "err";				                      
-                   env._loadScripts(scripts, ret, prefix, result);
+                   TTTools._loadScripts(scripts, ret, prefix, result);
                });
            }
         },  
@@ -144,14 +144,14 @@ define(['jquery'], function($) {
                 .done(function(data, textStatus) 
                 {
                     result[nextSrc] = data;
-                    env._loadTextFiles(fileList, ret, result);
+                    TTTools._loadTextFiles(fileList, ret, result);
                 })
                 .fail(function(jqxhr, settings, exception) 
                 {                                     
                     console.err(exception);
                     result[nextSrc] = null;
                     result.foundError = true;
-                    env._loadTextFiles(fileList, ret, result);
+                    TTTools._loadTextFiles(fileList, ret, result);
                 });
            } 
         },
@@ -181,5 +181,5 @@ define(['jquery'], function($) {
         }
     };	
  
-	return env;
+	return TTTools;
 });

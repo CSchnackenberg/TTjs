@@ -7,7 +7,7 @@
  * Released under the MIT license
  * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
  */
-define(['env'], function(env)
+define(['ttjs/util/TTTools'], function(env)
 {    
     "use strict";
 	

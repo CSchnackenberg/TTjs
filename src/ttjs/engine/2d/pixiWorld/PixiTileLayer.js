@@ -9,7 +9,7 @@
 define([
     'PIXI',
     'ttjs/engine/2d/pixiWorld/PixiLayer',
-    'env'
+    'ttjs/util/TTTools'
 ], function(
     PIXI,
     PixiLayer,

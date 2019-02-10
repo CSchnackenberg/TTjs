@@ -7,7 +7,7 @@
  * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
  */
 define([
-	'env',
+	'ttjs/util/TTTools',
     'ttjs/engine/2d/fxlayer/FxLayer'
 ], function(
     env,

@@ -7,7 +7,7 @@
  * Released under the MIT license
  * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
  */
-define(['env', 'jquery'], function(env, $)
+define(['ttjs/util/TTTools', 'jquery'], function(env, $)
 {    
     "use strict";
 	

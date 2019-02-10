@@ -8,7 +8,7 @@
  * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
  */
 
-define(["env"], function (Env) {
+define(["ttjs/util/TTTools"], function (Env) {
     "use strict";
     function TileSetModel() {
 

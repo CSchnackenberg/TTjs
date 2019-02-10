@@ -55,7 +55,7 @@
  *   has to stay in sync with the length of the charset.
  *
  */
-define(['examples/chs/dev4/lib/easeljs-0.6.0.min'], function(Fx) {
+define(['ttjs/lib/easeljs-0.6.0.min'], function(Fx) {
 
 
 var BitmapText = function(text, font) {

@@ -8,7 +8,7 @@
  * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
  */
 define([
-    'env',
+    'ttjs/util/TTTools',
     'ttjs/entity/EntityDefinition'
     ],
 function(
