@@ -7,7 +7,7 @@ This project is the successor of a Android/iOS/Windows game engine we called "To
 
 TTjs main job is to load, manage and update objects in a game context. The implementation is not bound to any specific game engine and it may be used with any 2d/3d graphic engine you like. 
 
-Demos and details will follow.
+
 
 ====
 
