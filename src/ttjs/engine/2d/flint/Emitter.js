@@ -64,14 +64,17 @@ define([
         addAction: function(action)
         {
             this._actions.push(action);
+            return this;
         },
         addEmitterAction: function(action)
         {		
             this._emitterActions.push(action);
+            return this;
         },
         addInitializer: function(ini)
         {
             this._initializer.push(ini);
+            return this;
         },
         pause: function()
         {

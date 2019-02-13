@@ -58,10 +58,10 @@ define([
 			return 0;
 		},
         spawnParticles: function(e, time) {            
-			if (this._blaseted)
+			if (this._blasted || !this._started)
 				return 0;
 
-			this.blaseted = true;
+			this._blasted = true;
 			return this.maxCount;
         },
         isCompleted: function(){
