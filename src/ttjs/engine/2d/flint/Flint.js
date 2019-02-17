@@ -20,6 +20,8 @@ define([
     'ttjs/engine/2d/flint/actions/Rotate',
     'ttjs/engine/2d/flint/actions/SortY',
     'ttjs/engine/2d/flint/actions/TargetScale',
+    'ttjs/engine/2d/flint/actions/TargetVelocity',
+
     
     'ttjs/engine/2d/flint/initializer/Alpha',
     'ttjs/engine/2d/flint/initializer/BitmapAnimation',
@@ -50,6 +52,7 @@ define([
     Rotate,
     SortY,
     TargetScale,
+    TargetVelocity,
     
     Alpha,
     BitmapAnimation,
@@ -85,7 +88,8 @@ define([
             RandomDrift: RandomDrift,
             Rotate:      Rotate,
             SortY:       SortY,
-            TargetScale: TargetScale
+            TargetScale: TargetScale,
+            TargetVelocity: TargetVelocity,
         },
         Initializer: {
             Alpha:           Alpha,

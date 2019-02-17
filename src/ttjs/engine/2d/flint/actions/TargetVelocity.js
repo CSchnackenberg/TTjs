@@ -44,17 +44,18 @@ define([
 )
 {
     "use strict";
-    var Accelerate = function(x, y) {                
-        this.x = x || 0;
-        this.y = y || 0;
-    };        
-    
-    Accelerate.prototype = {
+    var TargetVelocity = function(targetVelocityX, targetVelocityY, rate) {
+        this.targetVelocityX = targetVelocityX || 0;
+        this.targetVelocityY = targetVelocityY || 0;
+        this.rate= rate || 0.1;
+    };
+
+    TargetVelocity.prototype = {
         update: function(emitter, p, time) {
-            p.velocity.x += time * this.x;
-            p.velocity.y += time * this.y;
-        }    
+            p.velocity.x += ( this.targetVelocityX - p.velocity.x ) * this.rate * time;
+            p.velocity.y += ( this.targetVelocityY - p.velocity.y ) * this.rate * time;
+        }
     };
     
-    return Accelerate;
+    return TargetVelocity;
 });
