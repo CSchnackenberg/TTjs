@@ -24,8 +24,16 @@
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 * OTHER DEALINGS IN THE SOFTWARE.
+*
+* ----------------------------------------------------------------------------
+*
+* modification: Christoph Schnackenberg
+*
+* Add AMD stuff
 */
 
+
+define([], function() {
 
 //##############################################################################
 // extend.js
@@ -16648,3 +16656,6 @@ this.createjs = this.createjs || {};
 	s.buildDate = /*=date*/"Thu, 14 Sep 2017 19:47:53 GMT"; // injected by build process
 
 })();
+
+	return this.createjs;
+});
