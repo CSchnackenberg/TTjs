@@ -5,11 +5,13 @@
  *
  * Released under the MIT license
  * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
+ *
+ * TODO check easeljs 1.0 update
  */
 define([
 	'ttjs/util/TTTools',
     'ttjs/engine/2d/fxlayer/FxLayer',
-    'ttjs/lib/easeljs-0.6.0.min'
+    'ttjs/lib/easeljs-1.0.0.min'
 ], function(
     env,
     FxLayer,

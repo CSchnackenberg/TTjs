@@ -39,12 +39,9 @@
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
  * 
  */
-define([   
-    'ttjs/lib/easeljs-0.6.0.min'
+define([
 ], function(
-    Fx
-)
-{    
+) {
     "use strict";
     var Position = function(pos) {        
         var pos = pos || {x: 0, y: 0};

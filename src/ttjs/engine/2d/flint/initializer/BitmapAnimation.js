@@ -37,10 +37,12 @@
  * Port to Javascript and modifications:
  * 
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
+ *
+ * TODO check easeljs 1.0 update
  * 
  */
 define([   
-    'ttjs/lib/easeljs-0.6.0.min'
+    'ttjs/lib/easeljs-1.0.0.min'
 ], function(
     Fx
 )

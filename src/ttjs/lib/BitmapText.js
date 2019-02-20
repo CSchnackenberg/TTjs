@@ -54,15 +54,27 @@
  *   It contains a map of widths of each character - including its outline. It
  *   has to stay in sync with the length of the charset.
  *
+ *
+ * ==================================================
+ *
+ * Modifications:
+ *
+ *
+ * Copyright (c) 2019, Christoph Schnackenberg <bluechs@gmx.de>
+ *
+ * TODO check easeljs 1.0 update
  */
-define(['ttjs/lib/easeljs-0.6.0.min'], function(Fx) {
+define([
+	'ttjs/lib/easeljs-1.0.0.min'
+], function(
+	Fx
+) {
 
+	const BitmapText = function(text, font) {
+		this.initialize(text, font);
+	};
 
-var BitmapText = function(text, font) {
-	this.initialize(text, font);
-};
-
-var p = BitmapText.prototype = new Fx.DisplayObject();
+	const p = BitmapText.prototype = new Fx.DisplayObject();
 
 	BitmapText._workingContext = document.createElement("canvas").getContext("2d");
 

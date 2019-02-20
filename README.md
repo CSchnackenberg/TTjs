@@ -11,7 +11,7 @@ TTjs main job is to load, manage and update objects in a game context. The imple
 
 ====
 
-used libs
+The following external libraries are included in this project. Many thanks to all the authors: 
 
 * Sylvester - Vector and Matrix mathematics modules for JavaScript (MIT, Copyright (c) 2007 James Coglan)
 * jQuery - JavaScript Library v1.9.1 (MIT, Copyright 2005, 2012 jQuery Foundation, Inc. and other contributors)
