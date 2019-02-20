@@ -125,8 +125,3 @@ opt: {
 }
 ```
 
-#### MyComponent.requires.cmp ####
-With 'cmp' you define a set of components that are required by
-this component. 
-
-TODO explain the rest, spelling, etc.
