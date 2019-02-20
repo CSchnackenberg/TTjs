@@ -1,6 +1,11 @@
 # TTjs - FxLayer #
 [work in progress]
 
+
+TODO update to easeljs-1.0.0.js
+
+---
+
 A simple 2D API that utilizes 'ttjs/engine/2d/tileRenderer' and easeljs
 for scenes created with tile layer and sprites.
 
@@ -61,6 +66,3 @@ Currently there is support the following layer-types:
 * Gradient fill layer
 * Fill image layer (for backgrounds etc.)
 
-=== 
-
-TODO make a real tutorial
