@@ -36,57 +36,68 @@
  *   
  * Port to Javascript and modifications:
  * 
- * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
+ * Copyright (c) 2019, Christoph Schnackenberg <bluechs@gmx.de>
+ *
+ *
  * 
  */
-define([    
+define([   
 ], function(
 )
-{
+{    
     "use strict";
-    var Particle = function() {
-        this.reset();
+
+    /**
+     * Posible options:
+     *
+     * https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Compositing
+     *
+     * source-over
+     * source-in
+     * source-out
+     * source-atop
+     * destination-over
+     * destination-in
+     * destination-out
+     * destination-atop
+     * lighter or add
+     * copy
+     * xor
+     * multiply
+     * screen
+     * overlay
+     * darken or subtract
+     * lighten
+     * color-dodge
+     * color-burn
+     * hard-light
+     * soft-light
+     * difference
+     * exclusion
+     * hue
+     * saturation
+     * color
+     * luminosity
+     *
+     *
+     * @param mode
+     * @constructor
+     */
+    const BlendMode = function(mode) {
+        this.mode = mode || null;
+
+        switch(this.mode) {
+            case "add": this.mode = "lighter"; break;
+            case "subtract": this.mode = "darken"; break;
+        }
     };
-    Particle.prototype.reset = function() {   
-        this.mixColor  = {r:1,g:1,b:1,a:1};
-        this.scale = {x: 1, y: 1};
-        this.mass = 1;
-        this.lifetime = 0;
-        this.age=0;
-        this.energy = 1; 
-        this.isDead = false;        
-        this.position = {x: 0, y:0};
-        this.lastPosition = {x: 0, y:0};
-        this.velocity = {x: 0, y:0};
-        this.rotation = 0;
-        this.rotVelocity = 0;
-        this.collisionRadius = 1;
-        this.sortValue = 0;        
-        this.sprite = null;
-        this.compositeOperation = null;
+
+    BlendMode.prototype = {
+        init: function(emitter, p)
+        {
+            p.compositeOperation = this.mode;
+        }    
     };
-    Particle.prototype.getInertia = function() {
-        return this.mass * this.collisionRadius * this.collisionRadius * 0.5;
-    }
     
-    Particle.prototype.applyToSprite = function() {
-        if (!this.sprite)
-			return;
-
-    
-        this.sprite.rotation = this.rotation;
-        this.sprite.scaleX = this.scale.x;
-        this.sprite.scaleY = this.scale.y;
-        this.sprite.x = this.position.x;
-        this.sprite.y = this.position.y;
-        this.sprite.alpha = this.mixColor.a;
-        this.sprite.compositeOperation = this.compositeOperation;
-
-        // color mix?
-
-
-
-    }
-    
-    return Particle;
+    return BlendMode;
 });

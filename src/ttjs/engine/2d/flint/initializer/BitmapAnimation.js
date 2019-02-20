@@ -38,8 +38,6 @@
  * 
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
  *
- * TODO check easeljs 1.0 update
- * 
  */
 define([   
     'ttjs/lib/easeljs-1.0.0.min'
@@ -61,7 +59,7 @@ define([
     
     BitmapAnimation.prototype = {
         init: function(emitter, p) {
-            p.sprite = new Fx.BitmapAnimation(this.sheet); 
+            p.sprite = new Fx.Sprite(this.sheet);
             if (this.animName)
                 p.sprite.gotoAndPlay(this.animName);
             else {

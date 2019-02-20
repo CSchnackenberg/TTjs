@@ -31,6 +31,7 @@ define([
     'ttjs/engine/2d/flint/initializer/RotationVelocity',
     'ttjs/engine/2d/flint/initializer/Scale',
     'ttjs/engine/2d/flint/initializer/Velocity',
+    'ttjs/engine/2d/flint/initializer/BlendMode',
     
     'ttjs/engine/2d/flint/counter/Blast',
     'ttjs/engine/2d/flint/counter/BlastRandom',
@@ -62,6 +63,7 @@ define([
     RotationVelocity,
     Scale,
     Velocity,
+    BlendMode,
     
     Blast,
     BlastRandom,
@@ -99,7 +101,8 @@ define([
             Rotation:        Rotation,
             RotationVelocity:RotationVelocity,
             Scale:           Scale,
-            Velocity:        Velocity
+            Velocity:        Velocity,
+            BlendMode:       BlendMode,
         },
         Counter: {
             Blast:         Blast,

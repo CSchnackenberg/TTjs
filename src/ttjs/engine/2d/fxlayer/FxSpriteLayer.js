@@ -7,6 +7,7 @@
  * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
  *
  * TODO check easeljs 1.0 update
+ * TODO make sure that Fx.Touch.disabled() is called
  */
 define([
 	'ttjs/util/TTTools',
