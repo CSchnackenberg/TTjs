@@ -45,6 +45,13 @@
  * Used in the Flint Particle System - JavaScript-Port which is licenced under the MIT license. As per the
  * original license for Robert Penner's classes, these specific classes are released under
  * the BSD License.
+ *
+ * ==================================================
+ *
+ * t = current time
+ * b = start value (offset)
+ * c = target value
+ * d = target time
  */
 define([    
 ], function(
@@ -76,7 +83,7 @@ define([
         },
         Bounce: {
             easeIn: function(t, b, c, d) {
-                return c - easeOut( d - t, 0, c, d ) + b;
+                return c - Easing.Bounce.easeOut( d - t, 0, c, d ) + b;
             },
             easeOut: function(t, b, c, d) {
                 if ( ( t /= d ) < ( 1 / 2.75 ) )

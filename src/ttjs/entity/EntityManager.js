@@ -180,6 +180,66 @@ function(
         },
 		getResource: function(type, url) {
 			return this._factory._resourceManager.getResource(type, url);
+		},
+		/**
+		 * Finds all entities which contains a specific component
+		 *
+		 * @param componentName
+		 * @param activeOnly if false it also searches deactive entities
+		 */
+		findEntitiesWithComponent: function(componentName, activeOnly = true) {
+			const candidates = [];
+			const len = this._actives.length;
+			for (let i=0; i<len; i++)
+				if (this._actives[i].findComponent(componentName)) {
+					candidates.push(this._actives[i]);
+				}
+			const len2 = this._alwaysActives.length;
+			for (let i=0; i<len2; i++)
+				if (this._alwaysActives[i].findComponent(componentName)) {
+					candidates.push(this._alwaysActives[i]);
+				}
+			if (!activeOnly) {
+				const len3 = this._deactives.length;
+				for (let i=0; i<len3; i++)
+					if (this._deactives[i].findComponent(componentName)) {
+						candidates.push(this._deactives[i]);
+					}
+			}
+			return candidates;
+		},
+		/**
+		 * Finds all entities which contain the specific component and returns the component itself
+		 *
+		 * @param componentName
+		 * @param activeOnly if false it also searches deactive entities
+		 */
+		findComponentsFromEntities: function(componentName, activeOnly = true) {
+			const candidates = [];
+			const len = this._actives.length;
+			for (let i=0; i<len; i++) {
+				const cmp = this._actives[i].findComponent(componentName);
+				if (cmp) {
+					candidates.push(cmp);
+				}
+			}
+			const len2 = this._alwaysActives.length;
+			for (let i=0; i<len2; i++){
+				const cmp = this._alwaysActives[i].findComponent(componentName);
+				if (cmp) {
+					candidates.push(cmp);
+				}
+			}
+			if (!activeOnly) {
+				const len3 = this._deactives.length;
+				for (let i=0; i<len3; i++){
+					const cmp = this._deactives[i].findComponent(componentName);
+					if (cmp) {
+						candidates.push(cmp);
+					}
+				}
+			}
+			return candidates;
 		}
     };
 
