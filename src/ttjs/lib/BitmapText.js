@@ -59,10 +59,9 @@
  *
  * Modifications:
  *
- *
  * Copyright (c) 2019, Christoph Schnackenberg <bluechs@gmx.de>
  *
- * TODO check easeljs 1.0 update
+ * TODO remove. Kind of replaced by BitmapText of easel itself
  */
 define([
 	'ttjs/lib/easeljs-1.0.0.min'
