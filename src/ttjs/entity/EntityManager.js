@@ -40,6 +40,10 @@ function(
         this._newEntities = []; 
 		/** @type EntityFactory */
 		this._factory = factory;
+		/** if true: it means */
+		this._pendingInjections = 0;
+		this._resetting = false;
+		this._resetCallback = null;
     }
 
     EntityManager.prototype = {
@@ -65,7 +69,17 @@ function(
 		 */
 		injectEntity: function(instance, onReady, logger) {					
 			var thiz = this;
-			this._factory.preloadEntities(instance, function(preparedEntities) { 
+			this._pendingInjections++;
+			this._factory.preloadEntities(instance, function(preparedEntities) {
+				thiz._pendingInjections--;
+				if (thiz._resetting) {
+					if (thiz._pendingInjections <= 0) {
+						thiz._resetting = false;
+						this._resetCallback();
+						this._resetCallback = null
+					}
+					return;
+				}
 				var createdEntities = thiz.injectPreloadedEntity(preparedEntities);
 				onReady(createdEntities);
 			}, logger || console);
@@ -117,7 +131,7 @@ function(
         /**
          * Send a message to all entities in the scene.
          * 
-         * @param {String} name identifyer of the message
+         * @param {String} name identifier of the message
          * @param {type} params data you want to send
          * @param {type} activesOnly true: only active entities get the message
          * @returns {undefined}
@@ -240,6 +254,61 @@ function(
 				}
 			}
 			return candidates;
+		},
+		/**
+		 * Cleanup function to give all entities the chance to cleanup properly before
+		 * the manager is dropped or reused.
+		 *
+		 * One must wait for the onReadyCallback to return to give the manager the chance to cleanup
+		 * entities that were loading while calling this.
+		 */
+		reset: function(onReadyCallback) {
+			this._resetting = true;
+
+			// We simply set "dispose" to all entities that are active, deactive or always
+			// active.
+			//
+			// updateEntityActivation does not guarantee to throw away all disposed entities at once we need
+			// to do this until we find no active, always active or deactive entities anymore.
+			//
+			let found = 2;
+			let sanity = 500;
+			do {
+				let len = this._actives.length;
+				for (let i=0; i<len; i++) {
+					this._actives[i].dispose();
+				}
+				if (len > 0)
+					found++;
+				len = this._alwaysActives.length;
+				for (let i=0; i<len; i++){
+					this._alwaysActives[i].dispose();
+				}
+				if (len > 0)
+					found++;
+				len = this._deactives.length;
+				for (let i=0; i<len; i++){
+					this._deactives[i].dispose();
+				}
+				if (len > 0)
+					found++;
+				this.entityActivator.updateEntityActivation(
+					this._newEntities,
+					this._alwaysActives,
+					this._actives,
+					this._deactives
+				);
+				found--;
+				console.log("Cleanup loop: ", found);
+			}while(found > 0 && sanity-- > 0);
+
+			if (this._pendingInjections <= 0) {
+				onReadyCallback();
+			}
+			else {
+				this._resetCallback = onReadyCallback;
+				// need to wait for the objects
+			}
 		}
     };
 

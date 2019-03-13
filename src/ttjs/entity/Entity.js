@@ -91,8 +91,17 @@ define(['ttjs/util/TTTools'], function(env) {
             this._state = "initing";
             var result;
             var len = this._components.length;
+            var hasAfterInit = null;
             for(var i=0; i<len; i++) {
                 this._components[i].onInit(this);
+                if (this._components[i].onAfterInit)
+                    hasAfterInit = true;
+            }
+            if (hasAfterInit) {
+                for(var i=0; i<len; i++) {
+                    if (this._components[i].onAfterInit)
+                        this._components[i].onAfterInit(this);
+                }
             }
             // success
             if (this._state === "initing")
