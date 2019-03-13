@@ -131,7 +131,7 @@ function(
             len = this._alwaysActives.length;		
             for (i=0; i<len; i++)
                 this._alwaysActives[i].sendMessage(name, params);
-            if (!activesOnly) {
+            if (activesOnly === false) {
                 len = this._deactives.length;
                 for (i=0; i<len; i++)
                     this._deactives[i].sendMessage(name, params);
