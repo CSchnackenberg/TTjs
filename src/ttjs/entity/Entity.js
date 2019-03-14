@@ -56,8 +56,13 @@ define(['ttjs/util/TTTools'], function(env) {
             var len = this._components.length;
             for(var i=0; i<len; i++) {
 				if (this._componentNames[i].toLowerCase() ===
-					cmpName.toLowerCase())	
-					return this._components[i];
+					cmpName.toLowerCase()) {
+                    if (!this._components[i]._ttjs_inited) {
+                        console.error("findComponent searches for un-inited component. This is not allowed. Use onAfterInit() or check your component order.");
+                        return null;
+                    }
+                    return this._components[i];
+                }
             }
             return null;
         },
@@ -94,6 +99,7 @@ define(['ttjs/util/TTTools'], function(env) {
             var hasAfterInit = null;
             for(var i=0; i<len; i++) {
                 this._components[i].onInit(this);
+                this._components[i]._ttjs_inited = true;
                 if (this._components[i].onAfterInit)
                     hasAfterInit = true;
             }

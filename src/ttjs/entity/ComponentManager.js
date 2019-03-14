@@ -187,7 +187,7 @@ define(['ttjs/util/TTTools'], function(env)
 			var callbacks = this._pending[className];
 			if (!callbacks)
 			{
-				this.out.error("Unexpected component callback in component \"",scriptName,"\"."); 
+				this.out.error("Unexpected component callback in component \"",className,"\".");
 				return;
 			}
 			
