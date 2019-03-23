@@ -9,7 +9,7 @@
  */
 define(['ttjs/lib/lodash'], function(_) {
     "use strict";
-    
+
     /**
      * Property parser for unspecific type.
 	 * This can be used to enforce arbitarry userdata
@@ -29,7 +29,8 @@ define(['ttjs/lib/lodash'], function(_) {
          */
         parse: function(propertyName, propertyInfo, instanceValue, outProps)
         {
-            if (_.isEmpty(instanceValue))
+            //if (_.isEmpty(instanceValue))
+            if (typeof instanceValue === undefined)
                 return "Must not be empty";           			
 			
 			// as we do not know what is inside the data we have
