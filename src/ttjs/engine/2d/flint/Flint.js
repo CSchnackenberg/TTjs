@@ -21,7 +21,6 @@ define([
     'ttjs/engine/2d/flint/actions/SortY',
     'ttjs/engine/2d/flint/actions/TargetScale',
     'ttjs/engine/2d/flint/actions/TargetVelocity',
-
     
     'ttjs/engine/2d/flint/initializer/Alpha',
     'ttjs/engine/2d/flint/initializer/BitmapAnimation',
@@ -32,6 +31,8 @@ define([
     'ttjs/engine/2d/flint/initializer/Scale',
     'ttjs/engine/2d/flint/initializer/Velocity',
     'ttjs/engine/2d/flint/initializer/BlendMode',
+    'ttjs/engine/2d/flint/initializer/RectPosition',
+    'ttjs/engine/2d/flint/initializer/CirclePosition',
     
     'ttjs/engine/2d/flint/counter/Blast',
     'ttjs/engine/2d/flint/counter/BlastRandom',
@@ -64,18 +65,21 @@ define([
     Scale,
     Velocity,
     BlendMode,
+    RectPosition,
+    CirclePosition,
     
     Blast,
     BlastRandom,
     Pulse,
     Random,
-    Steady
+    Steady,
+
 )
 {    
 	"use strict";
     
     /**
-     * Facade pattern to access flint particle engine
+     * Facade pattern to access flint particle engine + ttjs extensions
      **/
     var Flint = {
         Particle: Particle,
@@ -103,6 +107,8 @@ define([
             Scale:           Scale,
             Velocity:        Velocity,
             BlendMode:       BlendMode,
+            RectPosition:    RectPosition,
+            CirclePosition:  CirclePosition,
         },
         Counter: {
             Blast:         Blast,

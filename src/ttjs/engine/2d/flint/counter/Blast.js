@@ -57,7 +57,7 @@ define([
 		{			
 			return 0;
 		},
-        spawnParticles: function(e, time) {            
+        spawnParticles: function(e, time) {
 			if (this._blasted || !this._started)
 				return 0;
 
