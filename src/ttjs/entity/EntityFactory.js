@@ -15,6 +15,7 @@ define([
     'ttjs/entity/parser/StringPropertyParser',
     'ttjs/entity/parser/EnumPropertyParser',
     'ttjs/entity/parser/AnyPropertyParser',
+    'ttjs/entity/parser/EaseFuncPropertyParser',
     'ttjs/entity/ResourceManager',
     'ttjs/entity/EntityInstance',
     'ttjs/entity/EntityLinker'
@@ -27,6 +28,7 @@ function(
     StringPropertyParser,
     EnumPropertyParser,
     AnyPropertyParser,
+    EaseFuncPropertyParser,
     ResourceManager,
     EntityInstance,
     EntityLinker
@@ -52,7 +54,8 @@ function(
             "number": new NumberPropertyParser(),
             "string": new StringPropertyParser(),
             "enum": new EnumPropertyParser(),
-            "any": new AnyPropertyParser()
+            "ease": new EaseFuncPropertyParser(),
+            "any": new AnyPropertyParser(),
         };
     }
 
