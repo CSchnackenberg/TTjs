@@ -64,7 +64,7 @@
  * TODO remove. Kind of replaced by BitmapText of easel itself
  */
 define([
-	'ttjs/lib/easeljs-1.0.0.min'
+	'ttjs/lib/easeljs'
 ], function(
 	Fx
 ) {

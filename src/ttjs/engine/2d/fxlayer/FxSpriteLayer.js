@@ -12,7 +12,7 @@
 define([
 	'ttjs/util/TTTools',
     'ttjs/engine/2d/fxlayer/FxLayer',
-    'ttjs/lib/easeljs-1.0.0.min'
+    'ttjs/lib/easeljs'
 ], function(
     env,
     FxLayer,

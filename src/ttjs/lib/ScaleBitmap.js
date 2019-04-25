@@ -35,7 +35,7 @@
  * - changed the way it handles cases where the edges are thinner than the defined border
  */
 define([
-	'ttjs/lib/easeljs-1.0.0.min'
+	'ttjs/lib/easeljs'
 ], function(
 	createjs
 ) {
