@@ -47,6 +47,24 @@ function(
     }
 
     EntityManager.prototype = {
+
+
+		/**
+		 * A wrapper function around injectEntity which assumes that the given instance can be injected
+		 * with no further loading.
+		 *
+		 * It'll return null injection requires loading.
+		 *
+		 * It expects one instance and only returns exactly one
+		 *
+		 */
+		injectEntitySync: function(instance, logger) {
+			let entity = null;
+			this.injectEntity(instance, function(e) {
+				entity = e[0];
+			}, logger||console);
+			return entity;
+		},
 		/**
 		 * Creates new entity(ies) and inject it as a new instance
 		 * into the management process. 
