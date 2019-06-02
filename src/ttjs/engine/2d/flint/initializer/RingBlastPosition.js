@@ -10,10 +10,12 @@ define([
 ], function(
 ) {
     "use strict";
-    var CirclePosition = function(x, y, randRadiusX, randRadiusY, ringRadius = 0) {
+    var RingBlastPosition = function(x, y, randRadiusX, randRadiusY, ringRadius=0, minVelocity, maxVelocity) {
         this.randX = randRadiusX;
         this.randY = randRadiusY || randRadiusX;
         this.ringRadius = ringRadius;
+        this.minVel = minVelocity||0;
+        this.maxVel = maxVelocity||this.minVel;
 
         this.pos = {
             x: x || 0,
@@ -21,9 +23,13 @@ define([
         };
     };
 
-    CirclePosition.prototype = {
+    RingBlastPosition.prototype = {
         init: function(emitter, p) {
             const randAngle = Math.PI*2*Math.random();
+            //p.rotation = randAngle;
+            const velPower = (this.minVel + (this.maxVel - this.minVel) * Math.random());
+            p.velocity.x = Math.cos(randAngle) * velPower;
+            p.velocity.y = Math.sin(randAngle) * velPower;
             if (this.ringRadius > 0) {
                 p.position.x += this.pos.x + Math.cos(randAngle) * this.randX + this.ringRadius * Math.random();
                 p.position.y += this.pos.y + Math.sin(randAngle) * this.randY + this.ringRadius * Math.random();
@@ -35,5 +41,5 @@ define([
         }
     };
     
-    return CirclePosition;
+    return RingBlastPosition;
 });

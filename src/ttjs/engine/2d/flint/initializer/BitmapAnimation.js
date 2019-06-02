@@ -59,7 +59,13 @@ define([
     
     BitmapAnimation.prototype = {
         init: function(emitter, p) {
-            p.sprite = new Fx.Sprite(this.sheet);
+
+            if (p.sprite) {
+                p.sprite.initAfterReset(this.sheet);
+            }
+            else {
+                p.sprite = new Fx.Sprite(this.sheet);
+            }
             if (this.animName)
                 p.sprite.gotoAndPlay(this.animName);
             else {

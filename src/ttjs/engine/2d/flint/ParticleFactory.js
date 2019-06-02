@@ -47,19 +47,40 @@ define([
 {    
     "use strict";
 
+    const Pool = function() {
+        this._cache = [];
+        this._createdObjects = 0;
+    };
+
+    Pool.prototype.putBack = function(p) {
+        this._cache.push(p);
+    };
+    Pool.prototype.takeOut = function(p) {
+        if (this._cache.length == 0) {
+            this._createdObjects++;
+            console.log("Created particles:", this._createdObjects);
+            return new Particle();
+        }
+        return this._cache.pop();
+    };
+
+
     /**
      * Class to create particles. At some point later we
      * can introduce a cached concept here.
      */
-    var ParticleFactory = function() {        
+    var ParticleFactory = function(useCache = false) {
+        this._pool = useCache ? new Pool() : null;
     };
     ParticleFactory.prototype.create = function() {   
-        return new Particle();
+        return this._pool ? this._pool.takeOut() : new Particle();
     };
-    ParticleFactory.prototype.destroyParticle = function(particle)
-	{
-		// gc will do that (for now)       
-
+    ParticleFactory.prototype.destroyParticle = function(particle) {
+        if (this._pool) {
+            particle.sprite.reset();
+            particle.reset();
+            this._pool.putBack(particle);
+        }
 	};   
     
     return ParticleFactory;

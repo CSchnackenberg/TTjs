@@ -106,7 +106,7 @@ define([
 		 * @type Boolean
 		 * @default true
 		 **/
-		this.snapToPixel = true;
+		//this.snapToPixel = true;
 	}
 
 	var p = createjs.extend(ScaleBitmap, createjs.DisplayObject);
@@ -191,10 +191,11 @@ define([
 			var top = this.scale9Grid.y;
 			var right = this.image.width - centerWidth - left;
 			var bottom = this.image.height - centerHeight - top;
-			var scaledCenterWidth = this.drawWidth - left - right;
-			var scaledCenterHeight = this.drawHeight - top - bottom;
+			var scaledCenterWidth = Math.floor(this.drawWidth - left - right);
+			var scaledCenterHeight = Math.floor(this.drawHeight - top - bottom);
 
 			if (scaledCenterWidth > 0 && scaledCenterHeight > 0) {
+
 
 				// top left
 				ctx.drawImage(this.image, 0, 0, left, top, 0, 0, left, top);

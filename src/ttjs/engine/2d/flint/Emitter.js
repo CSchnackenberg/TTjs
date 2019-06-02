@@ -108,8 +108,9 @@ define([
                 this._createParticle();
         },
         _destroyParticle: function (p) {        
-            if (p.sprite)
+            if (p.sprite) {
                 this._container.removeChild(p.sprite);
+            }
             this._factory.destroyParticle(p);
         },
         _createParticle: function() {
@@ -160,6 +161,9 @@ define([
                 if (it.isDead) {
                     this._destroyParticle(it);
                     this._particles.splice(p, 1);
+                    // TODO double check that this is working.
+                    // I assume we must not increment p here.
+                    // but right now no time to change this.
                 }
                 else {
                     it.applyToSprite();

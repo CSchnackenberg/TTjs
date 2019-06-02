@@ -6604,7 +6604,7 @@ this.createjs = this.createjs||{};
 		
 		this.getMatrix(mtx);
 		var tx = mtx.tx, ty = mtx.ty;
-		if (DisplayObject._snapToPixelEnabled && o.snapToPixel) {
+		if ((DisplayObject._snapToPixelEnabled && o.snapToPixel)) {
 			tx = tx + (tx < 0 ? -0.5 : 0.5) | 0;
 			ty = ty + (ty < 0 ? -0.5 : 0.5) | 0;
 		}
@@ -11487,6 +11487,65 @@ this.createjs = this.createjs||{};
 	 * @param {String} type The event type.
 	 */
 
+	/**
+	 * Modification CHS:
+	 *
+	 * This is similar to the constructor. It is mainly meant to make the
+	 * sprite reusable
+	 *
+	 * @param sheet
+	 * @param anim
+	 */
+	p.reset = function(sheet) {
+
+		// sprite
+		this.currentFrame = 0;
+		this.currentAnimation = null;
+		this.paused = true;
+		this.spriteSheet = null;
+		this.currentAnimationFrame = 0;
+		this.framerate = 0;
+
+		// displayobject
+
+		this.alpha = 1;
+		this.cacheCanvas = null;
+		this.bitmapCache = null;
+		this.mouseEnabled = true;
+		this.tickEnabled = true;
+		this.name = null;
+		this.parent = null;
+		this.regX = 0;
+		this.regY = 0;
+		this.rotation = 0;
+		this.scaleX = 1;
+		this.scaleY = 1;
+		this.skewX = 0;
+		this.skewY = 0;
+		this.shadow = null;
+		this.visible = true;
+		this.x = 0;
+		this.y = 0;
+		this.transformMatrix = null;
+		this.compositeOperation = null;
+		this.snapToPixel = true;
+		this.filters = null;
+		this.mask = null;
+		this.hitArea = null;
+		this.cursor = null;
+		this._bounds = null;
+
+		// private stuff
+
+		this._animation = null;
+		this._currentFrame = null;
+		this._skipAdvance = false;
+		this._webGLRenderStyle = createjs.DisplayObject._StageGL_SPRITE;
+	};
+
+	p.initAfterReset = function(sheet) {
+		this.spriteSheet = sheet;
+	};
 
 // public methods:
 	/**

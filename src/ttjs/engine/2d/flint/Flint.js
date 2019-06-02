@@ -33,6 +33,7 @@ define([
     'ttjs/engine/2d/flint/initializer/BlendMode',
     'ttjs/engine/2d/flint/initializer/RectPosition',
     'ttjs/engine/2d/flint/initializer/CirclePosition',
+    'ttjs/engine/2d/flint/initializer/RingBlastPosition',
     
     'ttjs/engine/2d/flint/counter/Blast',
     'ttjs/engine/2d/flint/counter/BlastRandom',
@@ -67,6 +68,7 @@ define([
     BlendMode,
     RectPosition,
     CirclePosition,
+    RingBlastPosition,
     
     Blast,
     BlastRandom,
@@ -74,8 +76,8 @@ define([
     Random,
     Steady,
 
-)
-{    
+    Flint,
+) {
 	"use strict";
     
     /**
@@ -109,6 +111,7 @@ define([
             BlendMode:       BlendMode,
             RectPosition:    RectPosition,
             CirclePosition:  CirclePosition,
+            RingBlastPosition: RingBlastPosition,
         },
         Counter: {
             Blast:         Blast,

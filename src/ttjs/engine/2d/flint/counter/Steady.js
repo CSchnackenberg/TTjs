@@ -63,12 +63,15 @@ define([
 			
 			var count = 0;
 			this._timeToNext -= time;
-			while(this._timeToNext <= 0 )
-			{
+			while(this._timeToNext <= 0 ) {
 				++count;
 				this._timeToNext += this._rateInv;
 			}
 			return count;
+        },
+        setRate: function(rate) {
+            this._rate = rate;
+            this._rateInv = 1 / rate;
         },
         isCompleted: function(){
            return false;
