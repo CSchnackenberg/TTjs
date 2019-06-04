@@ -58,7 +58,11 @@ define([
     Pool.prototype.takeOut = function(p) {
         if (this._cache.length == 0) {
             this._createdObjects++;
-            console.log("Created particles:", this._createdObjects);
+
+            if (this._createdObjects > 10000) {
+                console.error("Created more than 10k particle objects. Likely a memory leak.");
+            }
+
             return new Particle();
         }
         return this._cache.pop();
