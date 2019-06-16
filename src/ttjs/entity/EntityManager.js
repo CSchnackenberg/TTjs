@@ -274,6 +274,65 @@ function(
 			return candidates;
 		},
 		/**
+		 * returns all entities with the given name or empty array
+		 */
+		findEntitiesByName: function(name, activeOnly = true) {
+			const candidates = [];
+			const len = this._actives.length;
+			for (let i=0; i<len; i++) {
+				if (this._actives[i].name == name)
+					candidates.push(this._actives[i]);
+			}
+			const len2 = this._alwaysActives.length;
+			for (let i=0; i<len2; i++){
+				if (this._alwaysActives[i].name == name)
+					candidates.push(this._alwaysActives[i]);
+			}
+			if (!activeOnly) {
+				const len3 = this._deactives.length;
+				for (let i=0; i<len3; i++){
+					if (this._deactives[i].name == name)
+						candidates.push(this._deactives[i]);
+				}
+			}
+			return candidates;
+		},
+		/**
+		 * returns null or first entity matching name
+		 *
+		 * @param name complete name of the entity. must match exactly
+		 * @param activeOnly if false one can also search for deactive entities
+		 * @param includeNew if true also entities in preparation are searched (useful during initialization)
+		 */
+		findFirstEntityWithName: function(name, activeOnly = true, includeNew = false) {
+			const candidates = [];
+			const len = this._actives.length;
+			for (let i=0; i<len; i++) {
+				if (this._actives[i].name == name)
+					return this._actives[i];
+			}
+			const len2 = this._alwaysActives.length;
+			for (let i=0; i<len2; i++){
+				if (this._alwaysActives[i].name == name)
+					return this._alwaysActives[i];
+			}
+			if (!activeOnly) {
+				const len3 = this._deactives.length;
+				for (let i=0; i<len3; i++){
+					if (this._deactives[i].name == name)
+						return this._deactives[i];
+				}
+			}
+			if (includeNew) {
+				const len4 = this._newEntities.length;
+				for (let i=0; i<len4; i++){
+					if (this._newEntities[i].name == name)
+						return this._newEntities[i];
+				}
+			}
+			return null;
+		},
+		/**
 		 * Cleanup function to give all entities the chance to cleanup properly before
 		 * the manager is dropped or reused.
 		 *

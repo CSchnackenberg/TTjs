@@ -18,7 +18,7 @@ define([], function() {
 	 * @param {name} the instance name of the element (may be "")
 	 * @param {type} entityDefName name/id of the entity definition
 	 * @param {type} spatial geometrical information to place the object in a 2d/3d world
-	 * @param {type} instanceProperties unpared(!) properties of the instance
+	 * @param {type} instanceProperties unparsed(!) properties of the instance
 	 * @returns {EntityInstance}
 	 */
     function EntityInstance(name, entityDefName, spatial, instanceProperties) {
