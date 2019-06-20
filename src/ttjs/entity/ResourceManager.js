@@ -207,6 +207,17 @@ function(
             }
             return false;
         },
+		/**
+		 * get the error reason for the given resource as string message for debugging. If the resource
+		 * is not in error false is returned.
+		 */
+		getResourceError: function(type, url) {
+			var resInfo = this.getResourceInfo(type, url);
+			if (resInfo && resInfo.state === "error") {
+				return resInfo.resource;
+			}
+			return false;
+		},
 		_performCallback: function() {
 			var safeCallbacks = _.clone(this._callbackStack);
 			this._callbackStack = [];

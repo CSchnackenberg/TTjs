@@ -309,7 +309,7 @@ function(
                             var url = instance.expectedResources[i2].url;
                             if (!thiz._resourceManager.isResourceLoaded(type, url)) {
                                 allResourcesLoaded = false;
-                                logger.error("Cannot load Entity: " + instance.entityDefinitionName + ". Required resource '" + url + "' was not loaded.");
+                                logger.error("Cannot load Entity:",  instance.entityDefinitionName, ". Required resource", url, "was not loaded. Issue:",thiz._resourceManager.getResourceError(type, url));
                             }
                         }
                         if (allResourcesLoaded)
