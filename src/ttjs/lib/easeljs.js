@@ -6970,8 +6970,10 @@ this.createjs = this.createjs||{};
 	p.getBounds = function() {
 		if (this._bounds) { return this._rectangle.copy(this._bounds); }
 		var cacheCanvas = this.cacheCanvas;
-		if (cacheCanvas) {
-			var scale = this._cacheScale;
+		if (cacheCanvas && this.bitmapCache) {
+			// CHS:
+			// fix. it seems they forget to update this.
+			var scale = this.bitmapCache.scale;
 			return this._rectangle.setValues(this._cacheOffsetX, this._cacheOffsetY, cacheCanvas.width/scale, cacheCanvas.height/scale);
 		}
 		return null;
