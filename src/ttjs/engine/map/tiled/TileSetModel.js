@@ -38,7 +38,7 @@ define(["ttjs/util/TTTools"], function (Env) {
             this._amountTilesTotal = this._amountTilesX * this._amountTilesY;
             this._startId = startId;
 
-            fileName = require.toUrl(fileName);
+            //fileName = require.toUrl(fileName);
 
             //console.log(fileName);
 
