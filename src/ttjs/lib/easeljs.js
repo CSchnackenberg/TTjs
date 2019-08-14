@@ -39,7 +39,9 @@ define([], function() {
 // extend.js
 //##############################################################################
 
-this.createjs = this.createjs||{};
+window.createjs = window.createjs||{};
+this.createjs = window.createjs;
+var createjs = this.createjs;
 
 /**
  * @class Utility Methods
@@ -63,7 +65,7 @@ this.createjs = this.createjs||{};
  * @param {Function} superclass The superclass to extend.
  * @return {Function} Returns the subclass's new prototype.
  */
-createjs.extend = function(subclass, superclass) {
+this.createjs.extend = function(subclass, superclass) {
 	"use strict";
 
 	function o() { this.constructor = subclass; }
@@ -118,7 +120,7 @@ this.createjs = this.createjs||{};
  * @param {String} prefix The prefix to add to the promoted method names. Usually the name of the superclass.
  * @return {Function} Returns the subclass.
  */
-createjs.promote = function(subclass, prefix) {
+this.createjs.promote = function(subclass, prefix) {
 	"use strict";
 
 	var subP = subclass.prototype, supP = (Object.getPrototypeOf&&Object.getPrototypeOf(subP))||subP.__proto__;
@@ -152,7 +154,7 @@ this.createjs = this.createjs||{};
  * @param searchElement Element to find in array.
  * @return {Number} The first index of searchElement in array.
  */
-createjs.indexOf = function (array, searchElement){
+this.createjs.indexOf = function (array, searchElement){
 	"use strict";
 
 	for (var i = 0,l=array.length; i < l; i++) {
@@ -242,7 +244,7 @@ this.createjs = this.createjs||{};
  * @return {Function} If a fallbackMethod is supplied, returns a closure that will call the fallback method after
  * logging the warning in the console.
  */
-createjs.deprecate = function(fallbackMethod, name) {
+this.createjs.deprecate = function(fallbackMethod, name) {
 	"use strict";
 	return function() {
 		var msg = "Deprecated property or method '"+name+"'. See docs for info.";
@@ -563,6 +565,7 @@ this.createjs = this.createjs||{};
 	 * prototype.
 	 **/
 	EventDispatcher.initialize = function(target) {
+		const lola = true;
 		target.addEventListener = p.addEventListener;
 		target.on = p.on;
 		target.removeEventListener = target.off =  p.removeEventListener;

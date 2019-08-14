@@ -88,7 +88,7 @@ define(['ttjs/util/TTTools'], function(env)
 						allReady = false;
 						localNew[source] = "err";
 						break;
-					case "unknown":	
+					case "unknown":
 						allReady = false;
 						localNew[source] = "unk";
 						break;
@@ -187,10 +187,13 @@ define(['ttjs/util/TTTools'], function(env)
 			var callbacks = this._pending[className];
 			if (!callbacks)
 			{
-				this.out.error("Unexpected component callback in component \"",className,"\".");
+				this.out.log("Register Component synced:", className);
+				this._classes[className] = componentClass;
+
+				//this.out.error("Unexpected component callback in component \"",className,"\".");
 				return;
 			}
-			
+
 			this.out.log("pending => ready: ", className, " ", componentClass);
 			delete this._pending[className];						
 			this._classes[className] = componentClass;
