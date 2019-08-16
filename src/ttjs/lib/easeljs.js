@@ -565,7 +565,6 @@ this.createjs = this.createjs||{};
 	 * prototype.
 	 **/
 	EventDispatcher.initialize = function(target) {
-		const lola = true;
 		target.addEventListener = p.addEventListener;
 		target.on = p.on;
 		target.removeEventListener = target.off =  p.removeEventListener;

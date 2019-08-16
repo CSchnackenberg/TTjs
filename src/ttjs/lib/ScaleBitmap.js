@@ -222,7 +222,7 @@ define([
 			else if (scaledCenterHeight > 0) {
 
 				scaledCenterWidth = 0;
-				const xScale = (this.drawWidth) / (left + right);
+				var xScale = (this.drawWidth) / (left + right);
 
 				// top left
 				ctx.drawImage(this.image,
@@ -255,7 +255,7 @@ define([
 			else if (scaledCenterWidth > 0) {
 
 				scaledCenterHeight = 0;
-				const yScale = (this.drawHeight) / (top+bottom);
+				var yScale = (this.drawHeight) / (top+bottom);
 
 				// top left
 				ctx.drawImage(this.image,
@@ -286,8 +286,8 @@ define([
 			}
 			else {
 
-				const xScale = (this.drawWidth) / (left + right);
-				const yScale = (this.drawHeight) / (top + bottom);
+				var xScale = (this.drawWidth) / (left + right);
+				var yScale = (this.drawHeight) / (top + bottom);
 
 				// top left
 				ctx.drawImage(this.image,
