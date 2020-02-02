@@ -1,6 +1,6 @@
 // SchnackScripts - testing
 //
-// just type: node test/schnack/test
+// usage: node test/schnack/test
 // ---------------------------------------------------------------------------------------------------------------------
 require('amd-loader');
 const assert = require('assert');
@@ -11,6 +11,7 @@ const SchnackVarValue = require("./../../src/ttjs/engine/schnack/SchnackVarValue
 const SchnackParser = require("./../../src/ttjs/engine/schnack/SchnackParser");
 const SchnackInterpreter = require("./../../src/ttjs/engine/schnack/SchnackInterpreter");
 const SchnackResult = require("./../../src/ttjs/engine/schnack/SchnackResult");
+const SchnackFormatParser = require("./../../src/ttjs/engine/schnack/SchnackFormatParser");
 
 const tests = [];
 
@@ -21,32 +22,17 @@ const debug = false;
 if (debug) {
     tests.push(["debugging", () => {
 
-        const str = "100.1";
-        const r = Number(str);
-        console.log(r);
+        const cs1 = `
+        [a]
+        1
+        2
+        3
+        `;
 
-    //     const cs1 = `
-    // # comment
-    // [a]
-    // b
-    // `;
-    //
-    //     const sp = new SchnackParser("cs1", cs1);
-    //     const c1 = sp.parseNextChunk();
-    //     const c2 = sp.parseNextChunk();
-    //     const c3 = sp.parseNextChunk();
-    //
-    //     console.log(c1);
-    //
-    //     assert.strictEqual(c1.getType(), SchnackChunk.CHUNK_TEXT);
-    //     assert.strictEqual(c2.getType(), SchnackChunk.CHUNK_END);
-    //     assert.strictEqual(c3.getType(), SchnackChunk.CHUNK_END);
-    //
-    //     assert.strictEqual(c1.getTokenCount(), 2);
-    //     assert.strictEqual(c1.getTokenAt(0), "a");
-    //     assert.strictEqual(c1.getTokenAt(1), "b\n");
-    //     assert.strictEqual(c1.getLinePos(), 3);
-    //
+        iptr.initScriptFromSource("cs1", cs1);
+        const sr = iptr.executeScriptStep();
+        console.log(sr);
+
     }]);
 }
 
@@ -726,6 +712,27 @@ tests.push(["SchnackInterpreter cs_19", () => {
     iptr.releaseSessionScope();
 
 }]);
+
+// ---------------------------------------------------------------------------------------------------------------------
+
+tests.push(["SchnackFormatParser strip syntax", () => {
+    assert.strictEqual(SchnackFormatParser.parse("a{b:xxx{c:yyy}zzz}"), "axxxyyyzzz");
+    assert.strictEqual(SchnackFormatParser.parse("a {b:xxx {c:yyy} zzz}"), "a xxx yyy zzz");
+    assert.strictEqual(SchnackFormatParser.parse("a  {b:xxx  {c:yyy}  zzz}"), "a  xxx  yyy  zzz");
+}]);
+
+tests.push(["SchnackFormatParser data feedback", () => {
+    let data = [];
+    SchnackFormatParser.parse("a{b:xxx{c:yyy}zzz}", (evt, sym, stack, str, i) => {
+        data.push([evt, sym, str]);
+    });
+    assert.deepStrictEqual(data[0],[SchnackFormatParser.EVENT_START, "b", "a"]);
+    assert.deepStrictEqual(data[1],[SchnackFormatParser.EVENT_START, "c", "axxx"]);
+    assert.deepStrictEqual(data[2],[SchnackFormatParser.EVENT_END, "c", "axxxyyy"]);
+    assert.deepStrictEqual(data[3],[SchnackFormatParser.EVENT_END, "b", "axxxyyyzzz"]);
+    assert.strictEqual(data.length, 4);
+}]);
+
 
 // ---------------------------------------------------------------------------------------------------------------------
 
