@@ -18,6 +18,6 @@ type MyExampleComponentPropsType = ConvertComponentProps<typeof MyExampleCompone
 
 export class MyExampleComponent extends AbstractComponent<MyExampleComponentPropsType> {
     onInit(props: MyExampleComponentPropsType) {
-        
+
     }
 }
