@@ -4,7 +4,7 @@ export interface NumberPropertyParserOptions {
     validate?: (parsedValue: number) => boolean
 }
 
-export const NumberPropertyParser = (propValue: unknown, options: NumberPropertyParserOptions = {}): number => {
+export const NumberPropertyParser = (options: NumberPropertyParserOptions = {}) => (propValue: unknown) => {
     // we only accept numbers here
     const parsedValue = Number(propValue)
     if (isNaN(parsedValue))
