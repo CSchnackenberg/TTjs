@@ -27,7 +27,7 @@ class MyExampleComponentClass extends AbstractComponent<MyExampleComponentPropsT
     }
     onInit(props: MyExampleComponentPropsType) {
     }
-    static res: () => {
+    static res: (props: MyExampleComponentPropsType) => {
 
     }
     static children: () => {
