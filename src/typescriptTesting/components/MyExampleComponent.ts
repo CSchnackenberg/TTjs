@@ -1,4 +1,4 @@
-import { AbstractComponent } from './AbstractComponent'
+import { AbstractComponent, Component } from './AbstractComponent'
 import { ComponentProps } from './index'
 import { NumberPropertyParser } from '../parser/NumberPropertyParser'
 import { EnumPropertyParser } from '../parser/EnumPropertyParser'
@@ -21,8 +21,18 @@ const MyExampleComponentProps = ComponentProps({
 })
 
 type MyExampleComponentPropsType = ConvertComponentProps<typeof MyExampleComponentProps>
-
-export class MyExampleComponent extends AbstractComponent<MyExampleComponentPropsType> {
+class MyExampleComponentClass extends AbstractComponent<MyExampleComponentPropsType> {
+    public constructor() {
+        super()
+    }
     onInit(props: MyExampleComponentPropsType) {
     }
+    static res: () => {
+
+    }
+    static children: () => {
+
+    }
 }
+
+export const MyExampleComponent: Component<MyExampleComponentClass, MyExampleComponentPropsType> = MyExampleComponentClass
