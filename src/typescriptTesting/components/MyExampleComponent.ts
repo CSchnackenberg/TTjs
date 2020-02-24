@@ -12,7 +12,7 @@ const MyExampleComponentProps = ComponentProps({
         validate: (i) => i % 2 === 0
     }),
     type: EnumPropertyParser({
-        allowedValues: <const>['test', 'abcd']
+        allowedValues: ['test', 'abcd'] as const
     })
 })
 
@@ -20,6 +20,5 @@ type MyExampleComponentPropsType = ConvertComponentProps<typeof MyExampleCompone
 
 export class MyExampleComponent extends AbstractComponent<MyExampleComponentPropsType> {
     onInit(props: MyExampleComponentPropsType) {
-
     }
 }
