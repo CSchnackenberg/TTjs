@@ -4,6 +4,10 @@ import { NumberPropertyParser } from '../parser/NumberPropertyParser'
 import { EnumPropertyParser } from '../parser/EnumPropertyParser'
 import { ConvertComponentProps } from '../parser'
 
+enum AllowedTypes {
+    test = 'test',
+    abcd = 'abcd'
+}
 
 const MyExampleComponentProps = ComponentProps({
     width: NumberPropertyParser({min: 10, max: 200}),
@@ -12,7 +16,7 @@ const MyExampleComponentProps = ComponentProps({
         validate: (i) => i % 2 === 0
     }),
     type: EnumPropertyParser({
-        allowedValues: ['test', 'abcd'] as const
+        allowedValues: Object.keys(AllowedTypes) as ReadonlyArray<keyof typeof AllowedTypes>
     })
 })
 
