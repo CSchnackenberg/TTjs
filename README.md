@@ -1,18 +1,15 @@
-TouchThing js - TTjs
-====
+# TouchThing js - TTjs
 
 A JavaScript Entity/Component Game-Framework
 
-This project is the successor of a Android/iOS/Windows game engine we called "TouchThing". This is our approach of a JavaScript Entity/Component engine. 
+TTjs main job is to load, manage and update objects in a game context. 
 
-TTjs main job is to load, manage and update objects in a game context. The implementation is not bound to any specific game engine and it may be used with any 2d/3d graphic engine you like. 
+  - [Example project](https://github.com/CSchnackenberg/ttjsexample1)
+  - [TTjs - My JavaScript game library (blog entry)](https://www.cschnack.de/blog/2018/ttjs1/)
+  - Checkout the [HOWTO](HOWTO.md)
 
 
-Checkout the [HOWTO](HOWTO.md).
-
-====
-
-The following external libraries are included in this project. Many thanks to all the authors: 
+## contains the following libs: 
 
 * Sylvester - Vector and Matrix mathematics modules for JavaScript (MIT, Copyright (c) 2007 James Coglan)
 * jQuery - JavaScript Library v1.9.1 (MIT, Copyright 2005, 2012 jQuery Foundation, Inc. and other contributors)
