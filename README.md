@@ -22,3 +22,4 @@ TTjs main job is to load, manage and update objects in a game context.
 * Poly2Tri, MIT, Copyright (c) 2009-2013, Poly2Tri Contributors
 * Flint Particles, MIT, Copyright (C) Richard Lord 2008-2011
 * Tweens, BSD, Copyright (c) 2001 Robert Penner
+* Howler.js Audio API, MIT, (c) 2013-2019, James Simpson of GoldFire Studios, goldfirestudios.com 
