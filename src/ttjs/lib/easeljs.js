@@ -14957,7 +14957,13 @@ this.createjs = this.createjs||{};
 				ctx.clearRect(0, 0, this._drawWidth+1, this._drawHeight+1);
 			}
 
-			ctx.save();
+			// MODIFIED: CHS
+            ctx.webkitImageSmoothingEnabled = false;
+            ctx.mozImageSmoothingEnabled = false;
+            ctx.imageSmoothingEnabled = false;
+
+
+            ctx.save();
 			ctx.globalCompositeOperation = compositeOperation;
 			ctx.setTransform(this.scale,0,0,this.scale, -this._filterOffX,-this._filterOffY);
 			ctx.translate(-this.x, -this.y);
