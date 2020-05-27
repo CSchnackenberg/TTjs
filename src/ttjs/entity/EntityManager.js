@@ -140,7 +140,8 @@ function(
 					logger.error("Inject entity failed. OnInit returned status '"+ instance.getState() + "' with reason '" + instance.getStateDescription() + "'", instance);
 					instance.manager = null;
 					continue;
-				}						
+				}
+				instance.origin = instanceData.entityDefinitionName;
 				this._newEntities.push(instance);
 				validEntities.push(instance);
 			}
@@ -210,6 +211,31 @@ function(
                 );
             return all;
         },
+
+        dump: function() {
+            let out = "-----------\n";
+            out += "NEW\n"
+            out += "-----------\n";
+            this._newEntities.forEach(e => out += e.dump(true));
+
+            out += "\n-----------\n";
+            out += "ALWAYS ACTIVE\n"
+            out += "-----------\n";
+            this._alwaysActives.forEach(e => out += e.dump(true));
+
+            out += "\n-----------\n";
+            out += "ACTIVE\n"
+            out += "-----------\n";
+            this._actives.forEach(e => out += e.dump(true));
+
+            out += "\n-----------\n";
+            out += "IN-ACTIVE\n"
+            out += "-----------\n";
+            this._deactives.forEach(e => out += e.dump(true));
+
+            console.log(out);
+        },
+
 		getResource: function(type, url) {
 			return this._factory._resourceManager.getResource(type, url);
 		},

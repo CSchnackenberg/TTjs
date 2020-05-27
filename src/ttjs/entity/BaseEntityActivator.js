@@ -38,8 +38,9 @@ define([], function() {
             var entity;       
             /** @type Array */       
             var newDeactives = [];
+
             // ALWAYS ACTIVE entities
-            for (i=0; i<alwaysActive.length; i++) {
+            for (i=0; i<alwaysActive.length;) {
                 entity = alwaysActive[i]; 
                 if (entity.isGarbage()) {
                     if (i < alwaysActive.length-1) // SWAP 
@@ -47,10 +48,13 @@ define([], function() {
                    alwaysActive.pop(); // DELETE
                    entity.onDeactivate();
                    entity.onDispose();
-                }             
+                }
+                else {
+                    i++;
+                }
             }
             // ACTIVE entities
-            for (i=0; i<activeEntities.length; i++) {				
+            for (i=0; i<activeEntities.length;) {
                 entity = activeEntities[i]; 
                 if (entity.isGarbage()) {
                     if (i < activeEntities.length-1) // SWAP 
@@ -66,9 +70,12 @@ define([], function() {
                     newDeactives.push(entity);
                     entity.onDeactivate();
                 }
+                else {
+                    i++
+                }
             }
             // DEACTIVE entities
-            for (i=0; i<deactiveEntities.length; i++) {
+            for (i=0; i<deactiveEntities.length; ) {
                entity = deactiveEntities[i]; 
                if (entity.isGarbage()) {
                    if (i < deactiveEntities.length-1) // SWAP 
@@ -83,6 +90,9 @@ define([], function() {
                    entity.onActivate();
                    deactiveEntities.pop(); // DELETE
                 }
+               else {
+                   i++;
+               }
             }
             len = newDeactives.length;
             for (i=0; i<len; i++)

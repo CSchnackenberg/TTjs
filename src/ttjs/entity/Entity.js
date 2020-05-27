@@ -35,7 +35,9 @@ define(['ttjs/util/TTTools'], function(env) {
         this.props = properties || {};    
 		this.name = name;
         this.spatial = spatial;
-        this.manager = null; 
+        this.manager = null;
+        /** name of the ED the entity is created from */
+        this.origin = null;
     };
         
     Entity.prototype = {
@@ -141,14 +143,16 @@ define(['ttjs/util/TTTools'], function(env) {
 					this._components[i].onDispose(this);
             }			
         },
-        dump: function() {
+        dump: function(ret=false) {
             var len = this._components.length;
-            var out = "Entity: "+this._name+"\n";
+            var out = "Entity: "+this.name+"\n";
             out += "Components ["+len+"] {\n";                
             for(var i=0; i<len; i++) {				
                 out += "  " + env.getObjectClass(this._components[i]) + "\n";
             }
             out += "}\n";
+            if (ret)
+                return out;
             env.log(out);
         },
         /* sends message to all components */
