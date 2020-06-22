@@ -47,7 +47,11 @@ define([
 {    
     "use strict";
     var BitmapAnimation = function(spriteSheet, frameRangeStart, frameRangeEnd) {
-        if (isNaN(frameRangeStart)) {
+
+        if (Array.isArray(frameRangeStart)) {
+            this.animRange = frameRangeStart;
+        }
+        else if (isNaN(frameRangeStart)) {
             this.animName = frameRangeStart;
         }
         else {                    
@@ -66,8 +70,13 @@ define([
             else {
                 p.sprite = new Fx.Sprite(this.sheet);
             }
-            if (this.animName)
+            if (this.animName) {
                 p.sprite.gotoAndPlay(this.animName);
+            }
+            else if (this.animRange) {
+                const index = Math.floor(Math.random() * (this.animRange.length))
+                p.sprite.gotoAndPlay(this.animRange[index]);
+            }
             else {
                 var frameNmb = this.s + Math.floor(Math.random() * (this.e - this.s));
                 p.sprite.gotoAndStop(frameNmb);

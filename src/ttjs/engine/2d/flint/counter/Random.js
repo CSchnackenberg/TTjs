@@ -54,7 +54,7 @@ define([
     Random.prototype = {
         
         _newTimeToNext: function() {			
-			var rate = Math.random() * ( this._maxRate - this._minRate ) + this._maxRate;
+			var rate = Math.random() * ( this._maxPerSec - this._minPerSec ) + 0; //this._maxRate;
 			return 1 / rate;			
 		},        
         startEmitter: function(e)
