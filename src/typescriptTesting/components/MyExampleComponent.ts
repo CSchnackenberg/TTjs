@@ -1,12 +1,12 @@
 import { AbstractComponent, Component } from './AbstractComponent'
 import { ComponentProps } from './index'
 import { NumberPropertyParser } from '../parser/NumberPropertyParser'
-import { EnumPropertyParser } from '../parser/EnumPropertyParser'
+import { EnumPropertyParser, enumToValues } from '../parser/EnumPropertyParser'
 import { ConvertComponentProps } from '../parser'
 
 enum AllowedTypes {
-    test = 'test',
-    abcd = 'abcd'
+    test = 'huhu',
+    abcd = 'haha'
 }
 
 const MyExampleComponentProps = ComponentProps({
@@ -16,7 +16,7 @@ const MyExampleComponentProps = ComponentProps({
         validate: (i) => i % 2 === 0
     }),
     type: EnumPropertyParser({
-        allowedValues: Object.keys(AllowedTypes) as ReadonlyArray<keyof typeof AllowedTypes>
+        allowedValues: enumToValues(AllowedTypes)
     })
 })
 
@@ -28,7 +28,6 @@ class MyExampleComponentClass extends AbstractComponent<MyExampleComponentPropsT
     onInit(props: MyExampleComponentPropsType) {
     }
     static res: (props: MyExampleComponentPropsType) => {
-
     }
     static children: () => {
 
