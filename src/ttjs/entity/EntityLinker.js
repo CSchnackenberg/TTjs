@@ -8,7 +8,7 @@
  * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
  */
 define([
-    'jquery'
+    'jquery' // TODO !!! replace JQ
 ],
 function($)
 {
@@ -26,6 +26,9 @@ function($)
 
     function combineObjects(a, b) {
         var ex = {};
+
+        // TODO !!! replace JQ
+
         // TODO replace to remove JQuery dependency        
         // 
         // possible option https://gist.github.com/p0rsche/2763377

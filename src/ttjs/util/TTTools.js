@@ -8,6 +8,8 @@
  * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
  */
 define(['jquery'], function($) {
+    // TODO !!! replace JQ
+
     var TTTools = {
         inherits: function(ctor, superCtor) 
         {

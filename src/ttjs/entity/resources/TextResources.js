@@ -7,7 +7,10 @@
  * Released under the MIT license
  * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
  */
-define(['ttjs/util/TTTools', 'jquery'], function(env, $)
+define([
+    'ttjs/util/TTTools',
+    'jquery', // TODO !!! replace JQ
+], function(env, $)
 {    
     "use strict";
 	
@@ -23,6 +26,9 @@ define(['ttjs/util/TTTools', 'jquery'], function(env, $)
             return (env.strEndsWith(url.toLowerCase(), ".txt"));
 		},		
         load: function(url, callback) {
+
+            // TODO !!! replace JQ
+
 			$.ajax({
 				url: url,
 				dataType: "text"
