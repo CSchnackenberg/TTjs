@@ -1,11 +1,12 @@
+"use strict";
 /**
- * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework  
- * 
+ * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
+ *
  * ==================================================
- * 
+ *
  * FLINT PARTICLE SYSTEM
  * .....................
- * 
+ *
  *
  * Author: Richard Lord
  * Copyright (c) Richard Lord 2008-2011
@@ -30,32 +31,28 @@
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.  
- * 
+ * THE SOFTWARE.
+ *
  * ==================================================
- *   
+ *
  * Port to Javascript and modifications:
- * 
+ *
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
- * 
+ *
  */
-define([
-], function(
-) {
+define([], function () {
     "use strict";
-    var Scale = function(rotStart, rotEnd) {        
+    var Scale = function (rotStart, rotEnd) {
         this.rotStart = rotStart || 0;
         this.rotEnd = rotEnd || this.rotStart;
     };
-    
     Scale.prototype = {
-        init: function(emitter, p)
-        {
-            var s = (this.rotEnd - this.rotStart) *  Math.random() + this.rotStart;
+        init: function (emitter, p) {
+            var s = (this.rotEnd - this.rotStart) * Math.random() + this.rotStart;
             p.scale.x = s;
             p.scale.y = s;
-        }    
+        }
     };
-    
     return Scale;
 });
+//# sourceMappingURL=Scale.js.map

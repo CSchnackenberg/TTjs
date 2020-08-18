@@ -1,11 +1,12 @@
+"use strict";
 /**
- * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework  
- * 
+ * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
+ *
  * ==================================================
- * 
+ *
  * FLINT PARTICLE SYSTEM
  * .....................
- * 
+ *
  *
  * Author: Richard Lord
  * Copyright (c) Richard Lord 2008-2011
@@ -30,31 +31,27 @@
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.  
- * 
+ * THE SOFTWARE.
+ *
  * ==================================================
- *   
+ *
  * Port to Javascript and modifications:
- * 
+ *
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
- * 
+ *
  */
-define([     
-], function(        
-)
-{
+define([], function () {
     "use strict";
-    var TargetScale = function(targetScale, rate) {  
+    var TargetScale = function (targetScale, rate) {
         this.targetScale = targetScale || 1;
-        this.rate= rate || 0.1;
-    };        
-    
-    TargetScale.prototype = {
-        update: function(emitter, p, time) {
-            p.scale.x += (this.targetScale - p.scale.x ) * this.rate * time;
-            p.scale.y += (this.targetScale - p.scale.y ) * this.rate * time;
-        }    
+        this.rate = rate || 0.1;
     };
-    
+    TargetScale.prototype = {
+        update: function (emitter, p, time) {
+            p.scale.x += (this.targetScale - p.scale.x) * this.rate * time;
+            p.scale.y += (this.targetScale - p.scale.y) * this.rate * time;
+        }
+    };
     return TargetScale;
 });
+//# sourceMappingURL=TargetScale.js.map

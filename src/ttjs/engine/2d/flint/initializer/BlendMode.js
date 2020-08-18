@@ -1,11 +1,12 @@
+"use strict";
 /**
- * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework  
- * 
+ * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
+ *
  * ==================================================
- * 
+ *
  * FLINT PARTICLE SYSTEM
  * .....................
- * 
+ *
  *
  * Author: Richard Lord
  * Copyright (c) Richard Lord 2008-2011
@@ -30,23 +31,19 @@
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.  
- * 
+ * THE SOFTWARE.
+ *
  * ==================================================
- *   
+ *
  * Port to Javascript and modifications:
- * 
+ *
  * Copyright (c) 2019, Christoph Schnackenberg <bluechs@gmx.de>
  *
  *
- * 
+ *
  */
-define([   
-], function(
-)
-{    
+define([], function () {
     "use strict";
-
     /**
      * Posible options:
      *
@@ -83,21 +80,22 @@ define([
      * @param mode
      * @constructor
      */
-    const BlendMode = function(mode) {
+    var BlendMode = function (mode) {
         this.mode = mode || null;
-
-        switch(this.mode) {
-            case "add": this.mode = "lighter"; break;
-            case "subtract": this.mode = "darken"; break;
+        switch (this.mode) {
+            case "add":
+                this.mode = "lighter";
+                break;
+            case "subtract":
+                this.mode = "darken";
+                break;
         }
     };
-
     BlendMode.prototype = {
-        init: function(emitter, p)
-        {
+        init: function (emitter, p) {
             p.compositeOperation = this.mode;
-        }    
+        }
     };
-    
     return BlendMode;
 });
+//# sourceMappingURL=BlendMode.js.map

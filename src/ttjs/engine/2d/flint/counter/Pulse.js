@@ -1,11 +1,12 @@
+"use strict";
 /**
- * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework  
- * 
+ * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
+ *
  * ==================================================
- * 
+ *
  * FLINT PARTICLE SYSTEM
  * .....................
- * 
+ *
  *
  * Author: Richard Lord
  * Copyright (c) Richard Lord 2008-2011
@@ -30,58 +31,51 @@
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.  
- * 
+ * THE SOFTWARE.
+ *
  * ==================================================
- *   
+ *
  * Port to Javascript and modifications:
- * 
+ *
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
- * 
+ *
  */
-define([    
-], function(
-)
-{    
-	"use strict";
-    function Pulse(period, quantity, started) {        
+define([], function () {
+    "use strict";
+    function Pulse(period, quantity, started) {
         this._started = started || true;
-        
         this._timeToNext = 0;
-		this._period = period;
-		this._quantity = quantity || 0;
-		this._stop = 0;        
-    };
-    
+        this._period = period;
+        this._quantity = quantity || 0;
+        this._stop = 0;
+    }
+    ;
     Pulse.prototype = {
-        startEmitter: function(e)
-		{
-			this._timeToNext = this._period;
-			return this._quantity;
-		},
-        spawnParticles: function(e, time) {
-            if( !this._started )			
-				return 0;			
-
-			var count = 0;
-			this._timeToNext -= time;
-			while(this._timeToNext <= 0 )
-			{
-				count += this._quantity;
-				this._timeToNext += this._period;
-			}
-			return count;
+        startEmitter: function (e) {
+            this._timeToNext = this._period;
+            return this._quantity;
         },
-        isCompleted: function(){
+        spawnParticles: function (e, time) {
+            if (!this._started)
+                return 0;
+            var count = 0;
+            this._timeToNext -= time;
+            while (this._timeToNext <= 0) {
+                count += this._quantity;
+                this._timeToNext += this._period;
+            }
+            return count;
+        },
+        isCompleted: function () {
             return false;
         },
-        start: function() {
+        start: function () {
             this._started = true;
         },
-        stop: function() {
+        stop: function () {
             this._started = false;
         }
     };
-    
     return Pulse;
 });
+//# sourceMappingURL=Pulse.js.map

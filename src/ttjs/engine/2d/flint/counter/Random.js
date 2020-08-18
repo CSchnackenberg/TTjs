@@ -1,11 +1,12 @@
+"use strict";
 /**
- * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework  
- * 
+ * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
+ *
  * ==================================================
- * 
+ *
  * FLINT PARTICLE SYSTEM
  * .....................
- * 
+ *
  *
  * Author: Richard Lord
  * Copyright (c) Richard Lord 2008-2011
@@ -30,61 +31,54 @@
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.  
- * 
+ * THE SOFTWARE.
+ *
  * ==================================================
- *   
+ *
  * Port to Javascript and modifications:
- * 
+ *
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
- * 
+ *
  */
-define([    
-], function(
-)
-{    
-	"use strict";
-    function Random(minPerSec, maxPerSec, started) {        
-        this._started = started || true;        
+define([], function () {
+    "use strict";
+    function Random(minPerSec, maxPerSec, started) {
+        this._started = started || true;
         this._minPerSec = minPerSec;
         this._maxPerSec = maxPerSec;
         this._timeToNext = 0;
-    };
-    
+    }
+    ;
     Random.prototype = {
-        
-        _newTimeToNext: function() {			
-			var rate = Math.random() * ( this._maxPerSec - this._minPerSec ) + 0; //this._maxRate;
-			return 1 / rate;			
-		},        
-        startEmitter: function(e)
-		{
-			this._timeToNext = this._newTimeToNext();
-			return 0;
-		},
-        spawnParticles: function(e, time) {
-            if( !this._started )			
-				return 0;
-			
-			var count = 0;
-			this._timeToNext -= time;
-			while(this._timeToNext <= 0 )
-			{
-				++count;
-				this._timeToNext += this._newTimeToNext();
-			}
-			return count;
+        _newTimeToNext: function () {
+            var rate = Math.random() * (this._maxPerSec - this._minPerSec) + 0; //this._maxRate;
+            return 1 / rate;
         },
-        isCompleted: function(){
+        startEmitter: function (e) {
+            this._timeToNext = this._newTimeToNext();
+            return 0;
+        },
+        spawnParticles: function (e, time) {
+            if (!this._started)
+                return 0;
+            var count = 0;
+            this._timeToNext -= time;
+            while (this._timeToNext <= 0) {
+                ++count;
+                this._timeToNext += this._newTimeToNext();
+            }
+            return count;
+        },
+        isCompleted: function () {
             return false;
         },
-        start: function() {
+        start: function () {
             this._started = true;
         },
-        stop: function() {
+        stop: function () {
             this._started = false;
         }
     };
-    
     return Random;
 });
+//# sourceMappingURL=Random.js.map

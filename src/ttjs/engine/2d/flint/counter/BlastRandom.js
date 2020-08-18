@@ -1,11 +1,12 @@
+"use strict";
 /**
- * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework  
- * 
+ * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
+ *
  * ==================================================
- * 
+ *
  * FLINT PARTICLE SYSTEM
  * .....................
- * 
+ *
  *
  * Author: Richard Lord
  * Copyright (c) Richard Lord 2008-2011
@@ -30,65 +31,57 @@
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.  
- * 
+ * THE SOFTWARE.
+ *
  * ==================================================
- *   
+ *
  * Port to Javascript and modifications:
- * 
+ *
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
- * 
+ *
  */
-define([    
-], function(
-)
-{    
-	"use strict";
-    function BlastRandom(minPerSec, maxPerSec, maxCount, started) {        
+define([], function () {
+    "use strict";
+    function BlastRandom(minPerSec, maxPerSec, maxCount, started) {
         this._started = started || true;
         this.minRate = minPerSec;
-		this.maxRate = maxPerSec;		
-		this.maxCount = maxCount;
-        
+        this.maxRate = maxPerSec;
+        this.maxCount = maxCount;
         this._timeToNext = 0;
-		this._blasted = 0;
-    };
-    
+        this._blasted = 0;
+    }
+    ;
     BlastRandom.prototype = {
-        
-        _newTimeToNext: function() {
-            var rate = Math.random() * (this._maxRate - this._minRate ) + this._maxRate;
-			return 1 / rate;		
+        _newTimeToNext: function () {
+            var rate = Math.random() * (this._maxRate - this._minRate) + this._maxRate;
+            return 1 / rate;
         },
-        startEmitter: function(e)
-		{
-			this._timeToNext = this._newTimeToNext();
-			return 0;
-		},
-        spawnParticles: function(e, time) {
-            if( !this._started  || this._blasted >= this.maxCount )					
-				return 0;
-			
-			var count = 0;
-			this._timeToNext -= time;
-			while(this._timeToNext <= 0  && this._blasted++ < this.maxCount)
-			{				
-				++count;
-				this._timeToNext += this._newTimeToNext();			
-			}
-			return count;
+        startEmitter: function (e) {
+            this._timeToNext = this._newTimeToNext();
+            return 0;
         },
-        isCompleted: function(){
+        spawnParticles: function (e, time) {
+            if (!this._started || this._blasted >= this.maxCount)
+                return 0;
+            var count = 0;
+            this._timeToNext -= time;
+            while (this._timeToNext <= 0 && this._blasted++ < this.maxCount) {
+                ++count;
+                this._timeToNext += this._newTimeToNext();
+            }
+            return count;
+        },
+        isCompleted: function () {
             return false;
         },
-        start: function() {
+        start: function () {
             this._started = true;
             this._blasted = 0;
         },
-        stop: function() {
+        stop: function () {
             this._started = false;
         }
     };
-    
     return BlastRandom;
 });
+//# sourceMappingURL=BlastRandom.js.map

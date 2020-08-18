@@ -1,33 +1,31 @@
+"use strict";
 /**
  * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
- * 
+ *
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
  *
  * Addition to FLINT particles
- * 
+ *
  */
-define([
-], function(
-) {
+define([], function () {
     "use strict";
-    var RingBlastPosition = function(x, y, randRadiusX, randRadiusY, ringRadius=0, minVelocity, maxVelocity) {
+    var RingBlastPosition = function (x, y, randRadiusX, randRadiusY, ringRadius, minVelocity, maxVelocity) {
+        if (ringRadius === void 0) { ringRadius = 0; }
         this.randX = randRadiusX;
         this.randY = randRadiusY || randRadiusX;
         this.ringRadius = ringRadius;
-        this.minVel = minVelocity||0;
-        this.maxVel = maxVelocity||this.minVel;
-
+        this.minVel = minVelocity || 0;
+        this.maxVel = maxVelocity || this.minVel;
         this.pos = {
             x: x || 0,
             y: y || 0
         };
     };
-
     RingBlastPosition.prototype = {
-        init: function(emitter, p) {
-            const randAngle = Math.PI*2*Math.random();
+        init: function (emitter, p) {
+            var randAngle = Math.PI * 2 * Math.random();
             //p.rotation = randAngle;
-            const velPower = (this.minVel + (this.maxVel - this.minVel) * Math.random());
+            var velPower = (this.minVel + (this.maxVel - this.minVel) * Math.random());
             p.velocity.x = Math.cos(randAngle) * velPower;
             p.velocity.y = Math.sin(randAngle) * velPower;
             if (this.ringRadius > 0) {
@@ -40,6 +38,6 @@ define([
             }
         }
     };
-    
     return RingBlastPosition;
 });
+//# sourceMappingURL=RingBlastPosition.js.map

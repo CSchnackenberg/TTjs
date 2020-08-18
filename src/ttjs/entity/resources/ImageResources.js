@@ -1,3 +1,4 @@
+"use strict";
 /**
  * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
  *
@@ -7,35 +8,33 @@
  * Released under the MIT license
  * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
  */
-define(['ttjs/util/TTTools'], function(env)
-{    
+define(['ttjs/util/TTTools'], function (env) {
     "use strict";
-	
-	function ImageResources() {};	
-	
-	ImageResources.prototype = {
-		getType: function() {
-			return "jsImage";
-		},
-		canHandle: function(url) {
+    function ImageResources() { }
+    ;
+    ImageResources.prototype = {
+        getType: function () {
+            return "jsImage";
+        },
+        canHandle: function (url) {
             return (env.strEndsWith(url.toLowerCase(), ".png") ||
-                    env.strEndsWith(url.toLowerCase(), ".jpg") ||
-                    env.strEndsWith(url.toLowerCase(), ".jpeg") ||
-                    env.strEndsWith(url.toLowerCase(), ".gif"));
-		},		
-        load: function(url, callback) {            
+                env.strEndsWith(url.toLowerCase(), ".jpg") ||
+                env.strEndsWith(url.toLowerCase(), ".jpeg") ||
+                env.strEndsWith(url.toLowerCase(), ".gif"));
+        },
+        load: function (url, callback) {
             var jsImage = new Image();
-            jsImage.onload = function() {
+            jsImage.onload = function () {
                 callback(true, jsImage);
             };
-            var errorHandler = function() {
+            var errorHandler = function () {
                 callback(false, "Unable to load image '" + url + "'");
             };
             jsImage.onerror = errorHandler;
             jsImage.onabort = errorHandler;
             jsImage.src = url;
         }
-	};	
-	
-	return ImageResources;
+    };
+    return ImageResources;
 });
+//# sourceMappingURL=ImageResources.js.map

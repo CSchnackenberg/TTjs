@@ -1,3 +1,4 @@
+"use strict";
 /**
  * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
  *
@@ -9,12 +10,8 @@
 define([
     'ttjs/lib/lodash',
     'ttjs/engine/2d/flint/Easing',
-], function(
-    _,
-    Easing
-) {
+], function (_, Easing) {
     "use strict";
-    
     /**
      * Translates a string to a ease function.
      * This function allows a great deal of
@@ -29,9 +26,9 @@ define([
      * ["sine", "out"] => Easing.Sine.easeOut
      *
      */
-    function EaseFuncPropertyParser() {    
+    function EaseFuncPropertyParser() {
     }
-
+    EaseFuncPropertyParser._issue = null;
     /**
      * This function does the actual transform.
      *
@@ -40,22 +37,18 @@ define([
      *
      * @static
      */
-    EaseFuncPropertyParser.toEaseFunc = (easeFuncDef) => {
-
+    EaseFuncPropertyParser.toEaseFunc = function (easeFuncDef) {
         EaseFuncPropertyParser._issue = null;
-
-        let easeName = "";
-        let easeMode = "inout";
-
-
+        var easeName = "";
+        var easeMode = "inout";
         // We accept string like this: Sine.in
         if (_.isString(easeFuncDef)) {
-            const splitPos = easeFuncDef.indexOf(".");
+            var splitPos = easeFuncDef.indexOf(".");
             if (splitPos == -1) { // no '.'
                 easeName = easeFuncDef;
             }
             else {
-                const parts = easeFuncDef.split(".");
+                var parts = easeFuncDef.split(".");
                 easeName = parts[0];
                 easeMode = parts[1];
             }
@@ -69,73 +62,103 @@ define([
             EaseFuncPropertyParser._issue = "Unknown type for ease-func. Provide a string or an array with two values.";
             return null;
         }
-
-
         // to avoid (very slow) toLowerCase we simply do some
         // switching here.
-
-        let easeType = null;
-        switch(easeName) {
-            case "back": case "Back": easeType = Easing.Back; break;
-            case "bounce": case "Bounce": easeType = Easing.Bounce; break;
-            case "circular": case "Circular": easeType = Easing.Circular; break;
-            case "cubic": case "Cubic": easeType = Easing.Cubic; break;
-            case "elastic": case "Elastic": easeType = Easing.Elastic; break;
-            case "exponential": case "Exponential": easeType = Easing.Exponential; break;
-            case "linear": case "Linear": easeType = Easing.Linear; break;
-            case "quadratic": case "Quadratic": easeType = Easing.Quadratic; break;
-            case "quartic": case "Quartic": easeType = Easing.Quartic; break;
-            case "quintic": case "Quintic": easeType = Easing.Quintic; break;
-            case "sine": case "Sine": easeType = Easing.Sine; break;
+        var easeType = null;
+        switch (easeName) {
+            case "back":
+            case "Back":
+                easeType = Easing.Back;
+                break;
+            case "bounce":
+            case "Bounce":
+                easeType = Easing.Bounce;
+                break;
+            case "circular":
+            case "Circular":
+                easeType = Easing.Circular;
+                break;
+            case "cubic":
+            case "Cubic":
+                easeType = Easing.Cubic;
+                break;
+            case "elastic":
+            case "Elastic":
+                easeType = Easing.Elastic;
+                break;
+            case "exponential":
+            case "Exponential":
+                easeType = Easing.Exponential;
+                break;
+            case "linear":
+            case "Linear":
+                easeType = Easing.Linear;
+                break;
+            case "quadratic":
+            case "Quadratic":
+                easeType = Easing.Quadratic;
+                break;
+            case "quartic":
+            case "Quartic":
+                easeType = Easing.Quartic;
+                break;
+            case "quintic":
+            case "Quintic":
+                easeType = Easing.Quintic;
+                break;
+            case "sine":
+            case "Sine":
+                easeType = Easing.Sine;
+                break;
         }
         if (!easeType) {
-            EaseFuncPropertyParser._issue =  "Unknown ease type: '" + easeName + "'";
+            EaseFuncPropertyParser._issue = "Unknown ease type: '" + easeName + "'";
             return null;
         }
-
-
-        let finalFunc = null;
-        switch(easeMode) {
-            case "in": case "In": case "easeIn": case "EaseIn":
+        var finalFunc = null;
+        switch (easeMode) {
+            case "in":
+            case "In":
+            case "easeIn":
+            case "EaseIn":
                 finalFunc = easeType["easeIn"];
                 break;
-            case "out": case "Out": case "easeOut": case "EaseOut":
+            case "out":
+            case "Out":
+            case "easeOut":
+            case "EaseOut":
                 finalFunc = easeType["easeOut"];
                 break;
-            case "inout": case "inOut": case "easeInOut": case "EaseInOut":
+            case "inout":
+            case "inOut":
+            case "easeInOut":
+            case "EaseInOut":
                 finalFunc = easeType["easeInOut"];
                 break;
         }
-
         if (!easeType) {
-            EaseFuncPropertyParser._issue =  "For ease type: '" + easeName + "' unknown func: '" + easeMode + "'";
+            EaseFuncPropertyParser._issue = "For ease type: '" + easeName + "' unknown func: '" + easeMode + "'";
             return null;
         }
-
         return finalFunc;
     };
-
     EaseFuncPropertyParser.prototype = {
-                
         /**
-         * 
+         *
          * @param {String} propertyName the name
          * @param {Object} propertyInfo data from the component
          * @param {Object} instanceValue unparsed value from the instance
-         * @param {Object} outProps object that 
+         * @param {Object} outProps object that
          * @return {Mixed} undefined: okay, string: error desc;
          */
-        parse: function(propertyName, propertyInfo, instanceValue, outProps)
-        {
-            const finalFunc = EaseFuncPropertyParser.toEaseFunc(instanceValue);
+        parse: function (propertyName, propertyInfo, instanceValue, outProps) {
+            var finalFunc = EaseFuncPropertyParser.toEaseFunc(instanceValue);
             if (finalFunc == null) {
                 return EaseFuncPropertyParser._issue;
             }
-
             outProps[propertyName] = finalFunc;
-        }        
+        }
     };
-    
-    
     return EaseFuncPropertyParser;
 });
+//# sourceMappingURL=EaseFuncPropertyParser.js.map

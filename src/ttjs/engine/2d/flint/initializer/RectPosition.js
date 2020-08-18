@@ -1,31 +1,28 @@
+"use strict";
 /**
  * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
- * 
+ *
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
  *
  * Addition to FLINT particles
- * 
+ *
  */
-define([
-], function(
-) {
+define([], function () {
     "use strict";
-    var RectPosition = function(x, y, randX, randY) {
+    var RectPosition = function (x, y, randX, randY) {
         this.randX = randX;
         this.randY = randY;
-
         this.pos = {
             x: x || 0,
             y: y || 0
         };
     };
-
     RectPosition.prototype = {
-        init: function(emitter, p) {
+        init: function (emitter, p) {
             p.position.x += this.pos.x + Math.random() * this.randX;
             p.position.y += this.pos.y + Math.random() * this.randY;
-        }    
+        }
     };
-    
     return RectPosition;
 });
+//# sourceMappingURL=RectPosition.js.map

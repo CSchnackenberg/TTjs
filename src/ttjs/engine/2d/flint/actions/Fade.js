@@ -1,11 +1,12 @@
+"use strict";
 /**
- * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework  
- * 
+ * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
+ *
  * ==================================================
- * 
+ *
  * FLINT PARTICLE SYSTEM
  * .....................
- * 
+ *
  *
  * Author: Richard Lord
  * Copyright (c) Richard Lord 2008-2011
@@ -30,34 +31,28 @@
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.  
- * 
+ * THE SOFTWARE.
+ *
  * ==================================================
- *   
+ *
  * Port to Javascript and modifications:
- * 
+ *
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
- * 
+ *
  */
-define([     
-], function(        
-)
-{
+define([], function () {
     "use strict";
-    var Fade = function(startAlpha, endAlpha) {    
-        
+    var Fade = function (startAlpha, endAlpha) {
         startAlpha = startAlpha || 1;
         endAlpha = endAlpha || 0;
-        
         this.diffAlpha = startAlpha - endAlpha;
         this.endAlpha = endAlpha;
-    };        
-    
-    Fade.prototype = {
-        update: function(emitter, p, time) {
-           p.mixColor.a  = this.endAlpha + this.diffAlpha * p.energy;
-        }    
     };
-    
+    Fade.prototype = {
+        update: function (emitter, p, time) {
+            p.mixColor.a = this.endAlpha + this.diffAlpha * p.energy;
+        }
+    };
     return Fade;
 });
+//# sourceMappingURL=Fade.js.map

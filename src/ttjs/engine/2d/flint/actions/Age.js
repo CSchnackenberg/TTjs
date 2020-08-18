@@ -1,11 +1,12 @@
+"use strict";
 /**
- * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework  
- * 
+ * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
+ *
  * ==================================================
- * 
+ *
  * FLINT PARTICLE SYSTEM
  * .....................
- * 
+ *
  *
  * Author: Richard Lord
  * Copyright (c) Richard Lord 2008-2011
@@ -30,30 +31,24 @@
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.  
- * 
+ * THE SOFTWARE.
+ *
  * ==================================================
- *   
+ *
  * Port to Javascript and modifications:
- * 
+ *
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
- * 
+ *
  */
-define([     
+define([
     'ttjs/engine/2d/flint/EnergyEasing'
-], function(
-    EnergyEasing
-)
-{
+], function (EnergyEasing) {
     "use strict";
-    var Age = function(energyEasing) {        
+    var Age = function (energyEasing) {
         this._easingFunc = energyEasing || EnergyEasing.Linear.easeNone;
-    };    
-
-    
+    };
     Age.prototype = {
-        update: function(emitter, p, time)
-        {
+        update: function (emitter, p, time) {
             p.age += time;
             if (p.age >= p.lifetime) {
                 p.energy = 0;
@@ -62,9 +57,8 @@ define([
             else {
                 p.energy = this._easingFunc(p.age, p.lifetime);
             }
-
         }
     };
-    
     return Age;
 });
+//# sourceMappingURL=Age.js.map

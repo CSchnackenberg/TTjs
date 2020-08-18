@@ -1,11 +1,12 @@
+"use strict";
 /**
- * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework  
- * 
+ * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
+ *
  * ==================================================
- * 
+ *
  * FLINT PARTICLE SYSTEM
  * .....................
- * 
+ *
  *
  * Author: Richard Lord
  * Copyright (c) Richard Lord 2008-2011
@@ -30,44 +31,39 @@
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.  
- * 
+ * THE SOFTWARE.
+ *
  * ==================================================
- *   
+ *
  * Port to Javascript and modifications:
- * 
+ *
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
- * 
+ *
  */
-define([
-], function(
-)  {
+define([], function () {
     "use strict";
-    var Velocity = function(startX, endX, startY, endY) {        
+    var Velocity = function (startX, endX, startY, endY) {
         this.startX = startX || 0;
         this.endX = endX || this.startX;
         this.startY = startY || 0;
         this.endY = endY || this.startY;
     };
-    
     Velocity.prototype = {
-        init: function(emitter, p)
-        {           
-            var xx = (this.endX - this.startX) *  Math.random() + this.startX;
-            var yy = (this.endY - this.startY) *  Math.random() + this.startY;
-            
+        init: function (emitter, p) {
+            var xx = (this.endX - this.startX) * Math.random() + this.startX;
+            var yy = (this.endY - this.startY) * Math.random() + this.startY;
             if (p.rotation == 0) {
                 p.velocity.x = xx;
                 p.velocity.y = yy;
             }
             else {
                 var sinv = Math.sin(p.rotation);
-                var cosv = Math.cos(p.rotation);					
+                var cosv = Math.cos(p.rotation);
                 p.velocity.x = cosv * xx - sinv * yy;
                 p.velocity.y = cosv * yy + sinv * xx;
             }
-        }    
+        }
     };
-    
     return Velocity;
 });
+//# sourceMappingURL=Velocity.js.map

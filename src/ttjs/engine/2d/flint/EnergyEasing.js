@@ -1,5 +1,6 @@
+"use strict";
 /**
- * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework 
+ * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
  * .....................
  *
  * TERMS OF USE - EASING EQUATIONS
@@ -39,112 +40,81 @@
  * http://flintparticles.org
  *
  * Port to JavaScript:
- * 
+ *
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
  *
  * Used in the Flint Particle System - JavaScript-Port which is licenced under the MIT license. As per the
  * original license for Robert Penner's classes, these specific classes are released under
  * the BSD License.
  */
-define([    
-], function(
-)
-{
-
+define([], function () {
     var PI2X = 3.141592653;
-
-	"use strict";
+    "use strict";
     var EnergyEasing = {
-    
         Linear: {
-            easeNone: function(age, lifetime)
-            {
+            easeNone: function (age, lifetime) {
                 return 1 - age / lifetime;
             },
-            easeIn: function(age, lifetime)
-            {
+            easeIn: function (age, lifetime) {
                 return 1 - age / lifetime;
             },
-            easeOut: function(age, lifetime)
-            {
+            easeOut: function (age, lifetime) {
                 return 1 - age / lifetime;
             },
-            easeInOut: function(age, lifetime)
-            {
+            easeInOut: function (age, lifetime) {
                 return 1 - age / lifetime;
             }
         },
-        
         Quadratic: {
-            easeIn: function(age, lifetime)
-            {
-                return 1 - ( age /= lifetime ) * age;
+            easeIn: function (age, lifetime) {
+                return 1 - (age /= lifetime) * age;
             },
-            easeOut: function(age, lifetime)
-            {
-                return ( age = 1 - age / lifetime ) * age;
+            easeOut: function (age, lifetime) {
+                return (age = 1 - age / lifetime) * age;
             },
-            easeInOut: function(age, lifetime)
-            {
-                if ( ( age /= lifetime * 0.5 ) < 1 )
-                {
+            easeInOut: function (age, lifetime) {
+                if ((age /= lifetime * 0.5) < 1) {
                     return 1 - age * age * 0.5;
                 }
-                return ( age -= 2 ) * age * 0.5;
+                return (age -= 2) * age * 0.5;
             }
         },
-        
         Elastic: {
-            easeIn: function(age, lifetime)
-            {
-                if ( age == 0 )
-                {
+            easeIn: function (age, lifetime) {
+                if (age == 0) {
                     return 1;
                 }
-                if ( ( age /= lifetime ) == 1 )
-                {
+                if ((age /= lifetime) == 1) {
                     return 0;
                 }
-
                 var p = 0.3 * lifetime;
-                return 1 + Math.pow( 2, 10 * --age ) * Math.sin( ( age * lifetime - p * 0.25 ) * PI2X / p );
+                return 1 + Math.pow(2, 10 * --age) * Math.sin((age * lifetime - p * 0.25) * PI2X / p);
             },
-            easeOut: function(age, lifetime)
-            {
-                if ( age == 0 )
-                {
+            easeOut: function (age, lifetime) {
+                if (age == 0) {
                     return 1;
                 }
-                if ( ( age /= lifetime ) == 1 )
-                {
+                if ((age /= lifetime) == 1) {
                     return 0;
                 }
-
                 var p = 0.3 * lifetime;
-                return Math.pow( 2, -10 * age ) * Math.sin( ( age * lifetime - p * 0.25 ) * PI2X / p);
+                return Math.pow(2, -10 * age) * Math.sin((age * lifetime - p * 0.25) * PI2X / p);
             },
-            easeInOut: function(age, lifetime)
-            {
-                if ( age == 0 )
-                {
+            easeInOut: function (age, lifetime) {
+                if (age == 0) {
                     return 1;
                 }
-                if ( ( age /= lifetime * 0.5 ) == 2 )
-                {
+                if ((age /= lifetime * 0.5) == 2) {
                     return 0;
                 }
                 var p = lifetime * 0.45;
-                if ( age < 1 )
-                {
-                    return 1 + 0.5 * ( Math.pow( 2, 10 * --age ) * Math.sin( ( age * lifetime - p * 0.25 ) * PI2X / p ) );
+                if (age < 1) {
+                    return 1 + 0.5 * (Math.pow(2, 10 * --age) * Math.sin((age * lifetime - p * 0.25) * PI2X / p));
                 }
-                return -0.5 * Math.pow( 2, -10 * --age ) * Math.sin( ( age * lifetime - p * 0.25 ) * PI2X / p );
+                return -0.5 * Math.pow(2, -10 * --age) * Math.sin((age * lifetime - p * 0.25) * PI2X / p);
             }
         }
-        
-        
     };
-	
-    
     return EnergyEasing;
 });
+//# sourceMappingURL=EnergyEasing.js.map

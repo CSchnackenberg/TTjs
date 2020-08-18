@@ -1,3 +1,4 @@
+"use strict";
 /**
  * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
  *
@@ -7,13 +8,10 @@
  * Released under the MIT license
  * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
  */
-define([], function()
-{
+define([], function () {
     "use strict";
-
     /** @class  */
-    function EntityDefinition()
-    {
+    function EntityDefinition() {
         /** @type bool static entites are always instantiated */
         this.isStatic = false;
         /** @type String */
@@ -25,10 +23,10 @@ define([], function()
         /** property family */
         this.family = [];
         /** unparsed properties */
-        this.properties = {};     
-		/** information about the definition origin */
-		this.source = {};		
+        this.properties = {};
+        /** information about the definition origin */
+        this.source = {};
     }
-	
     return EntityDefinition;
 });
+//# sourceMappingURL=EntityDefinition.js.map

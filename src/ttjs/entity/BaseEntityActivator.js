@@ -1,3 +1,4 @@
+"use strict";
 /**
  * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
  *
@@ -7,100 +8,93 @@
  * Released under the MIT license
  * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
  */
-define([], function() {
+define([], function () {
     "use strict";
     /** @class base class for entity activation */
-    function BaseEntityActivator() {       
+    function BaseEntityActivator() {
     }
     BaseEntityActivator.prototype = {
         /** @param {Entity} entity activates the entity */
-        check: function(entity)
-        {
+        check: function (entity) {
             // OVERWRITE
             return false;
         },
-         /**
-          * updates entities
-          *
-          * @param {Array} newEntities
-          * @param {Array} alwaysActive
-          * @param {Array} activeEntities
-          * @param {Array} deactiveEntities
-          **/
-        updateEntityActivation: function(
-                newEntities,
-                alwaysActive,
-                activeEntities,
-                deactiveEntities)
-        {
+        /**
+         * updates entities
+         *
+         * @param {Array} newEntities
+         * @param {Array} alwaysActive
+         * @param {Array} activeEntities
+         * @param {Array} deactiveEntities
+         **/
+        updateEntityActivation: function (newEntities, alwaysActive, activeEntities, deactiveEntities) {
             var len, i;
             /** @type Entity */
-            var entity;       
-            /** @type Array */       
+            var entity;
+            /** @type Array */
             var newDeactives = [];
-
             // ALWAYS ACTIVE entities
-            for (i=0; i<alwaysActive.length;) {
-                entity = alwaysActive[i]; 
+            for (i = 0; i < alwaysActive.length;) {
+                entity = alwaysActive[i];
                 if (entity.isGarbage()) {
-                    if (i < alwaysActive.length-1) // SWAP 
-                        alwaysActive[i] = alwaysActive[alwaysActive.length-1];
-                   alwaysActive.pop(); // DELETE
-                   entity.onDeactivate();
-                   entity.onDispose();
+                    if (i < alwaysActive.length - 1) // SWAP 
+                        alwaysActive[i] = alwaysActive[alwaysActive.length - 1];
+                    alwaysActive.pop(); // DELETE
+                    entity.onDeactivate();
+                    entity.onDispose();
                 }
                 else {
                     i++;
                 }
             }
             // ACTIVE entities
-            for (i=0; i<activeEntities.length;) {
-                entity = activeEntities[i]; 
+            for (i = 0; i < activeEntities.length;) {
+                entity = activeEntities[i];
                 if (entity.isGarbage()) {
-                    if (i < activeEntities.length-1) // SWAP 
-                        activeEntities[i] = activeEntities[activeEntities.length-1];
-                   activeEntities.pop(); // DELETE
-                   entity.onDeactivate();
-                   entity.onDispose();
-                }             
-                else if (!this.check(entity)) {                
-                    if (i < activeEntities.length-1) // SWAP 
-                        activeEntities[i] = activeEntities[activeEntities.length-1];
+                    if (i < activeEntities.length - 1) // SWAP 
+                        activeEntities[i] = activeEntities[activeEntities.length - 1];
+                    activeEntities.pop(); // DELETE
+                    entity.onDeactivate();
+                    entity.onDispose();
+                }
+                else if (!this.check(entity)) {
+                    if (i < activeEntities.length - 1) // SWAP 
+                        activeEntities[i] = activeEntities[activeEntities.length - 1];
                     activeEntities.pop(); // DELETE
                     newDeactives.push(entity);
                     entity.onDeactivate();
                 }
                 else {
-                    i++
+                    i++;
                 }
             }
             // DEACTIVE entities
-            for (i=0; i<deactiveEntities.length; ) {
-               entity = deactiveEntities[i]; 
-               if (entity.isGarbage()) {
-                   if (i < deactiveEntities.length-1) // SWAP 
-                        deactiveEntities[i] = deactiveEntities[deactiveEntities.length-1];                
-                   deactiveEntities.pop(); // DELETE
-                   entity.onDispose();
-               }  
-               else if (this.check(entity)) {
-                   if (i < deactiveEntities.length-1) // SWAP 
-                        deactiveEntities[i] = deactiveEntities[deactiveEntities.length-1];                
-                   activeEntities.push(entity);
-                   entity.onActivate();
-                   deactiveEntities.pop(); // DELETE
+            for (i = 0; i < deactiveEntities.length;) {
+                entity = deactiveEntities[i];
+                if (entity.isGarbage()) {
+                    if (i < deactiveEntities.length - 1) // SWAP 
+                        deactiveEntities[i] = deactiveEntities[deactiveEntities.length - 1];
+                    deactiveEntities.pop(); // DELETE
+                    entity.onDispose();
                 }
-               else {
-                   i++;
-               }
+                else if (this.check(entity)) {
+                    if (i < deactiveEntities.length - 1) // SWAP 
+                        deactiveEntities[i] = deactiveEntities[deactiveEntities.length - 1];
+                    activeEntities.push(entity);
+                    entity.onActivate();
+                    deactiveEntities.pop(); // DELETE
+                }
+                else {
+                    i++;
+                }
             }
             len = newDeactives.length;
-            for (i=0; i<len; i++)
+            for (i = 0; i < len; i++)
                 deactiveEntities.push(newDeactives[i]);
             // NEW entities
             len = newEntities.length;
-            for (i=0; i<len; i++) {
-                entity = newEntities.pop();                        
+            for (i = 0; i < len; i++) {
+                entity = newEntities.pop();
                 if (entity.props.alwaysActive) {
                     entity.onActivate();
                     activeEntities.push(entity);
@@ -111,15 +105,15 @@ define([], function() {
                         activeEntities.push(entity);
                     }
                     else {
-						if (!entity.isGarbage())
-							deactiveEntities.push(entity);    
-						else {
-						}
+                        if (!entity.isGarbage())
+                            deactiveEntities.push(entity);
+                        else {
+                        }
                     }
                 }
             }
         }
     };
-
     return BaseEntityActivator;
 });
+//# sourceMappingURL=BaseEntityActivator.js.map

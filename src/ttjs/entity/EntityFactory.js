@@ -1,3 +1,4 @@
+"use strict";
 /**
  * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
  *
@@ -19,58 +20,40 @@ define([
     'ttjs/entity/ResourceManager',
     'ttjs/entity/EntityInstance',
     'ttjs/entity/EntityLinker'
-],
-function(
-    env,
-    _,
-    ComponentManager,
-    NumberPropertyParser,
-    StringPropertyParser,
-    EnumPropertyParser,
-    AnyPropertyParser,
-    EaseFuncPropertyParser,
-    ResourceManager,
-    EntityInstance,
-    EntityLinker
-)
-{
+], function (env, _, ComponentManager, NumberPropertyParser, StringPropertyParser, EnumPropertyParser, AnyPropertyParser, EaseFuncPropertyParser, ResourceManager, EntityInstance, EntityLinker) {
     "use strict";
-
     /**
-     * @class 	 
-     * 
+     * @class
+     *
      * @param {ResourceManager} resourceManager description
      * @returns {EntityFactory}
      */
-    function EntityFactory(resourceManager)
-    {
+    function EntityFactory(resourceManager) {
         this._linkedDefinitions = {};
         this._linker = new EntityLinker();
         this._resourceManager = resourceManager || new ResourceManager();
         this.nextEntityId = 1;
-
         // default parser
         this._propertyParser = {
             "number": new NumberPropertyParser(),
             "string": new StringPropertyParser(),
             "enum": new EnumPropertyParser(),
             "ease": new EaseFuncPropertyParser(),
-            "any": new AnyPropertyParser(),
+            "any": new AnyPropertyParser()
         };
     }
-
     EntityFactory.prototype = {
-        addDefinitions: function(defs) {
+        addDefinitions: function (defs) {
             this._linker.addDefinitions(defs);
         },
         /**
          * This function loads all data that is required for the
-         * provided entities. 
-         * 
+         * provided entities.
+         *
          * @param {mixed} entityInstances array or EntityInstance object
          * @param {function} onReady called when all data is prepared
          */
-        preloadEntities: function(entityInstances, onReady, logger, depth) {
+        preloadEntities: function (entityInstances, onReady, logger, depth) {
             depth = depth || 0;
             if (!this._linker.linked) {
                 this._linkedDefinitions = this._linker.link(logger);
@@ -96,12 +79,10 @@ function(
             //      perform the callback
             //
             // Return (via callback) instance-able entities (including prased properties)
-
             // instances we can work with
             var i, i2, len, len2;
             var validInstances = [];
             var componentList = [];
-
             // STEP 1					
             len = entityInstances.length;
             for (i = 0; i < len; i++) {
@@ -129,16 +110,14 @@ function(
             }
             // Load components
             var thiz = this;
-            ComponentManager.require(componentList, function() {
+            ComponentManager.require(componentList, function () {
                 // check all instances again
                 var oldValidInstances = validInstances;
                 validInstances = [];
-
                 len = oldValidInstances.length;
                 for (i = 0; i < len; i++) {
                     instance = oldValidInstances[i];
                     def = thiz._linkedDefinitions[instance.entityDefinitionName.toLowerCase()];
-
                     // collect all components
                     len2 = def.components.length;
                     var stateOk = true;
@@ -220,12 +199,13 @@ function(
                 validInstances = [];
                 len = oldValidInstances.length;
                 var requiredResources = [];
+                var errorInCmpRes = false;
                 for (i = 0; i < len; i++) { // each Entity				
                     instance = oldValidInstances[i];
                     instance.expectedResources = [];
                     def = thiz._linkedDefinitions[instance.entityDefinitionName.toLowerCase()];
                     len2 = def.components.length;
-                    var errorInCmpRes = false;
+                    errorInCmpRes = false;
                     for (i2 = 0; i2 < len2 && !errorInCmpRes; i2++) {
                         var cmpName = def.components[i2];
                         var cmpClass = ComponentManager.getClass(cmpName);
@@ -281,7 +261,7 @@ function(
                     // STEP 5.b
                     if (requiredChildren.length > 0) {
                         //console.log("Request children ", requiredChildren);
-                        thiz.preloadEntities(requiredChildren, function(childStuff) {
+                        thiz.preloadEntities(requiredChildren, function (childStuff) {
                             //console.log("Children results", childStuff);
                             onReady(validInstances);
                         }, logger, depth + 1);
@@ -292,7 +272,7 @@ function(
                     return;
                 }
                 // load resources
-                thiz._resourceManager.request(requiredResources, function() {
+                thiz._resourceManager.request(requiredResources, function () {
                     // all data loaded
                     // Now we check if all data is loaded for each
                     // entity.
@@ -309,7 +289,7 @@ function(
                             var url = instance.expectedResources[i2].url;
                             if (!thiz._resourceManager.isResourceLoaded(type, url)) {
                                 allResourcesLoaded = false;
-                                logger.error("Cannot load Entity:",  instance.entityDefinitionName, ". Required resource", url, "was not loaded. Issue:",thiz._resourceManager.getResourceError(type, url));
+                                logger.error("Cannot load Entity:", instance.entityDefinitionName, ". Required resource", url, "was not loaded. Issue:", thiz._resourceManager.getResourceError(type, url));
                             }
                         }
                         if (allResourcesLoaded)
@@ -318,7 +298,7 @@ function(
                     // STEP 5.b
                     if (requiredChildren.length > 0) {
                         //console.log("Request children ", requiredChildren);
-                        thiz.preloadEntities(requiredChildren, function(childStuff) {
+                        thiz.preloadEntities(requiredChildren, function (childStuff) {
                             //console.log("Children results", childStuff);
                             onReady(validInstances);
                         }, logger, depth + 1);
@@ -332,12 +312,12 @@ function(
         },
         /**
          * uniforms resource parameter
-         * 
+         *
          * @param {type} thiz
          * @param {type} req
          * @returns {mixed} object or error-string in case of a problem
          */
-        _unifyResourceProperties: function(thiz, req) {
+        _unifyResourceProperties: function (thiz, req) {
             // Resources can be provided in different formats.
             // 
             // 1) Array
@@ -364,7 +344,7 @@ function(
             //    			
             var retVal = [];
             var tempType;
-            _.forEach(req, function(rawResourceDesc, index) {
+            _.forEach(req, function (rawResourceDesc, index) {
                 if (_.isArray(rawResourceDesc)) {
                     retVal.push({
                         'type': rawResourceDesc[0],
@@ -390,7 +370,7 @@ function(
                             return false;
                         }
                         if (_.isEmpty(tempType) ||
-                        _.isEmpty(rawResourceDesc)) {
+                            _.isEmpty(rawResourceDesc)) {
                             retVal = "Url or type are undefined/empty. url: '" + rawResourceDesc + "' type:'" + tempType + "'";
                             return false;
                         }
@@ -401,8 +381,8 @@ function(
                     }
                 }
                 else if (!_.isPlainObject(rawResourceDesc) ||
-                !rawResourceDesc.hasOwnProperty('type') ||
-                !rawResourceDesc.hasOwnProperty('url')) {
+                    !rawResourceDesc.hasOwnProperty('type') ||
+                    !rawResourceDesc.hasOwnProperty('url')) {
                     retVal = "object with 'type' and/or 'url' is missing.";
                     return false;
                 }
@@ -418,11 +398,11 @@ function(
             return retVal;
         },
         /**
-         * 
-         * @private		 
+         *
+         * @private
          * @returns {mixed} object: all properties parsed. undefined: error
          */
-        _parseProperties: function(thiz, def, rawProps, entityName, logger) {
+        _parseProperties: function (thiz, def, rawProps, entityName, logger) {
             var res = {};
             var rawProp;
             var i, len;
@@ -437,7 +417,7 @@ function(
                         var needInfo = cmpSetup.need[need];
                         // some convinience
                         if (typeof (needInfo) === "string")
-                            needInfo = {type: needInfo};
+                            needInfo = { type: needInfo };
                         if (typeof (needInfo) !== "object") {
                             logger.warn("Warning in Entity: " + entityName + " with components \"" + cmpName + "\". Property requirement must be string or object.");
                             continue;
@@ -447,7 +427,7 @@ function(
                             return;
                         }
                         rawProp = rawProps[need];
-                        var type = needInfo.type.toLowerCase()
+                        var type = needInfo.type.toLowerCase();
                         var parser = this._propertyParser[type];
                         if (!parser) {
                             logger.error("Cannot spawn Entity: " + entityName + " with components \"" + cmpName + "\". Required Property \"" + need + "\". Unknown type \"" + needInfo.type + "\".");
@@ -468,7 +448,7 @@ function(
                         var optInfo = cmpSetup.opt[opt];
                         // some convinience
                         if (env.isArray(optInfo))
-                            optInfo = {type: optInfo[0], def: optInfo[1]};
+                            optInfo = { type: optInfo[0], def: optInfo[1] };
                         var optType = optInfo.type;
                         var optDef = optInfo.def;
                         if (!_.isPlainObject(optInfo)) {
@@ -500,17 +480,14 @@ function(
                         delete rawProps[opt];
                     }
                 }
-
                 // SIMPLY COPY THE REST
                 // TODO: deep copy!?
-
                 for (var name in rawProps)
                     res[name] = rawProps[name];
             }
-
             return res;
         }
     };
-
     return EntityFactory;
 });
+//# sourceMappingURL=EntityFactory.js.map

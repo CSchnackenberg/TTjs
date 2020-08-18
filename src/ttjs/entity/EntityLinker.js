@@ -1,3 +1,4 @@
+"use strict";
 /**
  * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
  * (or related project)
@@ -9,9 +10,7 @@
  */
 define([
     'jquery' // TODO !!! replace JQ
-],
-function($)
-{
+], function ($) {
     "use strict";
     function LinkedEntityDefinition() {
         /** @type bool static entites are always instantiated */
@@ -23,12 +22,9 @@ function($)
         this.type = "";
         this.name = "";
     }
-
     function combineObjects(a, b) {
         var ex = {};
-
         // TODO !!! replace JQ
-
         // TODO replace to remove JQuery dependency        
         // 
         // possible option https://gist.github.com/p0rsche/2763377
@@ -39,10 +35,9 @@ function($)
         // Thus some expensive checks could be ignored in
         // the 'extension' which might bring performance
         //
-        $.extend(true, ex, a, b); 
+        $.extend(true, ex, a, b);
         return ex;
     }
-
     /**
      *
      *
@@ -54,17 +49,16 @@ function($)
         this._definitions = {};
         this._linkedDefinitions = {};
     }
-
     EntityLinker.prototype = {
-        addDefinitions: function(defs) {
+        addDefinitions: function (defs) {
             for (var k in defs)
                 this._definitions[k] = defs[k];
-            this.linked = false;      
+            this.linked = false;
         },
         /**
          * @private
          */
-        _resolveDependencyOrder: function(logger) {
+        _resolveDependencyOrder: function (logger) {
             // TASK: resolve dependency
             // The JavaScript-objects do not guarantee a specific order
             // for the keys.
@@ -131,15 +125,12 @@ function($)
             // So until this sorting step does not proof to be
             // an performance issue I think its best to have
             // a simple config over a fast linking.
-
-
             // perform topology-search (first approach: just get
             // it to work. optimize later)
             var sortedDefinitionList = [];
             var sortedDefinitionSet = {};
             var pendingDefinitions = [];
-            for (var definitionName in this._definitions)
-            {
+            for (var definitionName in this._definitions) {
                 var rawDef = this._definitions[definitionName];
                 var depends = this._getDependencies(rawDef);
                 //console.log(definitionName, "=>", depends);
@@ -148,7 +139,7 @@ function($)
                     sortedDefinitionSet[definitionName] = true;
                 }
                 else {
-                    pendingDefinitions.push({                        
+                    pendingDefinitions.push({
                         def: rawDef,
                         dependsOn: depends
                     });
@@ -173,7 +164,7 @@ function($)
                     }
                     if (allFound) {
                         numFound++;
-                        pendingDefinitions.splice(i2, 1);// remove entry from pending
+                        pendingDefinitions.splice(i2, 1); // remove entry from pending
                         sortedDefinitionList.push(pendingDef.def);
                         sortedDefinitionSet[pendingDef.def.name.toLowerCase()] = true;
                     }
@@ -201,7 +192,7 @@ function($)
          * @param {type} logger
          * @returns {Array} Array with required definitions or null
          */
-        _getDependencies: function(def, logger) {
+        _getDependencies: function (def, logger) {
             var depends, i, len;
             // check parent
             if (def.parent) {
@@ -220,7 +211,7 @@ function($)
                 var linkProp = def.properties[key];
                 if (key[0] === "$") {
                     if (key.length > 1 &&
-                    typeof (linkProp) === "string") {
+                        typeof (linkProp) === "string") {
                         var parts = linkProp.split('.');
                         if (parts.length === 2) {
                             depends = depends || {};
@@ -234,7 +225,7 @@ function($)
         /**
          * link definitions and properties
          **/
-        link: function(logger) {
+        link: function (logger) {
             this._linkedDefinitions = {};
             var orderedDefinitionList = this._resolveDependencyOrder(logger);
             var i, len, i2, len2 = orderedDefinitionList.length;
@@ -246,7 +237,6 @@ function($)
                 newDefinition.name = def.name;
                 if (!def.type)
                     def.type = "entity";
-
                 // inherit from parent
                 if (def.parent) {
                     /* @type {LinkedEntityDefinition}  */
@@ -266,11 +256,9 @@ function($)
                     len = parentEntity.components.length;
                     for (i = 0; i < len; i++)
                         newDefinition.components.push(parentEntity.components[i]);
-
                     // set properties
                     newDefinition.properties = combineObjects(def.properties, parentEntity.properties);
                 }
-
                 // set own components
                 len = def.components ? def.components.length : 0;
                 if (def.type === "entity" && len === 0 && newDefinition.length === 0) {
@@ -279,7 +267,6 @@ function($)
                 }
                 for (i = 0; i < len; i++)
                     newDefinition.components.push(def.components[i]);
-
                 // inherit properties from family
                 len = def.family ? def.family.length : 0;
                 var familyEntryOk = true;
@@ -300,25 +287,22 @@ function($)
                     }
                     newDefinition.properties = combineObjects(newDefinition.properties, familyEntryObj.properties);
                 }
-
                 // do not add
                 if (!familyEntryOk)
                     continue;
-
                 // combine own properties
                 newDefinition.properties = combineObjects(newDefinition.properties, def.properties);
-
                 // unwrap peoperty links
                 for (var key in newDefinition.properties) {
                     var linkProp = newDefinition.properties[key];
                     if (key[0] === "$") {
                         var linkSuccess = false;
                         if (key.length > 1 &&
-                        typeof (linkProp) === "string") {
+                            typeof (linkProp) === "string") {
                             delete newDefinition.properties[key];
                             var parts = linkProp.split('.');
                             if (parts.length === 2 &&
-                            this._linkedDefinitions.hasOwnProperty(parts[0].toLowerCase())) {
+                                this._linkedDefinitions.hasOwnProperty(parts[0].toLowerCase())) {
                                 var newVal = this._linkedDefinitions[parts[0].toLowerCase()].properties[parts[1]];
                                 if (newVal) {
                                     newDefinition.properties[key.substring(1)] = newVal;
@@ -339,6 +323,6 @@ function($)
             return this._linkedDefinitions;
         }
     };
-
     return EntityLinker;
 });
+//# sourceMappingURL=EntityLinker.js.map

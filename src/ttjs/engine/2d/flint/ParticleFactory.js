@@ -1,11 +1,12 @@
+"use strict";
 /**
- * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework  
- * 
+ * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
+ *
  * ==================================================
- * 
+ *
  * FLINT PARTICLE SYSTEM
  * .....................
- * 
+ *
  *
  * Author: Richard Lord
  * Copyright (c) Richard Lord 2008-2011
@@ -30,62 +31,54 @@
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.  
- * 
+ * THE SOFTWARE.
+ *
  * ==================================================
- *   
+ *
  * Port to Javascript and modifications:
- * 
+ *
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
- * 
+ *
  */
-define([   
-   'ttjs/engine/2d/flint/Particle'    
-], function(
-   Particle
-)
-{    
+define([
+    'ttjs/engine/2d/flint/Particle'
+], function (Particle) {
     "use strict";
-
-    const Pool = function() {
+    var Pool = function () {
         this._cache = [];
         this._createdObjects = 0;
     };
-
-    Pool.prototype.putBack = function(p) {
+    Pool.prototype.putBack = function (p) {
         this._cache.push(p);
     };
-    Pool.prototype.takeOut = function(p) {
+    Pool.prototype.takeOut = function (p) {
         if (this._cache.length == 0) {
             this._createdObjects++;
-
             if (this._createdObjects > 10000) {
                 console.error("Created more than 10k particle objects. Likely a memory leak.");
             }
-
             return new Particle();
         }
         return this._cache.pop();
     };
-
-
     /**
      * Class to create particles. At some point later we
      * can introduce a cached concept here.
      */
-    var ParticleFactory = function(useCache = false) {
+    var ParticleFactory = function (useCache) {
+        if (useCache === void 0) { useCache = false; }
         this._pool = useCache ? new Pool() : null;
     };
-    ParticleFactory.prototype.create = function() {   
+    ParticleFactory.prototype.create = function () {
         return this._pool ? this._pool.takeOut() : new Particle();
     };
-    ParticleFactory.prototype.destroyParticle = function(particle) {
+    ParticleFactory.prototype.destroyParticle = function (particle) {
         if (this._pool) {
             particle.sprite.reset();
             particle.reset();
             this._pool.putBack(particle);
         }
-	};   
-    
+    };
     return ParticleFactory;
 });
+//# sourceMappingURL=ParticleFactory.js.map
