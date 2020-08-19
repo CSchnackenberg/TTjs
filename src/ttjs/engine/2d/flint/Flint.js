@@ -57,7 +57,7 @@ define([
             Rotate: Rotate,
             SortY: SortY,
             TargetScale: TargetScale,
-            TargetVelocity: TargetVelocity
+            TargetVelocity: TargetVelocity,
         },
         Initializer: {
             Alpha: Alpha,
@@ -71,7 +71,7 @@ define([
             BlendMode: BlendMode,
             RectPosition: RectPosition,
             CirclePosition: CirclePosition,
-            RingBlastPosition: RingBlastPosition
+            RingBlastPosition: RingBlastPosition,
         },
         Counter: {
             Blast: Blast,

@@ -287,7 +287,7 @@ define([], function () {
             easeInOut: function (t, b, c, d) {
                 return -c * 0.5 * (Math.cos(Math.PI * t / d) - 1) + b;
             }
-        }
+        },
     };
     return Easing;
 });

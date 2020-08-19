@@ -39,7 +39,7 @@ define([
             "string": new StringPropertyParser(),
             "enum": new EnumPropertyParser(),
             "ease": new EaseFuncPropertyParser(),
-            "any": new AnyPropertyParser()
+            "any": new AnyPropertyParser(),
         };
     }
     EntityFactory.prototype = {
