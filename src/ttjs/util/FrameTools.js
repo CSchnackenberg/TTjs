@@ -7,7 +7,7 @@
 define(["require", "exports"], function (require, exports) {
     "use strict";
     exports.__esModule = true;
-    exports.getRequestAnimationFrame = exports.getRequestAnimationFrame2 = exports.getPerformanceNow = void 0;
+    exports.getRequestAnimationFrame2 = exports.getPerformanceNow = void 0;
     function getPerformanceNow() {
         return performance.now ||
             performance.mozNow ||
@@ -31,17 +31,5 @@ define(["require", "exports"], function (require, exports) {
             };
     }
     exports.getRequestAnimationFrame2 = getRequestAnimationFrame2;
-    function getRequestAnimationFrame() {
-        return window.requestAnimationFrame ||
-            window.webkitRequestAnimationFrame ||
-            window.mozRequestAnimationFrame ||
-            window.oRequestAnimationFrame ||
-            window.msRequestAnimationFrame ||
-            function (callback) {
-                window.setTimeout(callback, 1000 / 60);
-                return 0;
-            };
-    }
-    exports.getRequestAnimationFrame = getRequestAnimationFrame;
 });
 //# sourceMappingURL=FrameTools.js.map

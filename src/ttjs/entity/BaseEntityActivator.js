@@ -1,4 +1,3 @@
-"use strict";
 /**
  * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
  *
@@ -8,11 +7,15 @@
  * Released under the MIT license
  * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
  */
-define([], function () {
+// define([], function() {
+define(["require", "exports"], function (require, exports) {
     "use strict";
+    exports.__esModule = true;
+    exports.BaseEntityActivator = void 0;
     /** @class base class for entity activation */
     function BaseEntityActivator() {
     }
+    exports.BaseEntityActivator = BaseEntityActivator;
     BaseEntityActivator.prototype = {
         /** @param {Entity} entity activates the entity */
         check: function (entity) {
@@ -37,7 +40,7 @@ define([], function () {
             for (i = 0; i < alwaysActive.length;) {
                 entity = alwaysActive[i];
                 if (entity.isGarbage()) {
-                    if (i < alwaysActive.length - 1) // SWAP 
+                    if (i < alwaysActive.length - 1) // SWAP
                         alwaysActive[i] = alwaysActive[alwaysActive.length - 1];
                     alwaysActive.pop(); // DELETE
                     entity.onDeactivate();
@@ -51,14 +54,14 @@ define([], function () {
             for (i = 0; i < activeEntities.length;) {
                 entity = activeEntities[i];
                 if (entity.isGarbage()) {
-                    if (i < activeEntities.length - 1) // SWAP 
+                    if (i < activeEntities.length - 1) // SWAP
                         activeEntities[i] = activeEntities[activeEntities.length - 1];
                     activeEntities.pop(); // DELETE
                     entity.onDeactivate();
                     entity.onDispose();
                 }
                 else if (!this.check(entity)) {
-                    if (i < activeEntities.length - 1) // SWAP 
+                    if (i < activeEntities.length - 1) // SWAP
                         activeEntities[i] = activeEntities[activeEntities.length - 1];
                     activeEntities.pop(); // DELETE
                     newDeactives.push(entity);
@@ -72,13 +75,13 @@ define([], function () {
             for (i = 0; i < deactiveEntities.length;) {
                 entity = deactiveEntities[i];
                 if (entity.isGarbage()) {
-                    if (i < deactiveEntities.length - 1) // SWAP 
+                    if (i < deactiveEntities.length - 1) // SWAP
                         deactiveEntities[i] = deactiveEntities[deactiveEntities.length - 1];
                     deactiveEntities.pop(); // DELETE
                     entity.onDispose();
                 }
                 else if (this.check(entity)) {
-                    if (i < deactiveEntities.length - 1) // SWAP 
+                    if (i < deactiveEntities.length - 1) // SWAP
                         deactiveEntities[i] = deactiveEntities[deactiveEntities.length - 1];
                     activeEntities.push(entity);
                     entity.onActivate();
@@ -114,6 +117,7 @@ define([], function () {
             }
         }
     };
-    return BaseEntityActivator;
 });
+//     return BaseEntityActivator;
+// });
 //# sourceMappingURL=BaseEntityActivator.js.map

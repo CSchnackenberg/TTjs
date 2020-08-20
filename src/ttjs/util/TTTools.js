@@ -1,4 +1,3 @@
-"use strict";
 /**
  * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
  *
@@ -8,9 +7,13 @@
  * Released under the MIT license
  * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
  */
-define(['jquery'], function ($) {
-    // TODO !!! replace JQ
-    var TTTools = {
+// define(['jquery'], function($) {
+// TODO !!! replace JQ
+define(["require", "exports", "jquery"], function (require, exports, $) {
+    "use strict";
+    exports.__esModule = true;
+    exports.TTTools = void 0;
+    exports.TTTools = {
         inherits: function (ctor, superCtor) {
             ctor.super_ = superCtor;
             ctor.prototype = Object.create(superCtor.prototype, {
@@ -45,7 +48,7 @@ define(['jquery'], function ($) {
                 var val = obj[key];
                 if (typeof val === "object") {
                     console.log(tab + key + " = {");
-                    TTTools.dumpTree(val, tab + "  ");
+                    exports.TTTools.dumpTree(val, tab + "  ");
                     console.log(tab + "}");
                 }
                 else
@@ -80,7 +83,7 @@ define(['jquery'], function ($) {
             var result = {};
             prefix = "" || prefix;
             var loadScripts = scripts.slice();
-            TTTools._loadScripts(loadScripts.reverse(), ret, prefix, result);
+            exports.TTTools._loadScripts(loadScripts.reverse(), ret, prefix, result);
         },
         /** @private */
         _loadScripts: function (scripts, ret, prefix, result) {
@@ -92,11 +95,11 @@ define(['jquery'], function ($) {
                 $.getScript(prefix + nextSrc + ".js")
                     .done(function (script, textStatus) {
                     result[nextSrc] = "ok";
-                    TTTools._loadScripts(scripts, ret, prefix, result);
+                    exports.TTTools._loadScripts(scripts, ret, prefix, result);
                 })
                     .fail(function (jqxhr, settings, exception) {
                     result[nextSrc] = "err";
-                    TTTools._loadScripts(scripts, ret, prefix, result);
+                    exports.TTTools._loadScripts(scripts, ret, prefix, result);
                 });
             }
         },
@@ -115,13 +118,13 @@ define(['jquery'], function ($) {
                 })
                     .done(function (data, textStatus) {
                     result[nextSrc] = data;
-                    TTTools._loadTextFiles(fileList, ret, result);
+                    exports.TTTools._loadTextFiles(fileList, ret, result);
                 })
                     .fail(function (jqxhr, settings, exception) {
                     console.error(exception);
                     result[nextSrc] = null;
                     result.foundError = true;
-                    TTTools._loadTextFiles(fileList, ret, result);
+                    exports.TTTools._loadTextFiles(fileList, ret, result);
                 });
             }
         },
@@ -146,6 +149,7 @@ define(['jquery'], function ($) {
             console.log(JSON.stringify(someObj));
         }
     };
-    return TTTools;
 });
+// 	return TTTools;
+// });
 //# sourceMappingURL=TTTools.js.map
