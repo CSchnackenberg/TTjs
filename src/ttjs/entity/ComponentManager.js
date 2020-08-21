@@ -52,6 +52,7 @@ define(["require", "exports", "@ttjs/util/TTTools"], function (require, exports,
                 return "unknown";
         },
         require: function (src, callback) {
+            var _this = this;
             if (!TTTools_1.TTTools.isArray(src))
                 src = [src];
             var localPending = [];
@@ -115,40 +116,58 @@ define(["require", "exports", "@ttjs/util/TTTools"], function (require, exports,
                 var cb = this._pending[localPending[i]];
                 cb.push(chunkCallback);
             }
+            var reqList = [];
+            scripts.forEach(function (e) { return reqList.push("@" + _this.pathPrefix + e); });
+            require(reqList, function () {
+                debugger;
+            }, function (a, b, c) {
+                debugger;
+            });
             // start callback
-            var thiz = this;
-            TTTools_1.TTTools.loadScripts(scripts, function (result) {
-                len = scripts.length;
-                for (i = 0; i < len; i++) {
-                    var scriptName = scripts[i];
-                    if (result[scriptName] === "ok") {
-                        var callbacks = thiz._pending[scriptName];
-                        if (callbacks) {
-                            console.log("pending => pending (script_loaded) ", scriptName);
-                            if (thiz.sourceTimeout > 0)
-                                setTimeout(function (scriptName) {
-                                    callbacks = thiz._pending[scriptName];
-                                    if (callbacks) {
-                                        console.error("pending => error: ", scriptName, ". Register-Component-Timeout!");
-                                        delete thiz._pending[scriptName];
-                                        ;
-                                        thiz._error[scriptName] = "Register-Component-Timeout";
-                                        for (var i2 = 0; i2 < callbacks.length; i2++)
-                                            callbacks[i2]();
-                                    }
-                                }, 1000 * thiz.sourceTimeout, scriptName);
-                        }
-                    }
-                    else {
-                        console.error("pending => error: ", scriptName);
-                        var callbacks = thiz._pending[scriptName];
-                        delete thiz._pending[scriptName];
-                        thiz._error[scriptName] = "Unable to load script.";
-                        for (var i2 = 0; i2 < callbacks.length; i2++)
-                            callbacks[i2]();
-                    }
-                }
-            }, this.pathPrefix);
+            // var thiz = this;
+            // env.loadScripts(scripts, function(result)
+            // {
+            //     len=scripts.length;
+            //     for(i=0; i<len; i++)
+            //     {
+            //         var scriptName = scripts[i];
+            //         if (result[scriptName] === "ok")
+            //         {
+            //             var callbacks = thiz._pending[scriptName];
+            //             if (callbacks)
+            //             {
+            //                 console.log("pending => pending (script_loaded) ", scriptName);
+            //                 if (thiz.sourceTimeout > 0)
+            //                     setTimeout(function(scriptName)
+            //                 {
+            //                     callbacks = thiz._pending[scriptName];
+            //                     if (callbacks)
+            //                     {
+            //                         console.error("pending => error: ", scriptName, ". Register-Component-Timeout!");
+            //                         delete thiz._pending[scriptName];;
+            //                         thiz._error[scriptName] = "Register-Component-Timeout";
+            //                         for (var i2=0; i2<callbacks.length; i2++)
+            //                             callbacks[i2]();
+            //                     }
+            //                 }, 1000*thiz.sourceTimeout, scriptName);
+            //
+            //
+            //                 const xx = require('@game/components/' + scriptName);
+            //
+            //             }
+            //         }
+            //         else
+            //         {
+            //             console.error("pending => error: ", scriptName);
+            //             var callbacks = thiz._pending[scriptName];
+            //             delete thiz._pending[scriptName];
+            //             thiz._error[scriptName] = "Unable to load script.";
+            //
+            //             for (var i2=0; i2<callbacks.length; i2++)
+            //                 callbacks[i2]();
+            //         }
+            //     }
+            // }, this.pathPrefix);
         },
         registerComponentClass: function (className, componentClass) {
             var callbacks = this._pending[className];

@@ -141,47 +141,61 @@ export const ComponentManager = {
             cb.push(chunkCallback);
         }
 
-        // start callback
-        var thiz = this;
-        env.loadScripts(scripts, function(result)
-        {
-            len=scripts.length;
-            for(i=0; i<len; i++)
-            {
-                var scriptName = scripts[i];
-                if (result[scriptName] === "ok")
-                {
-                    var callbacks = thiz._pending[scriptName];
-                    if (callbacks)
-                    {
-                        console.log("pending => pending (script_loaded) ", scriptName);
-                        if (thiz.sourceTimeout > 0)
-                            setTimeout(function(scriptName)
-                        {
-                            callbacks = thiz._pending[scriptName];
-                            if (callbacks)
-                            {
-                                console.error("pending => error: ", scriptName, ". Register-Component-Timeout!");
-                                delete thiz._pending[scriptName];;
-                                thiz._error[scriptName] = "Register-Component-Timeout";
-                                for (var i2=0; i2<callbacks.length; i2++)
-                                    callbacks[i2]();
-                            }
-                        }, 1000*thiz.sourceTimeout, scriptName);
-                    }
-                }
-                else
-                {
-                    console.error("pending => error: ", scriptName);
-                    var callbacks = thiz._pending[scriptName];
-                    delete thiz._pending[scriptName];
-                    thiz._error[scriptName] = "Unable to load script.";
+        const reqList:string[] = [];
+        scripts.forEach(e => reqList.push(`@${this.pathPrefix}${e}`));
 
-                    for (var i2=0; i2<callbacks.length; i2++)
-                        callbacks[i2]();
-                }
-            }
-        }, this.pathPrefix);
+        require(reqList, () => {
+            debugger;
+        }, (a, b, c)=> {
+           debugger;
+        });
+
+
+        // start callback
+        // var thiz = this;
+        // env.loadScripts(scripts, function(result)
+        // {
+        //     len=scripts.length;
+        //     for(i=0; i<len; i++)
+        //     {
+        //         var scriptName = scripts[i];
+        //         if (result[scriptName] === "ok")
+        //         {
+        //             var callbacks = thiz._pending[scriptName];
+        //             if (callbacks)
+        //             {
+        //                 console.log("pending => pending (script_loaded) ", scriptName);
+        //                 if (thiz.sourceTimeout > 0)
+        //                     setTimeout(function(scriptName)
+        //                 {
+        //                     callbacks = thiz._pending[scriptName];
+        //                     if (callbacks)
+        //                     {
+        //                         console.error("pending => error: ", scriptName, ". Register-Component-Timeout!");
+        //                         delete thiz._pending[scriptName];;
+        //                         thiz._error[scriptName] = "Register-Component-Timeout";
+        //                         for (var i2=0; i2<callbacks.length; i2++)
+        //                             callbacks[i2]();
+        //                     }
+        //                 }, 1000*thiz.sourceTimeout, scriptName);
+        //
+        //
+        //                 const xx = require('@game/components/' + scriptName);
+        //
+        //             }
+        //         }
+        //         else
+        //         {
+        //             console.error("pending => error: ", scriptName);
+        //             var callbacks = thiz._pending[scriptName];
+        //             delete thiz._pending[scriptName];
+        //             thiz._error[scriptName] = "Unable to load script.";
+        //
+        //             for (var i2=0; i2<callbacks.length; i2++)
+        //                 callbacks[i2]();
+        //         }
+        //     }
+        // }, this.pathPrefix);
     },
 
     registerComponentClass: function(className, componentClass)

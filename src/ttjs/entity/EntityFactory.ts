@@ -35,7 +35,7 @@
 // )
 // {
 
-import {TTTools as env} from 'ttjs/util/TTTools'
+import {TTTools as env} from '@ttjs/util/TTTools'
 import * as _ from '@ttjs/lib/lodash'
 import {ComponentManager} from '@ttjs/entity/ComponentManager'
 import {NumberPropertyParser} from '@ttjs/entity/parser/NumberPropertyParser'
