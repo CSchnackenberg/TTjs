@@ -56,7 +56,7 @@ define(["require", "exports", "ttjs/util/TTTools", "@ttjs/lib/lodash", "@ttjs/en
             "string": new StringPropertyParser_1.StringPropertyParser(),
             "enum": new EnumPropertyParser_1.EnumPropertyParser(),
             "ease": new EaseFuncPropertyParser_1.EaseFuncPropertyParser(),
-            "any": new AnyPropertyParser_1.AnyPropertyParser(),
+            "any": new AnyPropertyParser_1.AnyPropertyParser()
         };
     }
     exports.EntityFactory = EntityFactory;
