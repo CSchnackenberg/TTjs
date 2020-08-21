@@ -64,15 +64,15 @@ var PI2X = 3.141592653;
 export const Easing = {
 
     Back: {
-        easeIn: function(t, b, c, d, s) {
+        easeIn: function(t, b, c, d, s?) {
             s = s || 1.70158;
             return c * ( t /= d ) * t * ( ( s + 1 ) * t - s ) + b;
         },
-        easeOut: function(t, b, c, d, s) {
+        easeOut: function(t, b, c, d, s?) {
             s = s || 1.70158;
             return c * ( ( t = t / d - 1 ) * t * ( ( s + 1 ) * t + s ) + 1 ) + b;
         },
-        easeInOut: function(t, b, c, d, s) {
+        easeInOut: function(t, b, c, d, s?) {
             s = s || 1.70158;
             if ( ( t /= d * 0.5 ) < 1 )
             {
@@ -145,7 +145,7 @@ export const Easing = {
         }
     },
     Elastic: {
-        easeIn: function(t, b, c, d, a, p) {
+        easeIn: function(t, b, c, d, a?, p?) {
             a = a || 0;
             p = p || 0;
 
@@ -174,7 +174,7 @@ export const Easing = {
 
             return -( a * Math.pow( 2, 10 * ( --t ) ) * Math.sin( ( t * d - s ) * ( 2 * Math.PI ) / p ) ) + b;
         },
-        easeOut: function(t, b, c, d, a, p) {
+        easeOut: function(t, b, c, d, a?, p?) {
             a = a || 0;
             p = p || 0;
 
@@ -203,7 +203,7 @@ export const Easing = {
 
             return a * Math.pow( 2, -10 * t ) * Math.sin( ( t * d - s ) * ( 2 * Math.PI ) / p ) + c + b;
         },
-        easeInOut: function(t, b, c, d, a, p) {
+        easeInOut: function(t, b, c, d, a?, p?) {
             a = a || 0;
             p = p || 0;
 
