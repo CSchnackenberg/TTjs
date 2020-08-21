@@ -17,7 +17,7 @@ import * as _ from '@ttjs/lib/lodash'
  * Property parser for unspecific type.
  * This can be used to enforce arbitarry userdata
  */
-function AnyPropertyParser() {
+export function AnyPropertyParser() {
 }
 
 AnyPropertyParser.prototype = {

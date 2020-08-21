@@ -11,12 +11,14 @@
 define(["require", "exports", "@ttjs/lib/lodash"], function (require, exports, _) {
     "use strict";
     exports.__esModule = true;
+    exports.EnumPropertyParser = void 0;
     "use strict";
     /**
      * Property parser for: number, float, real
      */
     function EnumPropertyParser() {
     }
+    exports.EnumPropertyParser = EnumPropertyParser;
     EnumPropertyParser.prototype = {
         /**
          *

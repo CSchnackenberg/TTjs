@@ -15,7 +15,7 @@
 define(["require", "exports", "jquery"], function (require, exports, $) {
     "use strict";
     exports.__esModule = true;
-    exports.LinkedEntityDefinition = void 0;
+    exports.EntityLinker = exports.LinkedEntityDefinition = void 0;
     "use strict";
     function LinkedEntityDefinition() {
         /** @type bool static entites are always instantiated */
@@ -55,6 +55,7 @@ define(["require", "exports", "jquery"], function (require, exports, $) {
         this._definitions = {};
         this._linkedDefinitions = {};
     }
+    exports.EntityLinker = EntityLinker;
     EntityLinker.prototype = {
         addDefinitions: function (defs) {
             for (var k in defs)

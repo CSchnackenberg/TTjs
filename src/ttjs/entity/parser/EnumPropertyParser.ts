@@ -16,7 +16,7 @@ import * as _ from '@ttjs/lib/lodash'
 /**
  * Property parser for: number, float, real
  */
-function EnumPropertyParser() {
+export function EnumPropertyParser() {
 }
 
 EnumPropertyParser.prototype = {

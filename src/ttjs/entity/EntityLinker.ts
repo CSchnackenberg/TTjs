@@ -52,7 +52,7 @@ function combineObjects(a, b) {
  * @class
  * @returns {EntityLinker}
  */
-function EntityLinker() {
+export function EntityLinker() {
     this.linked = false;
     this._definitions = {};
     this._linkedDefinitions = {};

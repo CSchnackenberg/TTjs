@@ -11,6 +11,7 @@
 define(["require", "exports", "@ttjs/lib/lodash"], function (require, exports, _) {
     "use strict";
     exports.__esModule = true;
+    exports.AnyPropertyParser = void 0;
     "use strict";
     /**
      * Property parser for unspecific type.
@@ -18,6 +19,7 @@ define(["require", "exports", "@ttjs/lib/lodash"], function (require, exports, _
      */
     function AnyPropertyParser() {
     }
+    exports.AnyPropertyParser = AnyPropertyParser;
     AnyPropertyParser.prototype = {
         /**
          *

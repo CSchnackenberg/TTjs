@@ -1,17 +1,9 @@
-/**
- * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
- *
- * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
- * Copyright (c) 2013, Johannes Brosi <mail@jbrosi.de>
- *
- * Released under the MIT license
- * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
- */
-define(["require", "exports"], function (require, exports) {
-    // define(["ttjs/util/TTTools"], function (Env) {
+define(["require", "exports", "@ttjs/util/TTTools"], function (require, exports, TTTools_1) {
     "use strict";
     exports.__esModule = true;
     exports.TileSetModel = void 0;
+    // define(["ttjs/util/TTTools"], function (Env) {
+    "use strict";
     function TileSetModel() {
         this._tileWidth = 0;
         this._tileHeight = 0;
@@ -61,7 +53,7 @@ define(["require", "exports"], function (require, exports) {
         setImage: function (fileName) {
             this._isLoaded = false;
             this._imageElement = new Image();
-            this._imageElement.onload = Env.proxy(this, this.onImageLoaded);
+            this._imageElement.onload = TTTools_1.TTTools.proxy(this, this.onImageLoaded);
             this._imageElement.src = fileName;
         },
         getGLTexture: function (gl) {

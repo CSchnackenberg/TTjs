@@ -7,8 +7,11 @@
  * Released under the MIT license
  * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
  */
+import {TTTools as env} from "@ttjs/util/TTTools";
 
 // define(["ttjs/util/TTTools"], function (Env) {
+
+
 
 "use strict";
 export function TileSetModel() {
@@ -70,7 +73,7 @@ TileSetModel.prototype = {
     setImage: function (fileName) {
         this._isLoaded = false;
         this._imageElement = new Image();
-        this._imageElement.onload = Env.proxy(this, this.onImageLoaded);
+        this._imageElement.onload = env.proxy(this, this.onImageLoaded);
         this._imageElement.src = fileName;
     },
 
