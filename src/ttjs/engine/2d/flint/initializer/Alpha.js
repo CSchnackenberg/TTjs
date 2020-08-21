@@ -1,4 +1,3 @@
-"use strict";
 /**
  * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
  *
@@ -40,17 +39,26 @@
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
  *
  */
-define([], function () {
+// define([
+// ], function(
+// )
+// {
+define(["require", "exports"], function (require, exports) {
     "use strict";
-    var Alpha = function (alphaStart, alphaEnd) {
+    exports.__esModule = true;
+    exports.Alpha = void 0;
+    function Alpha(alphaStart, alphaEnd) {
         this.alphaStart = alphaStart || 0;
         this.alphaEnd = alphaEnd || 1;
-    };
+    }
+    exports.Alpha = Alpha;
+    ;
     Alpha.prototype = {
         init: function (emitter, p) {
             p.mixColor.a += (this.alphaEnd - this.alphaStart) * Math.random() + this.alphaStart;
         }
     };
-    return Alpha;
 });
+//     return Alpha;
+// });
 //# sourceMappingURL=Alpha.js.map

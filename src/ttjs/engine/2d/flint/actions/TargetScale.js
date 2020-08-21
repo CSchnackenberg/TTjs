@@ -1,4 +1,3 @@
-"use strict";
 /**
  * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
  *
@@ -40,18 +39,27 @@
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
  *
  */
-define([], function () {
+// define([
+// ], function(
+// )
+// {
+define(["require", "exports"], function (require, exports) {
     "use strict";
-    var TargetScale = function (targetScale, rate) {
+    exports.__esModule = true;
+    exports.TargetScale = void 0;
+    function TargetScale(targetScale, rate) {
         this.targetScale = targetScale || 1;
         this.rate = rate || 0.1;
-    };
+    }
+    exports.TargetScale = TargetScale;
+    ;
     TargetScale.prototype = {
         update: function (emitter, p, time) {
             p.scale.x += (this.targetScale - p.scale.x) * this.rate * time;
             p.scale.y += (this.targetScale - p.scale.y) * this.rate * time;
         }
     };
-    return TargetScale;
 });
+//     return TargetScale;
+// });
 //# sourceMappingURL=TargetScale.js.map

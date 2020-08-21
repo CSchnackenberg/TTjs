@@ -39,22 +39,23 @@
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
  * 
  */
-define([   
-], function(
-)
-{    
-    "use strict";
-    var LifeTime = function(rangeStart, rangeEnd) {        
-        this.s = rangeStart || 1;
-        this.e = rangeEnd || this.s;
-    };
+// define([
+// ], function(
+// )
+// {
+
+"use strict";
+export function LifeTime(rangeStart, rangeEnd) {
+    this.s = rangeStart || 1;
+    this.e = rangeEnd || this.s;
+};
+
+LifeTime.prototype = {
+    init: function(emitter, p)
+    {
+        p.lifetime = this.s + Math.random() * (this.e - this.s);
+    }
+};
     
-    LifeTime.prototype = {
-        init: function(emitter, p)
-        {
-            p.lifetime = this.s + Math.random() * (this.e - this.s);
-        }    
-    };
-    
-    return LifeTime;
-});
+//     return LifeTime;
+// });

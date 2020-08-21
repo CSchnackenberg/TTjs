@@ -39,23 +39,24 @@
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
  * 
  */
-define([     
-], function(        
-)
-{
-    "use strict";
-    var Move = function() {                
-    };        
-    
-    Move.prototype = {
-        update: function(emitter, p, time) {
-            p.lastPosition.x = p.position.x;
-            p.lastPosition.y = p.position.y;
+// define([
+// ], function(
+// )
+// {
 
-            p.position.x += p.velocity.x * time;
-            p.position.y += p.velocity.y * time;
-        }    
-    };
+"use strict";
+export function Move() {
+};
+
+Move.prototype = {
+    update: function(emitter, p, time) {
+        p.lastPosition.x = p.position.x;
+        p.lastPosition.y = p.position.y;
+
+        p.position.x += p.velocity.x * time;
+        p.position.y += p.velocity.y * time;
+    }
+};
     
-    return Move;
-});
+//     return Move;
+// });

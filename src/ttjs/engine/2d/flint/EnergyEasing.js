@@ -1,4 +1,3 @@
-"use strict";
 /**
  * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
  * .....................
@@ -47,10 +46,17 @@
  * original license for Robert Penner's classes, these specific classes are released under
  * the BSD License.
  */
-define([], function () {
+// define([
+// ], function(
+// )
+// {
+define(["require", "exports"], function (require, exports) {
+    "use strict";
+    exports.__esModule = true;
+    exports.EnergyEasing = void 0;
     var PI2X = 3.141592653;
     "use strict";
-    var EnergyEasing = {
+    exports.EnergyEasing = {
         Linear: {
             easeNone: function (age, lifetime) {
                 return 1 - age / lifetime;
@@ -115,6 +121,7 @@ define([], function () {
             }
         }
     };
-    return EnergyEasing;
 });
+//     return EnergyEasing;
+// });
 //# sourceMappingURL=EnergyEasing.js.map

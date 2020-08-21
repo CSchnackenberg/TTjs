@@ -1,4 +1,3 @@
-"use strict";
 /**
  * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
  *
@@ -40,11 +39,18 @@
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
  *
  */
-define([
-    'ttjs/lib/easeljs'
-], function (Fx) {
+// define([
+//     'ttjs/lib/easeljs'
+// ], function(
+//     Fx
+// )
+// {
+define(["require", "exports", "@ttjs/lib/easeljs"], function (require, exports, Fx) {
     "use strict";
-    var BitmapAnimation = function (spriteSheet, frameRangeStart, frameRangeEnd) {
+    exports.__esModule = true;
+    exports.BitmapAnimation = void 0;
+    "use strict";
+    function BitmapAnimation(spriteSheet, frameRangeStart, frameRangeEnd) {
         if (Array.isArray(frameRangeStart)) {
             this.animRange = frameRangeStart;
         }
@@ -56,7 +62,9 @@ define([
             this.e = frameRangeEnd || this.s;
         }
         this.sheet = spriteSheet;
-    };
+    }
+    exports.BitmapAnimation = BitmapAnimation;
+    ;
     BitmapAnimation.prototype = {
         init: function (emitter, p) {
             if (p.sprite) {
@@ -78,6 +86,7 @@ define([
             }
         }
     };
-    return BitmapAnimation;
 });
+//     return BitmapAnimation;
+// });
 //# sourceMappingURL=BitmapAnimation.js.map

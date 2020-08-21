@@ -39,42 +39,43 @@
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
  * 
  */
-define([    
-], function(
-)
-{    
-	"use strict";
-    function Blast(maxCount, started) {                
-		this.maxCount = maxCount;
-        
-        this._started = started || true;
-		this._blasted = false;
-    };
-    
-    Blast.prototype = {
-        
-        startEmitter: function(e)
-		{			
-			return 0;
-		},
-        spawnParticles: function(e, time) {
-			if (this._blasted || !this._started)
-				return 0;
+// define([
+// ], function(
+// )
+// {
 
-			this._blasted = true;
-			return this.maxCount;
-        },
-        isCompleted: function(){
-            return false;
-        },
-        start: function() {
-            this._started = true;
-            this._blasted = false;
-        },
-        stop: function() {
-            this._started = false;
-        }
-    };
+"use strict";
+export function Blast(maxCount, started) {
+    this.maxCount = maxCount;
+
+    this._started = started || true;
+    this._blasted = false;
+};
+
+Blast.prototype = {
+
+    startEmitter: function(e)
+    {
+        return 0;
+    },
+    spawnParticles: function(e, time) {
+        if (this._blasted || !this._started)
+            return 0;
+
+        this._blasted = true;
+        return this.maxCount;
+    },
+    isCompleted: function(){
+        return false;
+    },
+    start: function() {
+        this._started = true;
+        this._blasted = false;
+    },
+    stop: function() {
+        this._started = false;
+    }
+};
     
-    return Blast;
-});
+//     return Blast;
+// });

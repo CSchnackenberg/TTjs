@@ -1,4 +1,3 @@
-"use strict";
 /**
  * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
  *
@@ -8,20 +7,26 @@
  * Released under the MIT license
  * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
  */
-define([
-    'ttjs/util/TTTools',
-    'jquery',
-], function (env, $) {
+// define([
+//     'ttjs/util/TTTools',
+//     'jquery', // TODO !!! replace JQ
+// ], function(env, $)
+// {
+define(["require", "exports", "jquery", "@ttjs/util/TTTools"], function (require, exports, $, TTTools_1) {
+    "use strict";
+    exports.__esModule = true;
+    exports.TextResources = void 0;
     "use strict";
     // TODO remove jquery dependency
     function TextResources() { }
+    exports.TextResources = TextResources;
     ;
     TextResources.prototype = {
         getType: function () {
             return "text";
         },
         canHandle: function (url) {
-            return (env.strEndsWith(url.toLowerCase(), ".txt"));
+            return (TTTools_1.TTTools.strEndsWith(url.toLowerCase(), ".txt"));
         },
         load: function (url, callback) {
             // TODO !!! replace JQ
@@ -35,6 +40,7 @@ define([
             });
         }
     };
-    return TextResources;
 });
+// 	return TextResources;
+// });
 //# sourceMappingURL=TextResources.js.map

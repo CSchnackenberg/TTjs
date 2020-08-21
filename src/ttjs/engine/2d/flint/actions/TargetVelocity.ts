@@ -39,23 +39,24 @@
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
  * 
  */
-define([     
-], function(        
-)
-{
-    "use strict";
-    var TargetVelocity = function(targetVelocityX, targetVelocityY, rate) {
-        this.targetVelocityX = targetVelocityX || 0;
-        this.targetVelocityY = targetVelocityY || 0;
-        this.rate= rate || 0.1;
-    };
+// define([
+// ], function(
+// )
+// {
 
-    TargetVelocity.prototype = {
-        update: function(emitter, p, time) {
-            p.velocity.x += ( this.targetVelocityX - p.velocity.x ) * this.rate * time;
-            p.velocity.y += ( this.targetVelocityY - p.velocity.y ) * this.rate * time;
-        }
-    };
+"use strict";
+export function TargetVelocity(targetVelocityX, targetVelocityY, rate) {
+    this.targetVelocityX = targetVelocityX || 0;
+    this.targetVelocityY = targetVelocityY || 0;
+    this.rate= rate || 0.1;
+};
+
+TargetVelocity.prototype = {
+    update: function(emitter, p, time) {
+        p.velocity.x += ( this.targetVelocityX - p.velocity.x ) * this.rate * time;
+        p.velocity.y += ( this.targetVelocityY - p.velocity.y ) * this.rate * time;
+    }
+};
     
-    return TargetVelocity;
-});
+//     return TargetVelocity;
+// });

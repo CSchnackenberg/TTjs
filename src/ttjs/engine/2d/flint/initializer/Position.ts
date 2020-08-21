@@ -39,25 +39,26 @@
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
  * 
  */
-define([
-], function(
-) {
-    "use strict";
-    var Position = function(pos) {        
-        var pos = pos || {x: 0, y: 0};
-        var reg = reg || {x: 0, y: 0};
-        this.pos = {
-            x: pos.x || 0,
-            y: pos.y || 0
-        };
+// define([
+// ], function(
+// ) {
+
+"use strict";
+export function Position(pos) {
+    var pos = pos || {x: 0, y: 0};
+    var reg = reg || {x: 0, y: 0};
+    this.pos = {
+        x: pos.x || 0,
+        y: pos.y || 0
     };
+};
+
+Position.prototype = {
+    init: function(emitter, p) {
+        p.position.x += this.pos.x;
+        p.position.y += this.pos.y;
+    }
+};
     
-    Position.prototype = {
-        init: function(emitter, p) {
-            p.position.x += this.pos.x;
-            p.position.y += this.pos.y;
-        }    
-    };
-    
-    return Position;
-});
+//     return Position;
+// });

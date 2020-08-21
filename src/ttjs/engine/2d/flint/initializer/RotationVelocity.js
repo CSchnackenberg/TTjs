@@ -1,4 +1,3 @@
-"use strict";
 /**
  * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
  *
@@ -40,17 +39,26 @@
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
  *
  */
-define([], function () {
+// define([
+// ], function(
+// )
+// {
+define(["require", "exports"], function (require, exports) {
     "use strict";
-    var RotationVelocity = function (rotStart, rotEnd) {
+    exports.__esModule = true;
+    exports.RotationVelocity = void 0;
+    function RotationVelocity(rotStart, rotEnd) {
         this.rotStart = rotStart || 0;
         this.rotEnd = rotEnd || 360;
-    };
+    }
+    exports.RotationVelocity = RotationVelocity;
+    ;
     RotationVelocity.prototype = {
         init: function (emitter, p) {
             p.rotVelocity = (this.rotEnd - this.rotStart) * Math.random() + this.rotStart;
         }
     };
-    return RotationVelocity;
 });
+//     return RotationVelocity;
+// });
 //# sourceMappingURL=RotationVelocity.js.map

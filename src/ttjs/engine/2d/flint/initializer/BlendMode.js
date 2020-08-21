@@ -1,4 +1,3 @@
-"use strict";
 /**
  * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
  *
@@ -42,8 +41,14 @@
  *
  *
  */
-define([], function () {
+// define([
+// ], function(
+// )
+// {
+define(["require", "exports"], function (require, exports) {
     "use strict";
+    exports.__esModule = true;
+    exports.BlendMode = void 0;
     /**
      * Posible options:
      *
@@ -80,7 +85,7 @@ define([], function () {
      * @param mode
      * @constructor
      */
-    var BlendMode = function (mode) {
+    function BlendMode(mode) {
         this.mode = mode || null;
         switch (this.mode) {
             case "add":
@@ -90,12 +95,15 @@ define([], function () {
                 this.mode = "darken";
                 break;
         }
-    };
+    }
+    exports.BlendMode = BlendMode;
+    ;
     BlendMode.prototype = {
         init: function (emitter, p) {
             p.compositeOperation = this.mode;
         }
     };
-    return BlendMode;
 });
+//     return BlendMode;
+// });
 //# sourceMappingURL=BlendMode.js.map

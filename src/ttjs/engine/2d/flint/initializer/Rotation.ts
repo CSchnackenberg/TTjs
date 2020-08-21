@@ -39,21 +39,21 @@
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
  * 
  */
-define([
-], function(
-)
-{    
-    "use strict";
-    var Rotation = function(rotStart, rotEnd) {        
-        this.rotStart = rotStart || 0;
-        this.rotEnd = rotEnd || this.rotStart;
-    };
-    
-    Rotation.prototype = {
-        init: function(emitter, p) {
-            p.rotation += (this.rotEnd - this.rotStart) *  Math.random() + this.rotStart;
-        }    
-    };
-    
-    return Rotation;
-});
+// define([
+// ], function(
+// )
+// {
+"use strict";
+export function Rotation(rotStart, rotEnd) {
+    this.rotStart = rotStart || 0;
+    this.rotEnd = rotEnd || this.rotStart;
+};
+
+Rotation.prototype = {
+    init: function(emitter, p) {
+        p.rotation += (this.rotEnd - this.rotStart) *  Math.random() + this.rotStart;
+    }
+};
+
+// return Rotation;
+// });

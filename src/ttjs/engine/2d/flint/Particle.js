@@ -1,4 +1,3 @@
-"use strict";
 /**
  * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
  *
@@ -40,16 +39,23 @@
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
  *
  */
-define([], function () {
+// define([
+// ], function(
+// )
+// {
+define(["require", "exports"], function (require, exports) {
     "use strict";
-    var Particle = function () {
+    exports.__esModule = true;
+    exports.Particle = void 0;
+    function Particle() {
         this.mixColor = { r: 1, g: 1, b: 1, a: 1 };
         this.scale = { x: 1, y: 1 };
         this.position = { x: 0, y: 0 };
         this.lastPosition = { x: 0, y: 0 };
         this.velocity = { x: 0, y: 0 };
         this.reset();
-    };
+    }
+    exports.Particle = Particle;
     Particle.prototype.reset = function () {
         this.mixColor.r = 1;
         this.mixColor.g = 1;
@@ -90,6 +96,7 @@ define([], function () {
         this.sprite.compositeOperation = this.compositeOperation;
         // color mix?
     };
-    return Particle;
 });
+//     return Particle;
+// });
 //# sourceMappingURL=Particle.js.map

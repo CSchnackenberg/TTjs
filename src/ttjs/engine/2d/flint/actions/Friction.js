@@ -1,4 +1,3 @@
-"use strict";
 /**
  * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
  *
@@ -40,11 +39,19 @@
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
  *
  */
-define([], function () {
+// define([
+// ], function(
+// )
+// {
+define(["require", "exports"], function (require, exports) {
     "use strict";
-    var Friction = function (friction) {
+    exports.__esModule = true;
+    exports.Friction = void 0;
+    function Friction(friction) {
         this.friction = friction;
-    };
+    }
+    exports.Friction = Friction;
+    ;
     Friction.prototype = {
         update: function (emitter, p, time) {
             var len2 = p.velocity.x * p.velocity.x + p.velocity.y * p.velocity.y;
@@ -62,6 +69,7 @@ define([], function () {
             }
         }
     };
-    return Friction;
 });
+//     return Friction;
+// });
 //# sourceMappingURL=Friction.js.map

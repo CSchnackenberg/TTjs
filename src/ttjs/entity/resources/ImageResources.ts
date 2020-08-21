@@ -7,35 +7,38 @@
  * Released under the MIT license
  * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
  */
-define(['ttjs/util/TTTools'], function(env)
-{    
-    "use strict";
+// define(['ttjs/util/TTTools'], function(env)
+// {
+
+import {TTTools as env} from "@ttjs/util/TTTools";
+
+"use strict";
 	
-	function ImageResources() {};	
+export function ImageResources() {};
+
+ImageResources.prototype = {
+    getType: function() {
+        return "jsImage";
+    },
+    canHandle: function(url) {
+        return (env.strEndsWith(url.toLowerCase(), ".png") ||
+                env.strEndsWith(url.toLowerCase(), ".jpg") ||
+                env.strEndsWith(url.toLowerCase(), ".jpeg") ||
+                env.strEndsWith(url.toLowerCase(), ".gif"));
+    },
+    load: function(url, callback) {
+        var jsImage = new Image();
+        jsImage.onload = function() {
+            callback(true, jsImage);
+        };
+        var errorHandler = function() {
+            callback(false, "Unable to load image '" + url + "'");
+        };
+        jsImage.onerror = errorHandler;
+        jsImage.onabort = errorHandler;
+        jsImage.src = url;
+    }
+};
 	
-	ImageResources.prototype = {
-		getType: function() {
-			return "jsImage";
-		},
-		canHandle: function(url) {
-            return (env.strEndsWith(url.toLowerCase(), ".png") ||
-                    env.strEndsWith(url.toLowerCase(), ".jpg") ||
-                    env.strEndsWith(url.toLowerCase(), ".jpeg") ||
-                    env.strEndsWith(url.toLowerCase(), ".gif"));
-		},		
-        load: function(url, callback) {            
-            var jsImage = new Image();
-            jsImage.onload = function() {
-                callback(true, jsImage);
-            };
-            var errorHandler = function() {
-                callback(false, "Unable to load image '" + url + "'");
-            };
-            jsImage.onerror = errorHandler;
-            jsImage.onabort = errorHandler;
-            jsImage.src = url;
-        }
-	};	
-	
-	return ImageResources;
-});
+// 	return ImageResources;
+// });

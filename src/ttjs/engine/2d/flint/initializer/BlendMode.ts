@@ -41,63 +41,64 @@
  *
  * 
  */
-define([   
-], function(
-)
-{    
-    "use strict";
+// define([
+// ], function(
+// )
+// {
 
-    /**
-     * Posible options:
-     *
-     * https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Compositing
-     *
-     * source-over
-     * source-in
-     * source-out
-     * source-atop
-     * destination-over
-     * destination-in
-     * destination-out
-     * destination-atop
-     * lighter or add
-     * copy
-     * xor
-     * multiply
-     * screen
-     * overlay
-     * darken or subtract
-     * lighten
-     * color-dodge
-     * color-burn
-     * hard-light
-     * soft-light
-     * difference
-     * exclusion
-     * hue
-     * saturation
-     * color
-     * luminosity
-     *
-     *
-     * @param mode
-     * @constructor
-     */
-    const BlendMode = function(mode) {
-        this.mode = mode || null;
+"use strict";
 
-        switch(this.mode) {
-            case "add": this.mode = "lighter"; break;
-            case "subtract": this.mode = "darken"; break;
-        }
-    };
+/**
+ * Posible options:
+ *
+ * https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Compositing
+ *
+ * source-over
+ * source-in
+ * source-out
+ * source-atop
+ * destination-over
+ * destination-in
+ * destination-out
+ * destination-atop
+ * lighter or add
+ * copy
+ * xor
+ * multiply
+ * screen
+ * overlay
+ * darken or subtract
+ * lighten
+ * color-dodge
+ * color-burn
+ * hard-light
+ * soft-light
+ * difference
+ * exclusion
+ * hue
+ * saturation
+ * color
+ * luminosity
+ *
+ *
+ * @param mode
+ * @constructor
+ */
+export function BlendMode(mode) {
+    this.mode = mode || null;
 
-    BlendMode.prototype = {
-        init: function(emitter, p)
-        {
-            p.compositeOperation = this.mode;
-        }    
-    };
+    switch(this.mode) {
+        case "add": this.mode = "lighter"; break;
+        case "subtract": this.mode = "darken"; break;
+    }
+};
+
+BlendMode.prototype = {
+    init: function(emitter, p)
+    {
+        p.compositeOperation = this.mode;
+    }
+};
     
-    return BlendMode;
-});
+//     return BlendMode;
+// });

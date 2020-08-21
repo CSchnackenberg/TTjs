@@ -7,44 +7,35 @@
  * Released under the MIT license
  * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
  */
-
-define([], function () {
-
+define(["require", "exports"], function (require, exports) {
+    // define([], function () {
     "use strict";
-
+    exports.__esModule = true;
+    exports.MapRenderModel = void 0;
     function MapRenderModel() {
-
         this._layers = [];
         this._tileSets = [];
     }
-
+    exports.MapRenderModel = MapRenderModel;
     MapRenderModel.prototype = {
-
         addLayer: function (layer) {
             this._layers.push(layer);
         },
-
         addTileSet: function (tileSet) {
             this._tileSets.push(tileSet);
         },
-
-
         getLayers: function () {
             return this._layers;
         },
-
         getLayer: function (index) {
             return this._layers[index];
         },
-
         getTileSet: function (index) {
             return this._tileSets[index];
         },
-
         getTileSets: function () {
             return this._tileSets;
         },
-
         resolveTileSet: function (tileId) {
             if (tileId < 0) {
                 return undefined;
@@ -58,7 +49,6 @@ define([], function () {
             }
             return undefined;
         },
-
         getLayerIndexByName: function (name) {
             var a;
             for (a = 0; a < this._layers.length; a++) {
@@ -69,9 +59,9 @@ define([], function () {
             //-1 if not found
             return -1;
         }
-
     };
-
-    return MapRenderModel;
-
 });
+//     return MapRenderModel;
+//
+// });
+//# sourceMappingURL=MapRenderModel.js.map

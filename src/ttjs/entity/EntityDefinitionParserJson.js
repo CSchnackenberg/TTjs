@@ -1,4 +1,3 @@
-"use strict";
 /**
  * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
  *
@@ -8,10 +7,19 @@
  * Released under the MIT license
  * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
  */
-define([
-    'ttjs/util/TTTools',
-    'ttjs/entity/EntityDefinition'
-], function (env, EntityDefinition) {
+// define([
+//     'ttjs/util/TTTools',
+//     'ttjs/entity/EntityDefinition'
+//     ],
+// function(
+//     env,
+//     EntityDefinition
+// )
+// {
+define(["require", "exports", "@ttjs/util/TTTools", "@ttjs/entity/EntityDefinition"], function (require, exports, TTTools_1, EntityDefinition_1) {
+    "use strict";
+    exports.__esModule = true;
+    exports.EntityDefinitionParserJson = void 0;
     "use strict";
     /**
      * The EntityDefinitionParser walks through a json array
@@ -74,6 +82,7 @@ define([
         /** @private */
         this._parsed = false;
     }
+    exports.EntityDefinitionParserJson = EntityDefinitionParserJson;
     ;
     EntityDefinitionParserJson.prototype = {
         getParseResult: function () {
@@ -133,7 +142,7 @@ define([
                             isStatic = value;
                             break;
                         case "type":
-                            if (!env.checkEnumNoCase(value, ["Entity", "Property"])) {
+                            if (!TTTools_1.TTTools.checkEnumNoCase(value, ["Entity", "Property"])) {
                                 logger.error("Unknown type in Entity \"" + entityName + "\". Type: \"" + value + "\"");
                                 interiaOk = false;
                                 continue;
@@ -146,7 +155,7 @@ define([
                             parent = value;
                             break;
                         case "family":
-                            if (!env.isArray(value)) {
+                            if (!TTTools_1.TTTools.isArray(value)) {
                                 logger.error("Error in Entity \"" + entityName + "\". Family is expected to be an Array.");
                                 interiaOk = false;
                                 continue;
@@ -164,7 +173,7 @@ define([
                             }
                             break;
                         case "components":
-                            if (!env.isArray(value)) {
+                            if (!TTTools_1.TTTools.isArray(value)) {
                                 logger.error("Error in Entity \"" + entityName + "\". Components is expected to be an Array. Found " + typeof (value));
                                 interiaOk = false;
                                 continue;
@@ -196,9 +205,9 @@ define([
                     continue;
                 }
                 // set own components
-                var newDefinition = new EntityDefinition();
+                var newDefinition = new EntityDefinition_1.EntityDefinition();
                 newDefinition.components = components;
-                newDefinition.properties = env.combineObjects({}, properties);
+                newDefinition.properties = TTTools_1.TTTools.combineObjects({}, properties);
                 newDefinition.family = family;
                 newDefinition.isStatic = isStatic;
                 newDefinition.name = entityName;
@@ -214,17 +223,19 @@ define([
          * @private
          */
         _combineSources: function () {
-            // TODO this section needs to be rewritten!			
+            // TODO this section needs to be rewritten!
             if (this._sources.length === 1)
                 return this._sources[0];
             var len;
             var result = this._sources[0];
             len = this._sources.length;
             for (var i = 1; i < len; i++)
-                result = env.combineObjects(result, this._sources[i]);
+                result = TTTools_1.TTTools.combineObjects(result, this._sources[i]);
             return result;
         }
     };
-    return EntityDefinitionParserJson;
 });
+// 	return EntityDefinitionParserJson;
+//
+// });
 //# sourceMappingURL=EntityDefinitionParserJson.js.map

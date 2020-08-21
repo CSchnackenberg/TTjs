@@ -39,25 +39,26 @@
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
  * 
  */
-define([     
-], function(        
-)
-{
-    "use strict";
-    var Fade = function(startAlpha, endAlpha) {    
-        
-        startAlpha = startAlpha || 1;
-        endAlpha = endAlpha || 0;
-        
-        this.diffAlpha = startAlpha - endAlpha;
-        this.endAlpha = endAlpha;
-    };        
+// define([
+// ], function(
+// )
+// {
+
+"use strict";
+export function Fade(startAlpha, endAlpha) {
+
+    startAlpha = startAlpha || 1;
+    endAlpha = endAlpha || 0;
+
+    this.diffAlpha = startAlpha - endAlpha;
+    this.endAlpha = endAlpha;
+};
+
+Fade.prototype = {
+    update: function(emitter, p, time) {
+       p.mixColor.a  = this.endAlpha + this.diffAlpha * p.energy;
+    }
+};
     
-    Fade.prototype = {
-        update: function(emitter, p, time) {
-           p.mixColor.a  = this.endAlpha + this.diffAlpha * p.energy;
-        }    
-    };
-    
-    return Fade;
-});
+//     return Fade;
+// });

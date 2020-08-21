@@ -39,19 +39,19 @@
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
  * 
  */
-define([     
-], function(        
-)
-{
-    "use strict";
-    var Rotate = function() {                        
-    };        
+// define([
+// ], function(
+// )
+// {
+"use strict";
+export function Rotate() {
+};
+
+Rotate.prototype = {
+    update: function(emitter, p, time) {
+        p.rotation += p.rotVelocity * time;
+    }
+};
     
-    Rotate.prototype = {
-        update: function(emitter, p, time) {
-            p.rotation += p.rotVelocity * time;
-        }    
-    };
-    
-    return Rotate;
-});
+//     return Rotate;
+// });

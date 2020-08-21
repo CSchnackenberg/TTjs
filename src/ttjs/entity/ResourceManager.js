@@ -1,4 +1,3 @@
-"use strict";
 /**
  * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
  *
@@ -8,9 +7,16 @@
  * Released under the MIT license
  * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
  */
-define([
-    'ttjs/lib/lodash'
-], function (_) {
+// define([
+//         'ttjs/lib/lodash'
+//     ],
+// function(
+//     _
+// ) {
+define(["require", "exports", "@ttjs/lib/lodash"], function (require, exports, _) {
+    "use strict";
+    exports.__esModule = true;
+    exports.ResourceManager = void 0;
     "use strict";
     /** @class  */
     function ResourceManager() {
@@ -19,6 +25,7 @@ define([
         this._loadState = 0;
         this.maxParallel = 5;
     }
+    exports.ResourceManager = ResourceManager;
     ResourceManager.prototype = {
         /**
          * Adds a new resource type to your manager.
@@ -221,6 +228,7 @@ define([
             });
         }
     };
-    return ResourceManager;
 });
+//     return ResourceManager;
+// });
 //# sourceMappingURL=ResourceManager.js.map

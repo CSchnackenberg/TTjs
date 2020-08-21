@@ -1,4 +1,3 @@
-"use strict";
 /**
  * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
  *
@@ -40,12 +39,19 @@
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
  *
  */
-define([], function () {
+// define([
+// ], function(
+// ) {
+define(["require", "exports"], function (require, exports) {
     "use strict";
-    var Scale = function (rotStart, rotEnd) {
+    exports.__esModule = true;
+    exports.Scale = void 0;
+    function Scale(rotStart, rotEnd) {
         this.rotStart = rotStart || 0;
         this.rotEnd = rotEnd || this.rotStart;
-    };
+    }
+    exports.Scale = Scale;
+    ;
     Scale.prototype = {
         init: function (emitter, p) {
             var s = (this.rotEnd - this.rotStart) * Math.random() + this.rotStart;
@@ -53,6 +59,8 @@ define([], function () {
             p.scale.y = s;
         }
     };
-    return Scale;
 });
+//
+//     return Scale;
+// });
 //# sourceMappingURL=Scale.js.map

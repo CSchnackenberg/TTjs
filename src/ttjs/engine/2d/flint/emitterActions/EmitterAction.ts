@@ -39,18 +39,19 @@
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
  * 
  */
-define([   
-], function(
-)
-{       
-    "use strict";
-    var EmitterAction = function() {        
-    };    
-    EmitterAction.prototype = {
-        update:function(emitter) {
-            // overwrite
-        }    
-    };
+// define([
+// ], function(
+// )
+// {
+
+"use strict";
+export function EmitterAction() {
+};
+EmitterAction.prototype = {
+    update:function(emitter) {
+        // overwrite
+    }
+};
     
-    return EmitterAction;
-});
+//     return EmitterAction;
+// });

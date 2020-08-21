@@ -1,4 +1,3 @@
-"use strict";
 /**
  * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
  *
@@ -7,9 +6,14 @@
  * Addition to FLINT particles
  *
  */
-define([], function () {
+// define([
+// ], function(
+// ) {
+define(["require", "exports"], function (require, exports) {
     "use strict";
-    var CirclePosition = function (x, y, randRadiusX, randRadiusY, ringRadius) {
+    exports.__esModule = true;
+    exports.CirclePosition = void 0;
+    function CirclePosition(x, y, randRadiusX, randRadiusY, ringRadius) {
         if (ringRadius === void 0) { ringRadius = 0; }
         this.randX = randRadiusX;
         this.randY = randRadiusY || randRadiusX;
@@ -18,7 +22,9 @@ define([], function () {
             x: x || 0,
             y: y || 0
         };
-    };
+    }
+    exports.CirclePosition = CirclePosition;
+    ;
     CirclePosition.prototype = {
         init: function (emitter, p) {
             var randAngle = Math.PI * 2 * Math.random();
@@ -32,6 +38,7 @@ define([], function () {
             }
         }
     };
-    return CirclePosition;
 });
+//     return CirclePosition;
+// });
 //# sourceMappingURL=CirclePosition.js.map

@@ -1,4 +1,3 @@
-"use strict";
 /**
  * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
  *
@@ -40,19 +39,28 @@
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
  *
  */
-define([], function () {
+// define([
+// ], function(
+// )
+// {
+define(["require", "exports"], function (require, exports) {
     "use strict";
-    var Fade = function (startAlpha, endAlpha) {
+    exports.__esModule = true;
+    exports.Fade = void 0;
+    function Fade(startAlpha, endAlpha) {
         startAlpha = startAlpha || 1;
         endAlpha = endAlpha || 0;
         this.diffAlpha = startAlpha - endAlpha;
         this.endAlpha = endAlpha;
-    };
+    }
+    exports.Fade = Fade;
+    ;
     Fade.prototype = {
         update: function (emitter, p, time) {
             p.mixColor.a = this.endAlpha + this.diffAlpha * p.energy;
         }
     };
-    return Fade;
 });
+//     return Fade;
+// });
 //# sourceMappingURL=Fade.js.map

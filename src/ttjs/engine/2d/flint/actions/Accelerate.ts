@@ -39,22 +39,23 @@
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
  * 
  */
-define([     
-], function(        
-)
-{
-    "use strict";
-    var Accelerate = function(x, y) {                
-        this.x = x || 0;
-        this.y = y || 0;
-    };        
+// define([
+// ], function(
+// )
+// {
+
+"use strict";
+export function Accelerate (x, y) {
+    this.x = x || 0;
+    this.y = y || 0;
+};
+
+Accelerate.prototype = {
+    update: function(emitter, p, time) {
+        p.velocity.x += time * this.x;
+        p.velocity.y += time * this.y;
+    }
+};
     
-    Accelerate.prototype = {
-        update: function(emitter, p, time) {
-            p.velocity.x += time * this.x;
-            p.velocity.y += time * this.y;
-        }    
-    };
-    
-    return Accelerate;
-});
+//     return Accelerate;
+// });

@@ -1,4 +1,3 @@
-"use strict";
 /**
  * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
  *
@@ -40,15 +39,24 @@
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
  *
  */
-define([], function () {
+// define([
+// ], function(
+// )
+// {
+define(["require", "exports"], function (require, exports) {
     "use strict";
-    var EmitterAction = function () {
-    };
+    exports.__esModule = true;
+    exports.EmitterAction = void 0;
+    function EmitterAction() {
+    }
+    exports.EmitterAction = EmitterAction;
+    ;
     EmitterAction.prototype = {
         update: function (emitter) {
             // overwrite
         }
     };
-    return EmitterAction;
 });
+//     return EmitterAction;
+// });
 //# sourceMappingURL=EmitterAction.js.map

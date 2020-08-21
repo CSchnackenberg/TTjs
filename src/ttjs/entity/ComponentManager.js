@@ -1,4 +1,3 @@
-"use strict";
 /**
  * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
  *
@@ -8,9 +7,14 @@
  * Released under the MIT license
  * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
  */
-define(['ttjs/util/TTTools'], function (env) {
+// define(['ttjs/util/TTTools'], function(env)
+// {
+define(["require", "exports", "@ttjs/util/TTTools"], function (require, exports, TTTools_1) {
     "use strict";
-    var ComponentManager = {
+    exports.__esModule = true;
+    exports.ComponentManager = void 0;
+    "use strict";
+    exports.ComponentManager = {
         /** maps class-name => class/constructor */
         _classes: {},
         /** maps class-name => [callback1, callback2, ...] */
@@ -48,7 +52,7 @@ define(['ttjs/util/TTTools'], function (env) {
                 return "unknown";
         },
         require: function (src, callback) {
-            if (!env.isArray(src))
+            if (!TTTools_1.TTTools.isArray(src))
                 src = [src];
             var localPending = [];
             var localReady = [];
@@ -88,7 +92,7 @@ define(['ttjs/util/TTTools'], function (env) {
                 if (numPending === 0)
                     callback(thiz);
             };
-            // create new pendings			
+            // create new pendings
             var numNew = 0;
             var scripts = [];
             for (var k in localNew) {
@@ -103,9 +107,9 @@ define(['ttjs/util/TTTools'], function (env) {
                 scripts.push(k);
                 numNew++;
             }
-            // setup callback			
+            // setup callback
             numPending += numNew;
-            // append to pending			
+            // append to pending
             len = localPending.length;
             for (i = 0; i < len; i++) {
                 var cb = this._pending[localPending[i]];
@@ -113,7 +117,7 @@ define(['ttjs/util/TTTools'], function (env) {
             }
             // start callback
             var thiz = this;
-            env.loadScripts(scripts, function (result) {
+            TTTools_1.TTTools.loadScripts(scripts, function (result) {
                 len = scripts.length;
                 for (i = 0; i < len; i++) {
                     var scriptName = scripts[i];
@@ -161,6 +165,8 @@ define(['ttjs/util/TTTools'], function (env) {
                 callbacks[i2]();
         }
     };
-    return ComponentManager;
 });
+// 	return ComponentManager;
+//
+// });
 //# sourceMappingURL=ComponentManager.js.map

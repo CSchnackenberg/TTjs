@@ -39,49 +39,49 @@
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
  * 
  */
-define([    
-], function(
-)
-{    
-	"use strict";
-    function Pulse(period, quantity, started) {        
-        this._started = started || true;
-        
-        this._timeToNext = 0;
-		this._period = period;
-		this._quantity = quantity || 0;
-		this._stop = 0;        
-    };
-    
-    Pulse.prototype = {
-        startEmitter: function(e)
-		{
-			this._timeToNext = this._period;
-			return this._quantity;
-		},
-        spawnParticles: function(e, time) {
-            if( !this._started )			
-				return 0;			
+// define([
+// ], function(
+// )
+// {
+"use strict";
+export function Pulse(period, quantity, started) {
+    this._started = started || true;
 
-			var count = 0;
-			this._timeToNext -= time;
-			while(this._timeToNext <= 0 )
-			{
-				count += this._quantity;
-				this._timeToNext += this._period;
-			}
-			return count;
-        },
-        isCompleted: function(){
-            return false;
-        },
-        start: function() {
-            this._started = true;
-        },
-        stop: function() {
-            this._started = false;
+    this._timeToNext = 0;
+    this._period = period;
+    this._quantity = quantity || 0;
+    this._stop = 0;
+};
+
+Pulse.prototype = {
+    startEmitter: function(e)
+    {
+        this._timeToNext = this._period;
+        return this._quantity;
+    },
+    spawnParticles: function(e, time) {
+        if( !this._started )
+            return 0;
+
+        var count = 0;
+        this._timeToNext -= time;
+        while(this._timeToNext <= 0 )
+        {
+            count += this._quantity;
+            this._timeToNext += this._period;
         }
-    };
+        return count;
+    },
+    isCompleted: function(){
+        return false;
+    },
+    start: function() {
+        this._started = true;
+    },
+    stop: function() {
+        this._started = false;
+    }
+};
     
-    return Pulse;
-});
+//     return Pulse;
+// });

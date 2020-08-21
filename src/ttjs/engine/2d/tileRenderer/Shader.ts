@@ -1,12 +1,4 @@
-/**
- * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
- *
- * Copyright (c) 2013, Johannes Brosi <mail@jbrosi.de>
- *
- * Released under the MIT license
- * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
- */
-precision highp float;
+export const vertexShaderSource = `precision highp float;
 
 uniform mat4 u_projMatrix, u_viewMatrix;
 attribute vec2 a_position;
@@ -18,3 +10,15 @@ void main() {
   v_textureCoords = a_textureCoords;
   gl_PointSize = 5.0;
 }
+`;
+
+export const fragmentShaderSource = `precision highp float;
+
+uniform sampler2D u_texture;
+
+varying vec2 v_textureCoords;
+
+void main() {
+  gl_FragColor = texture2D(u_texture, v_textureCoords);
+}
+`;

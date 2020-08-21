@@ -39,52 +39,52 @@
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
  * 
  */
-define([    
-], function(
-)
-{    
-	"use strict";
-    function Random(minPerSec, maxPerSec, started) {        
-        this._started = started || true;        
-        this._minPerSec = minPerSec;
-        this._maxPerSec = maxPerSec;
-        this._timeToNext = 0;
-    };
-    
-    Random.prototype = {
-        
-        _newTimeToNext: function() {			
-			var rate = Math.random() * ( this._maxPerSec - this._minPerSec ) + 0; //this._maxRate;
-			return 1 / rate;			
-		},        
-        startEmitter: function(e)
-		{
-			this._timeToNext = this._newTimeToNext();
-			return 0;
-		},
-        spawnParticles: function(e, time) {
-            if( !this._started )			
-				return 0;
-			
-			var count = 0;
-			this._timeToNext -= time;
-			while(this._timeToNext <= 0 )
-			{
-				++count;
-				this._timeToNext += this._newTimeToNext();
-			}
-			return count;
-        },
-        isCompleted: function(){
-            return false;
-        },
-        start: function() {
-            this._started = true;
-        },
-        stop: function() {
-            this._started = false;
+// define([
+// ], function(
+// )
+// {
+"use strict";
+export function Random(minPerSec, maxPerSec, started) {
+    this._started = started || true;
+    this._minPerSec = minPerSec;
+    this._maxPerSec = maxPerSec;
+    this._timeToNext = 0;
+};
+
+Random.prototype = {
+
+    _newTimeToNext: function() {
+        var rate = Math.random() * ( this._maxPerSec - this._minPerSec ) + 0; //this._maxRate;
+        return 1 / rate;
+    },
+    startEmitter: function(e)
+    {
+        this._timeToNext = this._newTimeToNext();
+        return 0;
+    },
+    spawnParticles: function(e, time) {
+        if( !this._started )
+            return 0;
+
+        var count = 0;
+        this._timeToNext -= time;
+        while(this._timeToNext <= 0 )
+        {
+            ++count;
+            this._timeToNext += this._newTimeToNext();
         }
-    };
+        return count;
+    },
+    isCompleted: function(){
+        return false;
+    },
+    start: function() {
+        this._started = true;
+    },
+    stop: function() {
+        this._started = false;
+    }
+};
     
-    return Random;
-});
+//     return Random;
+// });

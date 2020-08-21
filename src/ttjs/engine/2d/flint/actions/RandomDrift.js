@@ -1,4 +1,3 @@
-"use strict";
 /**
  * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
  *
@@ -40,18 +39,27 @@
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
  *
  */
-define([], function () {
+// define([
+// ], function(
+// )
+// {
+define(["require", "exports"], function (require, exports) {
     "use strict";
-    var RandomDrift = function (x, y) {
+    exports.__esModule = true;
+    exports.RandomDrift = void 0;
+    function RandomDrift(x, y) {
         this.x = x;
         this.y = y;
-    };
+    }
+    exports.RandomDrift = RandomDrift;
+    ;
     RandomDrift.prototype = {
         update: function (emitter, p, time) {
             p.velocity.x += (Math.random() - 0.5) * this.x + time;
             p.velocity.y += (Math.random() - 0.5) * this.y + time;
         }
     };
-    return RandomDrift;
 });
+//     return RandomDrift;
+// });
 //# sourceMappingURL=RandomDrift.js.map

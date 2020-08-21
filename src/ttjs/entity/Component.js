@@ -1,4 +1,3 @@
-"use strict";
 /**
  * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
  *
@@ -8,7 +7,12 @@
  * Released under the MIT license
  * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
  */
-define([], function () {
+// define([], function()
+// {
+define(["require", "exports"], function (require, exports) {
+    "use strict";
+    exports.__esModule = true;
+    exports.Component = void 0;
     /**
      * @class BaseClass for all components
      **/
@@ -16,6 +20,7 @@ define([], function () {
         /** @type Entity link to the owner entity */
         this.entity = null;
     }
+    exports.Component = Component;
     Component.prototype = {
         /** Send a message to all entity components */
         sendMessageToEntity: function (name, params) {
@@ -43,6 +48,7 @@ define([], function () {
             return this.entity.findComponent(cmpName);
         }
     };
-    return Component;
 });
+//     return Component;
+// });
 //# sourceMappingURL=Component.js.map

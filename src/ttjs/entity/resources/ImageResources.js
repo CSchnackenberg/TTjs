@@ -1,4 +1,3 @@
-"use strict";
 /**
  * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
  *
@@ -8,19 +7,25 @@
  * Released under the MIT license
  * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
  */
-define(['ttjs/util/TTTools'], function (env) {
+// define(['ttjs/util/TTTools'], function(env)
+// {
+define(["require", "exports", "@ttjs/util/TTTools"], function (require, exports, TTTools_1) {
+    "use strict";
+    exports.__esModule = true;
+    exports.ImageResources = void 0;
     "use strict";
     function ImageResources() { }
+    exports.ImageResources = ImageResources;
     ;
     ImageResources.prototype = {
         getType: function () {
             return "jsImage";
         },
         canHandle: function (url) {
-            return (env.strEndsWith(url.toLowerCase(), ".png") ||
-                env.strEndsWith(url.toLowerCase(), ".jpg") ||
-                env.strEndsWith(url.toLowerCase(), ".jpeg") ||
-                env.strEndsWith(url.toLowerCase(), ".gif"));
+            return (TTTools_1.TTTools.strEndsWith(url.toLowerCase(), ".png") ||
+                TTTools_1.TTTools.strEndsWith(url.toLowerCase(), ".jpg") ||
+                TTTools_1.TTTools.strEndsWith(url.toLowerCase(), ".jpeg") ||
+                TTTools_1.TTTools.strEndsWith(url.toLowerCase(), ".gif"));
         },
         load: function (url, callback) {
             var jsImage = new Image();
@@ -35,6 +40,7 @@ define(['ttjs/util/TTTools'], function (env) {
             jsImage.src = url;
         }
     };
-    return ImageResources;
 });
+// 	return ImageResources;
+// });
 //# sourceMappingURL=ImageResources.js.map

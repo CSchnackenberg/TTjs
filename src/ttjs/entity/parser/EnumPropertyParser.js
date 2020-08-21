@@ -1,4 +1,3 @@
-"use strict";
 /**
  * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
  *
@@ -8,7 +7,10 @@
  * Released under the MIT license
  * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
  */
-define(['ttjs/lib/lodash'], function (_) {
+// define(['ttjs/lib/lodash'], function(_) {
+define(["require", "exports", "@ttjs/lib/lodash"], function (require, exports, _) {
+    "use strict";
+    exports.__esModule = true;
     "use strict";
     /**
      * Property parser for: number, float, real
@@ -35,6 +37,7 @@ define(['ttjs/lib/lodash'], function (_) {
             outProps[propertyName] = parsedValue;
         }
     };
-    return EnumPropertyParser;
 });
+//     return EnumPropertyParser;
+// });
 //# sourceMappingURL=EnumPropertyParser.js.map

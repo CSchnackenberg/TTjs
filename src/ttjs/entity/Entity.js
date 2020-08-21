@@ -1,4 +1,3 @@
-"use strict";
 /**
  * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
  *
@@ -8,10 +7,14 @@
  * Released under the MIT license
  * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
  */
-define(['ttjs/util/TTTools'], function (env) {
+// define(['ttjs/util/TTTools'], function(env) {
+define(["require", "exports", "@ttjs/util/TTTools"], function (require, exports, TTTools_1) {
+    "use strict";
+    exports.__esModule = true;
+    exports.Entity = void 0;
     "use strict";
     function Entity(name, spatial, properties, rawProperties) {
-        // private                
+        // private
         this._components = [];
         this._componentNames = [];
         this._instanceProperties = rawProperties;
@@ -38,6 +41,7 @@ define(['ttjs/util/TTTools'], function (env) {
         /** name of the ED the entity is created from */
         this.origin = null;
     }
+    exports.Entity = Entity;
     ;
     Entity.prototype = {
         getSpatial: function () {
@@ -148,12 +152,12 @@ define(['ttjs/util/TTTools'], function (env) {
             var out = "Entity: " + this.name + "\n";
             out += "Components [" + len + "] {\n";
             for (var i = 0; i < len; i++) {
-                out += "  " + env.getObjectClass(this._components[i]) + "\n";
+                out += "  " + TTTools_1.TTTools.getObjectClass(this._components[i]) + "\n";
             }
             out += "}\n";
             if (ret)
                 return out;
-            env.log(out);
+            console.log(out);
         },
         /* sends message to all components */
         sendMessage: function (name, params) {
@@ -166,6 +170,7 @@ define(['ttjs/util/TTTools'], function (env) {
             }
         }
     };
-    return Entity;
 });
+//     return Entity;
+// });
 //# sourceMappingURL=Entity.js.map

@@ -1,4 +1,3 @@
-"use strict";
 /**
  * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
  *
@@ -40,13 +39,20 @@
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
  *
  */
-define([], function () {
+// define([
+// ], function(
+// )
+// {
+define(["require", "exports"], function (require, exports) {
     "use strict";
+    exports.__esModule = true;
+    exports.Blast = void 0;
     function Blast(maxCount, started) {
         this.maxCount = maxCount;
         this._started = started || true;
         this._blasted = false;
     }
+    exports.Blast = Blast;
     ;
     Blast.prototype = {
         startEmitter: function (e) {
@@ -69,6 +75,7 @@ define([], function () {
             this._started = false;
         }
     };
-    return Blast;
 });
+//     return Blast;
+// });
 //# sourceMappingURL=Blast.js.map

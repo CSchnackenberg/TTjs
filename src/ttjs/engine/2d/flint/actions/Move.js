@@ -1,4 +1,3 @@
-"use strict";
 /**
  * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
  *
@@ -40,10 +39,18 @@
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
  *
  */
-define([], function () {
+// define([
+// ], function(
+// )
+// {
+define(["require", "exports"], function (require, exports) {
     "use strict";
-    var Move = function () {
-    };
+    exports.__esModule = true;
+    exports.Move = void 0;
+    function Move() {
+    }
+    exports.Move = Move;
+    ;
     Move.prototype = {
         update: function (emitter, p, time) {
             p.lastPosition.x = p.position.x;
@@ -52,6 +59,7 @@ define([], function () {
             p.position.y += p.velocity.y * time;
         }
     };
-    return Move;
 });
+//     return Move;
+// });
 //# sourceMappingURL=Move.js.map

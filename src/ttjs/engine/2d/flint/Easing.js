@@ -1,4 +1,3 @@
-"use strict";
 /**
  * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
  * .....................
@@ -54,10 +53,17 @@
  * c = target value
  * d = target time
  */
-define([], function () {
+// define([
+// ], function(
+// )
+// {
+define(["require", "exports"], function (require, exports) {
+    "use strict";
+    exports.__esModule = true;
+    exports.Easing = void 0;
     var PI2X = 3.141592653;
     "use strict";
-    var Easing = {
+    exports.Easing = {
         Back: {
             easeIn: function (t, b, c, d, s) {
                 s = s || 1.70158;
@@ -77,7 +83,7 @@ define([], function () {
         },
         Bounce: {
             easeIn: function (t, b, c, d) {
-                return c - Easing.Bounce.easeOut(d - t, 0, c, d) + b;
+                return c - exports.Easing.Bounce.easeOut(d - t, 0, c, d) + b;
             },
             easeOut: function (t, b, c, d) {
                 if ((t /= d) < (1 / 2.75)) {
@@ -95,10 +101,10 @@ define([], function () {
             },
             easeInOut: function (t, b, c, d) {
                 if (t < d * 0.5) {
-                    return Easing.Bounce.easeIn(t * 2, 0, c, d) * 0.5 + b;
+                    return exports.Easing.Bounce.easeIn(t * 2, 0, c, d) * 0.5 + b;
                 }
                 else {
-                    return Easing.Bounce.easeOut(t * 2 - d, 0, c, d) * 0.5 + c * 0.5 + b;
+                    return exports.Easing.Bounce.easeOut(t * 2 - d, 0, c, d) * 0.5 + c * 0.5 + b;
                 }
             }
         },
@@ -289,6 +295,7 @@ define([], function () {
             }
         },
     };
-    return Easing;
 });
+//     return Easing;
+// });
 //# sourceMappingURL=Easing.js.map

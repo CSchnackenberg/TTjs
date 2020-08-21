@@ -7,28 +7,29 @@
  * Released under the MIT license
  * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
  */
-define([], function()
-{
-    "use strict";
+// define([], function()
+// {
 
-    /** @class  */
-    function EntityDefinition()
-    {
-        /** @type bool static entites are always instantiated */
-        this.isStatic = false;
-        /** @type String */
-        this.name = "";
-        /** @type Array */
-        this.components = [];
-        /**  */
-        this.parent = null;
-        /** property family */
-        this.family = [];
-        /** unparsed properties */
-        this.properties = {};     
-		/** information about the definition origin */
-		this.source = {};		
-    }
+"use strict";
+
+/** @class  */
+export function EntityDefinition()
+{
+    /** @type bool static entites are always instantiated */
+    this.isStatic = false;
+    /** @type String */
+    this.name = "";
+    /** @type Array */
+    this.components = [];
+    /**  */
+    this.parent = null;
+    /** property family */
+    this.family = [];
+    /** unparsed properties */
+    this.properties = {};
+    /** information about the definition origin */
+    this.source = {};
+}
 	
-    return EntityDefinition;
-});
+//     return EntityDefinition;
+// });

@@ -32,7 +32,8 @@ shadows:sprite
 ```
 
 To load a FxWorld just use the FxWorldCreator:
-```
+
+```js
 // loading the world
 var worldCreator = new FxWorldCreator(this.gameContext.canvas, {
     onProgress: function(msg) {

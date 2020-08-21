@@ -39,23 +39,24 @@
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
  * 
  */
-define([
-], function(
-) {
-    "use strict";
-    var Scale = function(rotStart, rotEnd) {        
-        this.rotStart = rotStart || 0;
-        this.rotEnd = rotEnd || this.rotStart;
-    };
-    
-    Scale.prototype = {
-        init: function(emitter, p)
-        {
-            var s = (this.rotEnd - this.rotStart) *  Math.random() + this.rotStart;
-            p.scale.x = s;
-            p.scale.y = s;
-        }    
-    };
-    
-    return Scale;
-});
+// define([
+// ], function(
+// ) {
+
+"use strict";
+export function Scale(rotStart, rotEnd) {
+    this.rotStart = rotStart || 0;
+    this.rotEnd = rotEnd || this.rotStart;
+};
+
+Scale.prototype = {
+    init: function(emitter, p)
+    {
+        var s = (this.rotEnd - this.rotStart) *  Math.random() + this.rotStart;
+        p.scale.x = s;
+        p.scale.y = s;
+    }
+};
+//
+//     return Scale;
+// });

@@ -39,50 +39,51 @@
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
  * 
  */
-define([    
-], function(
-)
-{    
-	"use strict";
-    function Steady(rate, started) {        
-        this._started = started || true;       
-        this._timeToNext = 0;
-		this._rate = rate;
-		this._rateInv = 1 / rate;        
-    };
-    
-    Steady.prototype = {
-        startEmitter: function(e)
-		{
-			this._timeToNext = this._rateInv;
-			return 0;
-		},
-        spawnParticles: function(e, time) {
-            if( !this._started )			
-				return 0;
-			
-			var count = 0;
-			this._timeToNext -= time;
-			while(this._timeToNext <= 0 ) {
-				++count;
-				this._timeToNext += this._rateInv;
-			}
-			return count;
-        },
-        setRate: function(rate) {
-            this._rate = rate;
-            this._rateInv = 1 / rate;
-        },
-        isCompleted: function(){
-           return false;
-        },
-        start: function() {
-            this._started = true;
-        },
-        stop: function() {
-            this._started = false;
+// define([
+// ], function(
+// )
+// {
+
+"use strict";
+export function Steady(rate, started) {
+    this._started = started || true;
+    this._timeToNext = 0;
+    this._rate = rate;
+    this._rateInv = 1 / rate;
+};
+
+Steady.prototype = {
+    startEmitter: function(e)
+    {
+        this._timeToNext = this._rateInv;
+        return 0;
+    },
+    spawnParticles: function(e, time) {
+        if( !this._started )
+            return 0;
+
+        var count = 0;
+        this._timeToNext -= time;
+        while(this._timeToNext <= 0 ) {
+            ++count;
+            this._timeToNext += this._rateInv;
         }
-    };
+        return count;
+    },
+    setRate: function(rate) {
+        this._rate = rate;
+        this._rateInv = 1 / rate;
+    },
+    isCompleted: function(){
+       return false;
+    },
+    start: function() {
+        this._started = true;
+    },
+    stop: function() {
+        this._started = false;
+    }
+};
     
-    return Steady;
-});
+//     return Steady;
+// });

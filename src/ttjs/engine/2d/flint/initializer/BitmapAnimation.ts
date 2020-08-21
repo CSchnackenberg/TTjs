@@ -39,50 +39,53 @@
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
  *
  */
-define([   
-    'ttjs/lib/easeljs'
-], function(
-    Fx
-)
-{    
-    "use strict";
-    var BitmapAnimation = function(spriteSheet, frameRangeStart, frameRangeEnd) {
+// define([
+//     'ttjs/lib/easeljs'
+// ], function(
+//     Fx
+// )
+// {
 
-        if (Array.isArray(frameRangeStart)) {
-            this.animRange = frameRangeStart;
-        }
-        else if (isNaN(frameRangeStart)) {
-            this.animName = frameRangeStart;
-        }
-        else {                    
-            this.s = frameRangeStart || 0;
-            this.e = frameRangeEnd || this.s;
-        }
-        this.sheet = spriteSheet;
-    };
-    
-    BitmapAnimation.prototype = {
-        init: function(emitter, p) {
+import * as Fx from '@ttjs/lib/easeljs'
 
-            if (p.sprite) {
-                p.sprite.initAfterReset(this.sheet);
-            }
-            else {
-                p.sprite = new Fx.Sprite(this.sheet);
-            }
-            if (this.animName) {
-                p.sprite.gotoAndPlay(this.animName);
-            }
-            else if (this.animRange) {
-                const index = Math.floor(Math.random() * (this.animRange.length))
-                p.sprite.gotoAndPlay(this.animRange[index]);
-            }
-            else {
-                var frameNmb = this.s + Math.floor(Math.random() * (this.e - this.s));
-                p.sprite.gotoAndStop(frameNmb);
-            }
-        }    
-    };
+"use strict";
+export function BitmapAnimation(spriteSheet, frameRangeStart, frameRangeEnd) {
+
+    if (Array.isArray(frameRangeStart)) {
+        this.animRange = frameRangeStart;
+    }
+    else if (isNaN(frameRangeStart)) {
+        this.animName = frameRangeStart;
+    }
+    else {
+        this.s = frameRangeStart || 0;
+        this.e = frameRangeEnd || this.s;
+    }
+    this.sheet = spriteSheet;
+};
+
+BitmapAnimation.prototype = {
+    init: function(emitter, p) {
+
+        if (p.sprite) {
+            p.sprite.initAfterReset(this.sheet);
+        }
+        else {
+            p.sprite = new Fx.Sprite(this.sheet);
+        }
+        if (this.animName) {
+            p.sprite.gotoAndPlay(this.animName);
+        }
+        else if (this.animRange) {
+            const index = Math.floor(Math.random() * (this.animRange.length))
+            p.sprite.gotoAndPlay(this.animRange[index]);
+        }
+        else {
+            var frameNmb = this.s + Math.floor(Math.random() * (this.e - this.s));
+            p.sprite.gotoAndStop(frameNmb);
+        }
+    }
+};
     
-    return BitmapAnimation;
-});
+//     return BitmapAnimation;
+// });

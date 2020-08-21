@@ -1,4 +1,3 @@
-"use strict";
 /**
  * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
  * (or related project)
@@ -8,9 +7,15 @@
  * Released under the MIT license
  * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
  */
-define([
-    'jquery' // TODO !!! replace JQ
-], function ($) {
+// define([
+//     'jquery' // TODO !!! replace JQ
+// ],
+// function($)
+// {
+define(["require", "exports", "jquery"], function (require, exports, $) {
+    "use strict";
+    exports.__esModule = true;
+    exports.LinkedEntityDefinition = void 0;
     "use strict";
     function LinkedEntityDefinition() {
         /** @type bool static entites are always instantiated */
@@ -22,13 +27,14 @@ define([
         this.type = "";
         this.name = "";
     }
+    exports.LinkedEntityDefinition = LinkedEntityDefinition;
     function combineObjects(a, b) {
         var ex = {};
         // TODO !!! replace JQ
-        // TODO replace to remove JQuery dependency        
-        // 
+        // TODO replace to remove JQuery dependency
+        //
         // possible option https://gist.github.com/p0rsche/2763377
-        // 
+        //
         // ISSUE PERFORMANCE
         // The to combine objects are only
         // simple/plain java-script objects and arrays.
@@ -323,6 +329,7 @@ define([
             return this._linkedDefinitions;
         }
     };
-    return EntityLinker;
 });
+//     return EntityLinker;
+// });
 //# sourceMappingURL=EntityLinker.js.map

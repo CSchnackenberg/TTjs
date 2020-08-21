@@ -1,4 +1,3 @@
-"use strict";
 /**
  * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
  *
@@ -40,14 +39,21 @@
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
  *
  */
-define([], function () {
+// define([
+// ], function(
+// )  {
+define(["require", "exports"], function (require, exports) {
     "use strict";
-    var Velocity = function (startX, endX, startY, endY) {
+    exports.__esModule = true;
+    exports.Velocity = void 0;
+    function Velocity(startX, endX, startY, endY) {
         this.startX = startX || 0;
         this.endX = endX || this.startX;
         this.startY = startY || 0;
         this.endY = endY || this.startY;
-    };
+    }
+    exports.Velocity = Velocity;
+    ;
     Velocity.prototype = {
         init: function (emitter, p) {
             var xx = (this.endX - this.startX) * Math.random() + this.startX;
@@ -64,6 +70,7 @@ define([], function () {
             }
         }
     };
-    return Velocity;
 });
+//     return Velocity;
+// });
 //# sourceMappingURL=Velocity.js.map

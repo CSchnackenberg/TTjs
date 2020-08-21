@@ -6,27 +6,30 @@
  * Released under the MIT license
  * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
  */
-define([
-	'ttjs/engine/2d/fxlayer/FxLayer'
-], function(
-    FxLayer
-)
-{    
-	"use strict";
-    
+define(["require", "exports", "@ttjs/engine/2d/fxlayer/FxLayer"], function (require, exports, FxLayer_1) {
+    // define([
+    // 	'ttjs/engine/2d/fxlayer/FxLayer'
+    // ], function(
+    //     FxLayer
+    // )
+    // {
+    "use strict";
+    exports.__esModule = true;
+    exports.FxWorld = void 0;
     /**
-     * 
+     *
      * @param {TileRenderer} A TileRenderer object from 'ttjs/engine/2d/tileRenderer'
      * @returns {FxWorld}
      */
-    var FxWorld = function(tileRenderer, mapRenderModel) {
-        this._root = new FxLayer();
+    function FxWorld(tileRenderer, mapRenderModel) {
+        this._root = new FxLayer_1.FxLayer();
         this.tileRenderer = tileRenderer;
         this.mapRenderModel = mapRenderModel;
-	};
-
-    FxWorld.prototype = {              
-        initCanvas: function(canvas, ctx) {
+    }
+    exports.FxWorld = FxWorld;
+    ;
+    FxWorld.prototype = {
+        initCanvas: function (canvas, ctx) {
             this.canvas = canvas;
             this.ctx = ctx;
             this.viewport = {
@@ -36,13 +39,14 @@ define([
                 h: this.canvas.height
             };
         },
-        draw: function() {
+        draw: function () {
             this._root.draw(this);
         },
-        getRoot: function() {
+        getRoot: function () {
             return this._root;
         }
     };
-        
-	return FxWorld;
 });
+// return FxWorld;
+// });
+//# sourceMappingURL=FxWorld.js.map

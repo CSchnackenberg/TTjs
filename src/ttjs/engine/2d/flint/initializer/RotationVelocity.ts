@@ -39,22 +39,23 @@
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
  * 
  */
-define([
-], function(
-)
-{    
-    "use strict";
-    var RotationVelocity = function(rotStart, rotEnd) {        
-        this.rotStart = rotStart || 0;
-        this.rotEnd = rotEnd || 360;
-    };
+// define([
+// ], function(
+// )
+// {
+
+"use strict";
+export function RotationVelocity(rotStart, rotEnd) {
+    this.rotStart = rotStart || 0;
+    this.rotEnd = rotEnd || 360;
+};
+
+RotationVelocity.prototype = {
+    init: function(emitter, p)
+    {
+        p.rotVelocity = (this.rotEnd - this.rotStart) *  Math.random() + this.rotStart;
+    }
+};
     
-    RotationVelocity.prototype = {
-        init: function(emitter, p)
-        {
-            p.rotVelocity = (this.rotEnd - this.rotStart) *  Math.random() + this.rotStart;
-        }    
-    };
-    
-    return RotationVelocity;
-});
+//     return RotationVelocity;
+// });

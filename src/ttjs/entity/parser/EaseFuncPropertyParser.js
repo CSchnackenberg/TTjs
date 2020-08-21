@@ -1,4 +1,3 @@
-"use strict";
 /**
  * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
  *
@@ -7,10 +6,17 @@
  * Released under the MIT license
  * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
  */
-define([
-    'ttjs/lib/lodash',
-    'ttjs/engine/2d/flint/Easing',
-], function (_, Easing) {
+// define([
+//     'ttjs/lib/lodash',
+//     'ttjs/engine/2d/flint/Easing',
+// ], function(
+//     _,
+//     Easing
+// ) {
+define(["require", "exports", "@ttjs/lib/lodash", "@ttjs/engine/2d/flint/Easing"], function (require, exports, _, Easing_1) {
+    "use strict";
+    exports.__esModule = true;
+    exports.EaseFuncPropertyParser = void 0;
     "use strict";
     /**
      * Translates a string to a ease function.
@@ -28,6 +34,7 @@ define([
      */
     function EaseFuncPropertyParser() {
     }
+    exports.EaseFuncPropertyParser = EaseFuncPropertyParser;
     EaseFuncPropertyParser._issue = null;
     /**
      * This function does the actual transform.
@@ -68,47 +75,47 @@ define([
         switch (easeName) {
             case "back":
             case "Back":
-                easeType = Easing.Back;
+                easeType = Easing_1.Easing.Back;
                 break;
             case "bounce":
             case "Bounce":
-                easeType = Easing.Bounce;
+                easeType = Easing_1.Easing.Bounce;
                 break;
             case "circular":
             case "Circular":
-                easeType = Easing.Circular;
+                easeType = Easing_1.Easing.Circular;
                 break;
             case "cubic":
             case "Cubic":
-                easeType = Easing.Cubic;
+                easeType = Easing_1.Easing.Cubic;
                 break;
             case "elastic":
             case "Elastic":
-                easeType = Easing.Elastic;
+                easeType = Easing_1.Easing.Elastic;
                 break;
             case "exponential":
             case "Exponential":
-                easeType = Easing.Exponential;
+                easeType = Easing_1.Easing.Exponential;
                 break;
             case "linear":
             case "Linear":
-                easeType = Easing.Linear;
+                easeType = Easing_1.Easing.Linear;
                 break;
             case "quadratic":
             case "Quadratic":
-                easeType = Easing.Quadratic;
+                easeType = Easing_1.Easing.Quadratic;
                 break;
             case "quartic":
             case "Quartic":
-                easeType = Easing.Quartic;
+                easeType = Easing_1.Easing.Quartic;
                 break;
             case "quintic":
             case "Quintic":
-                easeType = Easing.Quintic;
+                easeType = Easing_1.Easing.Quintic;
                 break;
             case "sine":
             case "Sine":
-                easeType = Easing.Sine;
+                easeType = Easing_1.Easing.Sine;
                 break;
         }
         if (!easeType) {
@@ -159,6 +166,7 @@ define([
             outProps[propertyName] = finalFunc;
         }
     };
-    return EaseFuncPropertyParser;
 });
+//     return EaseFuncPropertyParser;
+// });
 //# sourceMappingURL=EaseFuncPropertyParser.js.map

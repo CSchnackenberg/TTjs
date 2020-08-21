@@ -1,4 +1,3 @@
-"use strict";
 /**
  * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
  *
@@ -8,11 +7,20 @@
  * Released under the MIT license
  * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
  */
-define([
-    'ttjs/util/TTTools',
-    'ttjs/lib/lodash',
-    'ttjs/entity/Entity'
-], function (env, _, Entity) {
+// define([
+// 	'ttjs/util/TTTools',
+// 	'ttjs/lib/lodash',
+// 	'ttjs/entity/Entity'
+// ],
+// function(
+// 	env,
+// 	_,
+// 	Entity
+// ) {
+define(["require", "exports", "@ttjs/lib/lodash", "@ttjs/entity/Entity"], function (require, exports, _, Entity_1) {
+    "use strict";
+    exports.__esModule = true;
+    exports.EntityManager = void 0;
     "use strict";
     /**
      * Handles all entities.
@@ -38,6 +46,7 @@ define([
         this._resetting = false;
         this._resetCallback = null;
     }
+    exports.EntityManager = EntityManager;
     EntityManager.prototype = {
         /**
          * A wrapper function around injectEntity which assumes that the given instance can be injected
@@ -108,12 +117,12 @@ define([
             var validEntities = [];
             for (i = 0; i < len; i++) {
                 var instanceData = preloadInstaceData[i];
-                var instance = new Entity(instanceData.name, instanceData.spatial, instanceData.parsedProperties, instanceData.instanceProperties);
+                var instance = new Entity_1.Entity(instanceData.name, instanceData.spatial, instanceData.parsedProperties, instanceData.instanceProperties);
                 instance.id = instanceData.id;
                 // At this point we have a fully inited
                 // entity object.
-                // 
-                // To really use it we have to call "onInit".				
+                //
+                // To really use it we have to call "onInit".
                 instance.manager = this;
                 len2 = instanceData.componentClasses.length;
                 for (i2 = 0; i2 < len2; i2++) {
@@ -380,6 +389,8 @@ define([
             }
         }
     };
-    return EntityManager;
 });
+//
+//     return EntityManager;
+// });
 //# sourceMappingURL=EntityManager.js.map

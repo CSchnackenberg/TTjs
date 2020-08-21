@@ -6,26 +6,27 @@
  * Addition to FLINT particles
  * 
  */
-define([
-], function(
-) {
-    "use strict";
-    var RectPosition = function(x, y, randX, randY) {
-        this.randX = randX;
-        this.randY = randY;
+// define([
+// ], function(
+// ) {
 
-        this.pos = {
-            x: x || 0,
-            y: y || 0
-        };
-    };
+"use strict";
+export function RectPosition(x, y, randX, randY) {
+    this.randX = randX;
+    this.randY = randY;
 
-    RectPosition.prototype = {
-        init: function(emitter, p) {
-            p.position.x += this.pos.x + Math.random() * this.randX;
-            p.position.y += this.pos.y + Math.random() * this.randY;
-        }    
+    this.pos = {
+        x: x || 0,
+        y: y || 0
     };
+};
+
+RectPosition.prototype = {
+    init: function(emitter, p) {
+        p.position.x += this.pos.x + Math.random() * this.randX;
+        p.position.y += this.pos.y + Math.random() * this.randY;
+    }
+};
     
-    return RectPosition;
-});
+//     return RectPosition;
+// });

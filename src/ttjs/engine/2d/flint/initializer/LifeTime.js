@@ -1,4 +1,3 @@
-"use strict";
 /**
  * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
  *
@@ -40,17 +39,26 @@
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
  *
  */
-define([], function () {
+// define([
+// ], function(
+// )
+// {
+define(["require", "exports"], function (require, exports) {
     "use strict";
-    var LifeTime = function (rangeStart, rangeEnd) {
+    exports.__esModule = true;
+    exports.LifeTime = void 0;
+    function LifeTime(rangeStart, rangeEnd) {
         this.s = rangeStart || 1;
         this.e = rangeEnd || this.s;
-    };
+    }
+    exports.LifeTime = LifeTime;
+    ;
     LifeTime.prototype = {
         init: function (emitter, p) {
             p.lifetime = this.s + Math.random() * (this.e - this.s);
         }
     };
-    return LifeTime;
 });
+//     return LifeTime;
+// });
 //# sourceMappingURL=LifeTime.js.map

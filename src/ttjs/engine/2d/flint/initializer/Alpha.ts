@@ -39,22 +39,23 @@
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
  * 
  */
-define([
-], function(
-)
-{    
-    "use strict";
-    var Alpha = function(alphaStart, alphaEnd) {        
-        this.alphaStart = alphaStart || 0;
-        this.alphaEnd = alphaEnd || 1;
-    };
-    
-    Alpha.prototype = {
-        init: function(emitter, p)
-        {
-            p.mixColor.a += (this.alphaEnd - this.alphaStart) *  Math.random() + this.alphaStart;
-        }    
-    };
-    
-    return Alpha;
-});
+// define([
+// ], function(
+// )
+// {
+
+"use strict";
+export function Alpha(alphaStart, alphaEnd) {
+    this.alphaStart = alphaStart || 0;
+    this.alphaEnd = alphaEnd || 1;
+};
+
+Alpha.prototype = {
+    init: function(emitter, p)
+    {
+        p.mixColor.a += (this.alphaEnd - this.alphaStart) *  Math.random() + this.alphaStart;
+    }
+};
+
+//     return Alpha;
+// });

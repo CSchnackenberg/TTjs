@@ -39,56 +39,56 @@
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
  * 
  */
-define([    
-], function(
-)
-{    
-	"use strict";
-    function BlastRandom(minPerSec, maxPerSec, maxCount, started) {        
-        this._started = started || true;
-        this.minRate = minPerSec;
-		this.maxRate = maxPerSec;		
-		this.maxCount = maxCount;
-        
-        this._timeToNext = 0;
-		this._blasted = 0;
-    };
-    
-    BlastRandom.prototype = {
-        
-        _newTimeToNext: function() {
-            var rate = Math.random() * (this._maxRate - this._minRate ) + this._maxRate;
-			return 1 / rate;		
-        },
-        startEmitter: function(e)
-		{
-			this._timeToNext = this._newTimeToNext();
-			return 0;
-		},
-        spawnParticles: function(e, time) {
-            if( !this._started  || this._blasted >= this.maxCount )					
-				return 0;
-			
-			var count = 0;
-			this._timeToNext -= time;
-			while(this._timeToNext <= 0  && this._blasted++ < this.maxCount)
-			{				
-				++count;
-				this._timeToNext += this._newTimeToNext();			
-			}
-			return count;
-        },
-        isCompleted: function(){
-            return false;
-        },
-        start: function() {
-            this._started = true;
-            this._blasted = 0;
-        },
-        stop: function() {
-            this._started = false;
+// define([
+// ], function(
+// )
+// {
+"use strict";
+export function BlastRandom(minPerSec, maxPerSec, maxCount, started) {
+    this._started = started || true;
+    this.minRate = minPerSec;
+    this.maxRate = maxPerSec;
+    this.maxCount = maxCount;
+
+    this._timeToNext = 0;
+    this._blasted = 0;
+};
+
+BlastRandom.prototype = {
+
+    _newTimeToNext: function() {
+        var rate = Math.random() * (this._maxRate - this._minRate ) + this._maxRate;
+        return 1 / rate;
+    },
+    startEmitter: function(e)
+    {
+        this._timeToNext = this._newTimeToNext();
+        return 0;
+    },
+    spawnParticles: function(e, time) {
+        if( !this._started  || this._blasted >= this.maxCount )
+            return 0;
+
+        var count = 0;
+        this._timeToNext -= time;
+        while(this._timeToNext <= 0  && this._blasted++ < this.maxCount)
+        {
+            ++count;
+            this._timeToNext += this._newTimeToNext();
         }
-    };
+        return count;
+    },
+    isCompleted: function(){
+        return false;
+    },
+    start: function() {
+        this._started = true;
+        this._blasted = 0;
+    },
+    stop: function() {
+        this._started = false;
+    }
+};
     
-    return BlastRandom;
-});
+//     return BlastRandom;
+// });

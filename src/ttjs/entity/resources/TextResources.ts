@@ -7,38 +7,42 @@
  * Released under the MIT license
  * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
  */
-define([
-    'ttjs/util/TTTools',
-    'jquery', // TODO !!! replace JQ
-], function(env, $)
-{    
-    "use strict";
-	
-    // TODO remove jquery dependency
-    
-	function TextResources() {};	
-	
-	TextResources.prototype = {
-		getType: function() {
-			return "text";
-		},
-		canHandle: function(url) {
-            return (env.strEndsWith(url.toLowerCase(), ".txt"));
-		},		
-        load: function(url, callback) {
+// define([
+//     'ttjs/util/TTTools',
+//     'jquery', // TODO !!! replace JQ
+// ], function(env, $)
+// {
 
-            // TODO !!! replace JQ
+import * as $ from 'jquery'
+import {TTTools as env} from "@ttjs/util/TTTools";
 
-			$.ajax({
-				url: url,
-				dataType: "text"
-			}).done(function ( data ) {
-				callback(true, data);
-			}).fail(function (xhr, status, error){
-				callback(false, error);
-			});
-        }
-	};	
+"use strict";
+
+// TODO remove jquery dependency
+
+export function TextResources() {};
+
+TextResources.prototype = {
+    getType: function() {
+        return "text";
+    },
+    canHandle: function(url) {
+        return (env.strEndsWith(url.toLowerCase(), ".txt"));
+    },
+    load: function(url, callback) {
+
+        // TODO !!! replace JQ
+
+        $.ajax({
+            url: url,
+            dataType: "text"
+        }).done(function ( data ) {
+            callback(true, data);
+        }).fail(function (xhr, status, error){
+            callback(false, error);
+        });
+    }
+};
 	
-	return TextResources;
-});
+// 	return TextResources;
+// });

@@ -1,4 +1,3 @@
-"use strict";
 /**
  * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
  *
@@ -8,19 +7,37 @@
  * Released under the MIT license
  * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
  */
-define([
-    'ttjs/util/TTTools',
-    'ttjs/lib/lodash',
-    'ttjs/entity/ComponentManager',
-    'ttjs/entity/parser/NumberPropertyParser',
-    'ttjs/entity/parser/StringPropertyParser',
-    'ttjs/entity/parser/EnumPropertyParser',
-    'ttjs/entity/parser/AnyPropertyParser',
-    'ttjs/entity/parser/EaseFuncPropertyParser',
-    'ttjs/entity/ResourceManager',
-    'ttjs/entity/EntityInstance',
-    'ttjs/entity/EntityLinker'
-], function (env, _, ComponentManager, NumberPropertyParser, StringPropertyParser, EnumPropertyParser, AnyPropertyParser, EaseFuncPropertyParser, ResourceManager, EntityInstance, EntityLinker) {
+// define([
+//     'ttjs/util/TTTools',
+//     'ttjs/lib/lodash',
+//     'ttjs/entity/ComponentManager',
+//     'ttjs/entity/parser/NumberPropertyParser',
+//     'ttjs/entity/parser/StringPropertyParser',
+//     'ttjs/entity/parser/EnumPropertyParser',
+//     'ttjs/entity/parser/AnyPropertyParser',
+//     'ttjs/entity/parser/EaseFuncPropertyParser',
+//     'ttjs/entity/ResourceManager',
+//     'ttjs/entity/EntityInstance',
+//     'ttjs/entity/EntityLinker'
+// ],
+// function(
+//     env,
+//     _,
+//     ComponentManager,
+//     NumberPropertyParser,
+//     StringPropertyParser,
+//     EnumPropertyParser,
+//     AnyPropertyParser,
+//     EaseFuncPropertyParser,
+//     ResourceManager,
+//     EntityInstance,
+//     EntityLinker
+// )
+// {
+define(["require", "exports", "ttjs/util/TTTools", "@ttjs/lib/lodash", "@ttjs/entity/ComponentManager", "@ttjs/entity/parser/NumberPropertyParser", "@ttjs/entity/parser/StringPropertyParser", "@ttjs/entity/parser/EnumPropertyParser", "@ttjs/entity/parser/AnyPropertyParser", "@ttjs/entity/parser/EaseFuncPropertyParser", "@ttjs/entity/ResourceManager", "@ttjs/entity/EntityInstance", "@ttjs/entity/EntityLinker"], function (require, exports, TTTools_1, _, ComponentManager_1, NumberPropertyParser_1, StringPropertyParser_1, EnumPropertyParser_1, AnyPropertyParser_1, EaseFuncPropertyParser_1, ResourceManager_1, EntityInstance_1, EntityLinker_1) {
+    "use strict";
+    exports.__esModule = true;
+    exports.EntityFactory = void 0;
     "use strict";
     /**
      * @class
@@ -30,18 +47,19 @@ define([
      */
     function EntityFactory(resourceManager) {
         this._linkedDefinitions = {};
-        this._linker = new EntityLinker();
-        this._resourceManager = resourceManager || new ResourceManager();
+        this._linker = new EntityLinker_1.EntityLinker();
+        this._resourceManager = resourceManager || new ResourceManager_1.ResourceManager();
         this.nextEntityId = 1;
         // default parser
         this._propertyParser = {
-            "number": new NumberPropertyParser(),
-            "string": new StringPropertyParser(),
-            "enum": new EnumPropertyParser(),
-            "ease": new EaseFuncPropertyParser(),
-            "any": new AnyPropertyParser(),
+            "number": new NumberPropertyParser_1.NumberPropertyParser(),
+            "string": new StringPropertyParser_1.StringPropertyParser(),
+            "enum": new EnumPropertyParser_1.EnumPropertyParser(),
+            "ease": new EaseFuncPropertyParser_1.EaseFuncPropertyParser(),
+            "any": new AnyPropertyParser_1.AnyPropertyParser(),
         };
     }
+    exports.EntityFactory = EntityFactory;
     EntityFactory.prototype = {
         addDefinitions: function (defs) {
             this._linker.addDefinitions(defs);
@@ -72,7 +90,7 @@ define([
             // 4) Call for each instance and for each component
             //    with the parsed properties the Resource-Request
             //    method. Requested children are collected as additional
-            //    EntityInstances. 
+            //    EntityInstances.
             // 5.a) If we have child-instances we call this function
             //      again with the children.
             // 5.b) If no children are needed we are done and can
@@ -83,7 +101,7 @@ define([
             var i, i2, len, len2;
             var validInstances = [];
             var componentList = [];
-            // STEP 1					
+            // STEP 1
             len = entityInstances.length;
             for (i = 0; i < len; i++) {
                 var instance = entityInstances[i];
@@ -110,7 +128,7 @@ define([
             }
             // Load components
             var thiz = this;
-            ComponentManager.require(componentList, function () {
+            ComponentManager_1.ComponentManager.require(componentList, function () {
                 // check all instances again
                 var oldValidInstances = validInstances;
                 validInstances = [];
@@ -123,7 +141,7 @@ define([
                     var stateOk = true;
                     var stateErr = "";
                     for (i2 = 0; i2 < len2; i2++) {
-                        var cmpState = ComponentManager.getState(def.components[i2]);
+                        var cmpState = ComponentManager_1.ComponentManager.getState(def.components[i2]);
                         switch (cmpState) {
                             case "ready":
                                 break;
@@ -155,11 +173,11 @@ define([
                     var componentNames = [];
                     for (i2 = 0; i2 < len2 && !incompleteEntity; i2++) {
                         var cmpName = def.components[i2];
-                        var cmpClass = ComponentManager.getClass(cmpName);
+                        var cmpClass = ComponentManager_1.ComponentManager.getClass(cmpName);
                         var cmpSetup = cmpClass.requires;
                         componentClasses.push(cmpClass);
                         componentNames.push(cmpName);
-                        // resource callback                        
+                        // resource callback
                         if (cmpSetup && _.isArray(cmpSetup.cmps)) {
                             var len3 = cmpSetup.cmps.length;
                             for (var i3 = 0; i3 < len3; i3++) {
@@ -187,7 +205,7 @@ define([
                 for (i = 0; i < len; i++) {
                     instance = oldValidInstances[i];
                     def = thiz._linkedDefinitions[instance.entityDefinitionName.toLowerCase()];
-                    var rawEntityProperties = env.combineObjects(def.properties, instance.instanceProperties);
+                    var rawEntityProperties = TTTools_1.TTTools.combineObjects(def.properties, instance.instanceProperties);
                     var parsedProperties = thiz._parseProperties(thiz, def, rawEntityProperties, instance.entityDefinitionName, logger);
                     if (!parsedProperties)
                         continue;
@@ -200,7 +218,7 @@ define([
                 len = oldValidInstances.length;
                 var requiredResources = [];
                 var errorInCmpRes = false;
-                for (i = 0; i < len; i++) { // each Entity				
+                for (i = 0; i < len; i++) { // each Entity
                     instance = oldValidInstances[i];
                     instance.expectedResources = [];
                     def = thiz._linkedDefinitions[instance.entityDefinitionName.toLowerCase()];
@@ -208,9 +226,9 @@ define([
                     errorInCmpRes = false;
                     for (i2 = 0; i2 < len2 && !errorInCmpRes; i2++) {
                         var cmpName = def.components[i2];
-                        var cmpClass = ComponentManager.getClass(cmpName);
+                        var cmpClass = ComponentManager_1.ComponentManager.getClass(cmpName);
                         var cmpSetup = cmpClass.requires;
-                        // resource callback                        
+                        // resource callback
                         if (cmpSetup && _.isFunction(cmpSetup.res)) {
                             var req = cmpSetup.res(instance.parsedProperties);
                             if (_.isArray(req)) {
@@ -234,15 +252,15 @@ define([
                 // STEP 5.a
                 len = validInstances.length;
                 var requiredChildren = [];
-                for (i = 0; i < len; i++) { // each Entity									
+                for (i = 0; i < len; i++) { // each Entity
                     instance = validInstances[i];
                     def = thiz._linkedDefinitions[instance.entityDefinitionName.toLowerCase()];
                     len2 = def.components.length;
                     for (i2 = 0; i2 < len2 && !errorInCmpRes; i2++) {
                         var cmpName = def.components[i2];
-                        var cmpClass = ComponentManager.getClass(cmpName);
+                        var cmpClass = ComponentManager_1.ComponentManager.getClass(cmpName);
                         var cmpSetup = cmpClass.requires;
-                        // resource callback                        
+                        // resource callback
                         if (cmpSetup && _.isFunction(cmpSetup.children)) {
                             var children = cmpSetup.children(instance.parsedProperties);
                             if (_.isArray(children)) {
@@ -250,7 +268,7 @@ define([
                                 for (i3 = 0; i3 < len3; i3++) {
                                     var childProps = instance.instanceProperties[children[i3]] || {};
                                     //console.warn(instance.instanceProperties, childProps);
-                                    var dummyChildEntity = new EntityInstance("", children[i3], {}, childProps);
+                                    var dummyChildEntity = new EntityInstance_1.EntityInstance("", children[i3], {}, childProps);
                                     requiredChildren.push(dummyChildEntity);
                                 }
                             }
@@ -319,12 +337,12 @@ define([
          */
         _unifyResourceProperties: function (thiz, req) {
             // Resources can be provided in different formats.
-            // 
+            //
             // 1) Array
             //    If the resource-value is provided as an array
             //    it is assumed that
             //    INDEX: 0 is the resource type
-            //    INDEX: 1 is the url of the resource			
+            //    INDEX: 1 is the url of the resource
             // 2) String
             //    A string is the shortest form. The developer
             //    can provide both resource type and url
@@ -332,7 +350,7 @@ define([
             //    like this:
             //    <resource-type>!<resource-url>
             //    e.g. "jsImage!assets/graphics/sprites/spr42.png"
-            //    
+            //
             //    If the resource type is not encoded in the string
             //    the resource manager will select the type by
             //    the file-ending. This is recommended for types
@@ -341,7 +359,7 @@ define([
             //    Object expects the following key-words:
             //    type:String   resource type
             //    url:String    link to the url
-            //    			
+            //
             var retVal = [];
             var tempType;
             _.forEach(req, function (rawResourceDesc, index) {
@@ -409,7 +427,7 @@ define([
             len = def.components.length;
             for (i = 0; i < len; i++) {
                 var cmpName = def.components[i];
-                var cmpClass = ComponentManager.getClass(cmpName); // window[cmpName];       
+                var cmpClass = ComponentManager_1.ComponentManager.getClass(cmpName); // window[cmpName];
                 var cmpSetup = cmpClass.requires;
                 // **  NEEDED PROPERTIES **
                 if (cmpSetup && cmpSetup.need) {
@@ -442,12 +460,12 @@ define([
                         delete rawProps[need];
                     }
                 }
-                // **  OPTIONAL PROPERTIES **                                
+                // **  OPTIONAL PROPERTIES **
                 if (cmpSetup && cmpSetup.opt) {
                     for (var opt in cmpSetup.opt) {
                         var optInfo = cmpSetup.opt[opt];
                         // some convinience
-                        if (env.isArray(optInfo))
+                        if (TTTools_1.TTTools.isArray(optInfo))
                             optInfo = { type: optInfo[0], def: optInfo[1] };
                         var optType = optInfo.type;
                         var optDef = optInfo.def;
@@ -488,6 +506,7 @@ define([
             return res;
         }
     };
-    return EntityFactory;
 });
+//     return EntityFactory;
+// });
 //# sourceMappingURL=EntityFactory.js.map

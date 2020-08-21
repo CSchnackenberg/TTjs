@@ -1,4 +1,3 @@
-"use strict";
 /**
  * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
  *
@@ -40,14 +39,21 @@
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
  *
  */
-define([], function () {
+// define([
+// ], function(
+// )
+// {
+define(["require", "exports"], function (require, exports) {
     "use strict";
+    exports.__esModule = true;
+    exports.Steady = void 0;
     function Steady(rate, started) {
         this._started = started || true;
         this._timeToNext = 0;
         this._rate = rate;
         this._rateInv = 1 / rate;
     }
+    exports.Steady = Steady;
     ;
     Steady.prototype = {
         startEmitter: function (e) {
@@ -79,6 +85,7 @@ define([], function () {
             this._started = false;
         }
     };
-    return Steady;
 });
+//     return Steady;
+// });
 //# sourceMappingURL=Steady.js.map
