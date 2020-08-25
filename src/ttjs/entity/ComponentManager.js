@@ -118,9 +118,11 @@ define(["require", "exports", "@ttjs/util/TTTools"], function (require, exports,
             }
             var reqList = [];
             scripts.forEach(function (e) { return reqList.push("@" + _this.pathPrefix + e); });
+            // TODO typescript - proper error reporting here
             require(reqList, function () {
-                debugger;
-            }, function (a, b, c) {
+                // SUCCESS!
+            }, function (err) {
+                console.error("Error loading components:", reqList, err);
                 debugger;
             });
             // start callback

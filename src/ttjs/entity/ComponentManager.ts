@@ -144,10 +144,13 @@ export const ComponentManager = {
         const reqList:string[] = [];
         scripts.forEach(e => reqList.push(`@${this.pathPrefix}${e}`));
 
+        // TODO typescript - proper error reporting here
+
         require(reqList, () => {
+            // SUCCESS!
+        }, (err)=> {
+            console.error("Error loading components:", reqList, err);
             debugger;
-        }, (a, b, c)=> {
-           debugger;
         });
 
 

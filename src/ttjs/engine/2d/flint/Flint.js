@@ -99,7 +99,7 @@ define(["require", "exports", "@ttjs/engine/2d/flint/Particle", "@ttjs/engine/2d
             Rotate: Rotate_1.Rotate,
             SortY: SortY_1.SortY,
             TargetScale: TargetScale_1.TargetScale,
-            TargetVelocity: TargetVelocity_1.TargetVelocity
+            TargetVelocity: TargetVelocity_1.TargetVelocity,
         },
         Initializer: {
             Alpha: Alpha_1.Alpha,
@@ -113,7 +113,7 @@ define(["require", "exports", "@ttjs/engine/2d/flint/Particle", "@ttjs/engine/2d
             BlendMode: BlendMode_1.BlendMode,
             RectPosition: RectPosition_1.RectPosition,
             CirclePosition: CirclePosition_1.CirclePosition,
-            RingBlastPosition: RingBlastPosition_1.RingBlastPosition
+            RingBlastPosition: RingBlastPosition_1.RingBlastPosition,
         },
         Counter: {
             Blast: Blast_1.Blast,
