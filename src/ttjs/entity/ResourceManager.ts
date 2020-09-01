@@ -7,17 +7,10 @@
  * Released under the MIT license
  * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
  */
-// define([
-//         'ttjs/lib/lodash'
-//     ],
-// function(
-//     _
-// ) {
 
 
 import * as _ from '@ttjs/lib/lodash';
 
-"use strict";
 
 /** @class  */
 export function ResourceManager() {
@@ -230,6 +223,3 @@ ResourceManager.prototype = {
         });
     }
 };
-
-//     return ResourceManager;
-// });

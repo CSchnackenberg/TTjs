@@ -39,12 +39,6 @@
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
  *
  */
-// define([
-//     'ttjs/lib/easeljs'
-// ], function(
-//     Fx
-// )
-// {
 define(["require", "exports", "@ttjs/lib/easeljs"], function (require, exports, Fx) {
     "use strict";
     exports.__esModule = true;
@@ -87,6 +81,4 @@ define(["require", "exports", "@ttjs/lib/easeljs"], function (require, exports, 
         }
     };
 });
-//     return BitmapAnimation;
-// });
 //# sourceMappingURL=BitmapAnimation.js.map

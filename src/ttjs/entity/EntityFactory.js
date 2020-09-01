@@ -7,33 +7,6 @@
  * Released under the MIT license
  * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
  */
-// define([
-//     'ttjs/util/TTTools',
-//     'ttjs/lib/lodash',
-//     'ttjs/entity/ComponentManager',
-//     'ttjs/entity/parser/NumberPropertyParser',
-//     'ttjs/entity/parser/StringPropertyParser',
-//     'ttjs/entity/parser/EnumPropertyParser',
-//     'ttjs/entity/parser/AnyPropertyParser',
-//     'ttjs/entity/parser/EaseFuncPropertyParser',
-//     'ttjs/entity/ResourceManager',
-//     'ttjs/entity/EntityInstance',
-//     'ttjs/entity/EntityLinker'
-// ],
-// function(
-//     env,
-//     _,
-//     ComponentManager,
-//     NumberPropertyParser,
-//     StringPropertyParser,
-//     EnumPropertyParser,
-//     AnyPropertyParser,
-//     EaseFuncPropertyParser,
-//     ResourceManager,
-//     EntityInstance,
-//     EntityLinker
-// )
-// {
 define(["require", "exports", "@ttjs/util/TTTools", "@ttjs/lib/lodash", "@ttjs/entity/ComponentManager", "@ttjs/entity/parser/NumberPropertyParser", "@ttjs/entity/parser/StringPropertyParser", "@ttjs/entity/parser/EnumPropertyParser", "@ttjs/entity/parser/AnyPropertyParser", "@ttjs/entity/parser/EaseFuncPropertyParser", "@ttjs/entity/ResourceManager", "@ttjs/entity/EntityInstance", "@ttjs/entity/EntityLinker"], function (require, exports, TTTools_1, _, ComponentManager_1, NumberPropertyParser_1, StringPropertyParser_1, EnumPropertyParser_1, AnyPropertyParser_1, EaseFuncPropertyParser_1, ResourceManager_1, EntityInstance_1, EntityLinker_1) {
     "use strict";
     exports.__esModule = true;
@@ -307,6 +280,7 @@ define(["require", "exports", "@ttjs/util/TTTools", "@ttjs/lib/lodash", "@ttjs/e
                             var url = instance.expectedResources[i2].url;
                             if (!thiz._resourceManager.isResourceLoaded(type, url)) {
                                 allResourcesLoaded = false;
+                                debugger;
                                 logger.error("Cannot load Entity:", instance.entityDefinitionName, ". Required resource", url, "was not loaded. Issue:", thiz._resourceManager.getResourceError(type, url));
                             }
                         }
@@ -507,6 +481,4 @@ define(["require", "exports", "@ttjs/util/TTTools", "@ttjs/lib/lodash", "@ttjs/e
         }
     };
 });
-//     return EntityFactory;
-// });
 //# sourceMappingURL=EntityFactory.js.map

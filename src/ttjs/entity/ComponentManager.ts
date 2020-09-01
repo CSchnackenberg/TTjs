@@ -7,12 +7,7 @@
  * Released under the MIT license
  * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
  */
-// define(['ttjs/util/TTTools'], function(env)
-// {
 
-import {TTTools as env} from "@ttjs/util/TTTools";
-
-"use strict";
 
 
 export const ComponentManager = {
@@ -61,9 +56,8 @@ export const ComponentManager = {
             return "unknown";
     },
 
-    require: function(src, callback)
-    {
-        if (!env.isArray(src))
+    require: function(src, callback) {
+        if (!Array.isArray(src))
             src = [src];
 
         var localPending:any[] = [];
@@ -144,13 +138,38 @@ export const ComponentManager = {
         const reqList:string[] = [];
         scripts.forEach(e => reqList.push(`@${this.pathPrefix}${e}`));
 
-        // TODO typescript - proper error reporting here
-
         require(reqList, () => {
-            // SUCCESS!
+            for (let errScriptPath of reqList) {
+                const sep = errScriptPath.lastIndexOf('/');
+                const scriptName = sep > -1 ? errScriptPath.substring(sep+1) : errScriptPath;
+
+                if (!this._classes[scriptName]) {
+                    console.error("pending => error", scriptName, "Script loaded but no Component registered");
+                    const callbacks = this._pending[scriptName];
+                    delete this._pending[scriptName];
+                    this._error[scriptName] = "Script loaded but no Component registered";
+                    for (let i=0; callbacks && i<callbacks.length; i++)
+                        callbacks[i]();
+                }
+            }
         }, (err)=> {
-            console.error("Error loading components:", reqList, err);
-            debugger;
+
+            // TODO check: in some scenarios it seems that we get here even if a script
+            // is loaded correctly.
+
+            const failedList = err.requireModules as string[];
+            for (let errScriptPath of failedList) {
+                const sep = errScriptPath.lastIndexOf('/');
+                const scriptName = sep > -1 ? errScriptPath.substring(sep+1) : errScriptPath;
+
+                console.error("pending => error", scriptName, "Unable to load script.");
+                const callbacks = this._pending[scriptName];
+                delete this._pending[scriptName];
+                this._error[scriptName] = "Unable to load script.";
+
+                for (let i=0; callbacks && i<callbacks.length; i++)
+                    callbacks[i]();
+            }
         });
 
 
@@ -206,14 +225,14 @@ export const ComponentManager = {
         var callbacks = this._pending[className];
         if (!callbacks)
         {
-            console.log("Register Component synced:", className);
+            console.log("Register Component synced", className);
             this._classes[className] = componentClass;
 
             //console.error("Unexpected component callback in component \"",className,"\".");
             return;
         }
 
-        console.log("pending => ready: ", className, " ", componentClass);
+        console.log("pending => ready", className);
         delete this._pending[className];
         this._classes[className] = componentClass;
 
@@ -221,7 +240,3 @@ export const ComponentManager = {
             callbacks[i2]();
     }
 };
-	
-// 	return ComponentManager;
-//
-// });

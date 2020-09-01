@@ -7,16 +7,21 @@
  * Released under the MIT license
  * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
  */
-// define([
-//     'jquery' // TODO !!! replace JQ
-// ],
-// function($)
-// {
-define(["require", "exports", "jquery"], function (require, exports, $) {
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+define(["require", "exports"], function (require, exports) {
     "use strict";
     exports.__esModule = true;
     exports.EntityLinker = exports.LinkedEntityDefinition = void 0;
-    "use strict";
     function LinkedEntityDefinition() {
         /** @type bool static entites are always instantiated */
         this.isStatic = false;
@@ -29,20 +34,7 @@ define(["require", "exports", "jquery"], function (require, exports, $) {
     }
     exports.LinkedEntityDefinition = LinkedEntityDefinition;
     function combineObjects(a, b) {
-        var ex = {};
-        // TODO !!! replace JQ
-        // TODO replace to remove JQuery dependency
-        //
-        // possible option https://gist.github.com/p0rsche/2763377
-        //
-        // ISSUE PERFORMANCE
-        // The to combine objects are only
-        // simple/plain java-script objects and arrays.
-        // Thus some expensive checks could be ignored in
-        // the 'extension' which might bring performance
-        //
-        $.extend(true, ex, a, b);
-        return ex;
+        return __assign(__assign({}, a), b);
     }
     /**
      *
@@ -331,6 +323,4 @@ define(["require", "exports", "jquery"], function (require, exports, $) {
         }
     };
 });
-//     return EntityLinker;
-// });
 //# sourceMappingURL=EntityLinker.js.map

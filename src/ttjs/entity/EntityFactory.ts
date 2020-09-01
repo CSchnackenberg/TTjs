@@ -7,33 +7,7 @@
  * Released under the MIT license
  * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
  */
-// define([
-//     'ttjs/util/TTTools',
-//     'ttjs/lib/lodash',
-//     'ttjs/entity/ComponentManager',
-//     'ttjs/entity/parser/NumberPropertyParser',
-//     'ttjs/entity/parser/StringPropertyParser',
-//     'ttjs/entity/parser/EnumPropertyParser',
-//     'ttjs/entity/parser/AnyPropertyParser',
-//     'ttjs/entity/parser/EaseFuncPropertyParser',
-//     'ttjs/entity/ResourceManager',
-//     'ttjs/entity/EntityInstance',
-//     'ttjs/entity/EntityLinker'
-// ],
-// function(
-//     env,
-//     _,
-//     ComponentManager,
-//     NumberPropertyParser,
-//     StringPropertyParser,
-//     EnumPropertyParser,
-//     AnyPropertyParser,
-//     EaseFuncPropertyParser,
-//     ResourceManager,
-//     EntityInstance,
-//     EntityLinker
-// )
-// {
+
 
 import {TTTools as env} from '@ttjs/util/TTTools'
 import * as _ from '@ttjs/lib/lodash'
@@ -525,6 +499,3 @@ EntityFactory.prototype = {
         return res;
     }
 };
-
-//     return EntityFactory;
-// });

@@ -7,13 +7,21 @@
  * Released under the MIT license
  * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
  */
-// define(['ttjs/util/TTTools'], function(env)
-// {
-define(["require", "exports", "@ttjs/util/TTTools"], function (require, exports, TTTools_1) {
+var __values = (this && this.__values) || function(o) {
+    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+    if (m) return m.call(o);
+    if (o && typeof o.length === "number") return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+};
+define(["require", "exports"], function (require, exports) {
     "use strict";
     exports.__esModule = true;
     exports.ComponentManager = void 0;
-    "use strict";
     exports.ComponentManager = {
         /** maps class-name => class/constructor */
         _classes: {},
@@ -53,7 +61,7 @@ define(["require", "exports", "@ttjs/util/TTTools"], function (require, exports,
         },
         require: function (src, callback) {
             var _this = this;
-            if (!TTTools_1.TTTools.isArray(src))
+            if (!Array.isArray(src))
                 src = [src];
             var localPending = [];
             var localReady = [];
@@ -118,12 +126,55 @@ define(["require", "exports", "@ttjs/util/TTTools"], function (require, exports,
             }
             var reqList = [];
             scripts.forEach(function (e) { return reqList.push("@" + _this.pathPrefix + e); });
-            // TODO typescript - proper error reporting here
             require(reqList, function () {
-                // SUCCESS!
+                var e_1, _a;
+                try {
+                    for (var reqList_1 = __values(reqList), reqList_1_1 = reqList_1.next(); !reqList_1_1.done; reqList_1_1 = reqList_1.next()) {
+                        var errScriptPath = reqList_1_1.value;
+                        var sep = errScriptPath.lastIndexOf('/');
+                        var scriptName = sep > -1 ? errScriptPath.substring(sep + 1) : errScriptPath;
+                        if (!_this._classes[scriptName]) {
+                            console.error("pending => error", scriptName, "Script loaded but no Component registered");
+                            var callbacks = _this._pending[scriptName];
+                            delete _this._pending[scriptName];
+                            _this._error[scriptName] = "Script loaded but no Component registered";
+                            for (var i_1 = 0; callbacks && i_1 < callbacks.length; i_1++)
+                                callbacks[i_1]();
+                        }
+                    }
+                }
+                catch (e_1_1) { e_1 = { error: e_1_1 }; }
+                finally {
+                    try {
+                        if (reqList_1_1 && !reqList_1_1.done && (_a = reqList_1["return"])) _a.call(reqList_1);
+                    }
+                    finally { if (e_1) throw e_1.error; }
+                }
             }, function (err) {
-                console.error("Error loading components:", reqList, err);
-                debugger;
+                // TODO check: in some scenarios it seems that we get here even if a script
+                // is loaded correctly.
+                var e_2, _a;
+                var failedList = err.requireModules;
+                try {
+                    for (var failedList_1 = __values(failedList), failedList_1_1 = failedList_1.next(); !failedList_1_1.done; failedList_1_1 = failedList_1.next()) {
+                        var errScriptPath = failedList_1_1.value;
+                        var sep = errScriptPath.lastIndexOf('/');
+                        var scriptName = sep > -1 ? errScriptPath.substring(sep + 1) : errScriptPath;
+                        console.error("pending => error", scriptName, "Unable to load script.");
+                        var callbacks = _this._pending[scriptName];
+                        delete _this._pending[scriptName];
+                        _this._error[scriptName] = "Unable to load script.";
+                        for (var i_2 = 0; callbacks && i_2 < callbacks.length; i_2++)
+                            callbacks[i_2]();
+                    }
+                }
+                catch (e_2_1) { e_2 = { error: e_2_1 }; }
+                finally {
+                    try {
+                        if (failedList_1_1 && !failedList_1_1.done && (_a = failedList_1["return"])) _a.call(failedList_1);
+                    }
+                    finally { if (e_2) throw e_2.error; }
+                }
             });
             // start callback
             // var thiz = this;
@@ -174,12 +225,12 @@ define(["require", "exports", "@ttjs/util/TTTools"], function (require, exports,
         registerComponentClass: function (className, componentClass) {
             var callbacks = this._pending[className];
             if (!callbacks) {
-                console.log("Register Component synced:", className);
+                console.log("Register Component synced", className);
                 this._classes[className] = componentClass;
                 //console.error("Unexpected component callback in component \"",className,"\".");
                 return;
             }
-            console.log("pending => ready: ", className, " ", componentClass);
+            console.log("pending => ready", className);
             delete this._pending[className];
             this._classes[className] = componentClass;
             for (var i2 = 0; i2 < callbacks.length; i2++)
@@ -187,7 +238,4 @@ define(["require", "exports", "@ttjs/util/TTTools"], function (require, exports,
         }
     };
 });
-// 	return ComponentManager;
-//
-// });
 //# sourceMappingURL=ComponentManager.js.map

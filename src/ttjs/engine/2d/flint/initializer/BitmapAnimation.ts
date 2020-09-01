@@ -39,12 +39,6 @@
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
  *
  */
-// define([
-//     'ttjs/lib/easeljs'
-// ], function(
-//     Fx
-// )
-// {
 
 import * as Fx from '@ttjs/lib/easeljs'
 
@@ -87,5 +81,3 @@ BitmapAnimation.prototype = {
     }
 };
     
-//     return BitmapAnimation;
-// });

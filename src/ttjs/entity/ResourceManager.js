@@ -7,17 +7,10 @@
  * Released under the MIT license
  * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
  */
-// define([
-//         'ttjs/lib/lodash'
-//     ],
-// function(
-//     _
-// ) {
 define(["require", "exports", "@ttjs/lib/lodash"], function (require, exports, _) {
     "use strict";
     exports.__esModule = true;
     exports.ResourceManager = void 0;
-    "use strict";
     /** @class  */
     function ResourceManager() {
         this._manager = {};
@@ -229,6 +222,4 @@ define(["require", "exports", "@ttjs/lib/lodash"], function (require, exports, _
         }
     };
 });
-//     return ResourceManager;
-// });
 //# sourceMappingURL=ResourceManager.js.map
