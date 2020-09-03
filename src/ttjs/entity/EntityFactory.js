@@ -280,7 +280,6 @@ define(["require", "exports", "@ttjs/util/TTTools", "@ttjs/lib/lodash", "@ttjs/e
                             var url = instance.expectedResources[i2].url;
                             if (!thiz._resourceManager.isResourceLoaded(type, url)) {
                                 allResourcesLoaded = false;
-                                debugger;
                                 logger.error("Cannot load Entity:", instance.entityDefinitionName, ". Required resource", url, "was not loaded. Issue:", thiz._resourceManager.getResourceError(type, url));
                             }
                         }
