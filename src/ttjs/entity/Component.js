@@ -1,54 +1,46 @@
-/**
- * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
- *
- * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
- * Copyright (c) 2013, Johannes Brosi <mail@jbrosi.de>
- *
- * Released under the MIT license
- * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
- */
-// define([], function()
-// {
 define(["require", "exports"], function (require, exports) {
     "use strict";
     exports.__esModule = true;
     exports.Component = void 0;
     /**
-     * @class BaseClass for all components
+     * @class BaseClass for components
+     *
      **/
-    function Component() {
-        /** @type Entity link to the owner entity */
-        this.entity = null;
-    }
-    exports.Component = Component;
-    Component.prototype = {
+    var Component = /** @class */ (function () {
+        function Component() {
+            this.entity = null;
+            /** @type Entity link to the owner entity */
+            this.entity = null;
+        }
         /** Send a message to all entity components */
-        sendMessageToEntity: function (name, params) {
+        Component.prototype.sendMessageToEntity = function (name, params) {
             this.entity.sendMessage(name, params);
-        },
+        };
         /** Send a message to all active entities */
-        sendMessageToActive: function (name, params) {
+        Component.prototype.sendMessageToActive = function (name, params) {
             this.entity.manager.sendMessage(name, params, true);
-        },
+        };
         /**
          * Send a message to all entities.
          *
          * This should be used with caution as there may be thousends
          * of entities to crawl.
          **/
-        sendMessageToAll: function (name, params) {
+        Component.prototype.sendMessageToAll = function (name, params) {
             this.entity.manager.sendMessage(name, params, false);
-        },
+        };
         /**
          * Finds a component within this entitiy.
          *
          * @param {String} cmpName Class-Name of the component
          **/
-        findComponent: function (cmpName) {
+        Component.prototype.findComponent = function (cmpName) {
             return this.entity.findComponent(cmpName);
-        }
-    };
+        };
+        Component.prototype.onDispose = function (entity) {
+        };
+        return Component;
+    }());
+    exports.Component = Component;
 });
-//     return Component;
-// });
 //# sourceMappingURL=Component.js.map

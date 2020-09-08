@@ -10,6 +10,8 @@
 
 
 "use strict";
+import {TTTools} from "@ttjs/util/TTTools";
+
 export function LinkedEntityDefinition() {
     /** @type bool static entites are always instantiated */
     this.isStatic = false;
@@ -22,7 +24,7 @@ export function LinkedEntityDefinition() {
 }
 
 function combineObjects(a, b) {
-    return {...a, ...b};
+    return TTTools.combineObjects(a, b);
 }
 
 /**
