@@ -57,7 +57,7 @@ import {TTTools as env} from "@ttjs/util/TTTools";
 
 
 export interface IEntity {
-    props:object;
+    props:any;
     manager:any;
 
     getSpatial():object;
