@@ -14,24 +14,44 @@ define(["require", "exports"], function (require, exports) {
     exports.__esModule = true;
     exports.EntityDefinition = void 0;
     /** @class  */
-    function EntityDefinition() {
-        /** @type bool static entites are always instantiated */
-        this.isStatic = false;
-        /** @type String */
-        this.name = "";
-        /** @type Array */
-        this.components = [];
-        /**  */
-        this.parent = null;
-        /** property family */
-        this.family = [];
-        /** unparsed properties */
-        this.properties = {};
-        /** information about the definition origin */
-        this.source = {};
-    }
+    // export function EntityDefinition()
+    // {
+    //     /** @type bool static entites are always instantiated */
+    //     this.isStatic = false;
+    //     /** @type String */
+    //     this.name = "";
+    //     /** @type Array */
+    //     this.components = [];
+    //     /**  */
+    //     this.parent = null;
+    //     /** property family */
+    //     this.family = [];
+    //     /** unparsed properties */
+    //     this.properties = {};
+    //     /** information about the definition origin */
+    //     this.source = {};
+    // }
+    var EntityDefinition = /** @class */ (function () {
+        function EntityDefinition() {
+            /** @type bool static entites are always instantiated */
+            this.isStatic = false;
+            /** @type String */
+            this.name = "";
+            /** @type Array */
+            this.components = [];
+            /**  */
+            this.parent = null;
+            /** property family */
+            this.family = [];
+            /** unparsed properties */
+            this.properties = {};
+            /** information about the definition origin */
+            this.source = {};
+            /** information about the definition origin */
+            this.type = "";
+        }
+        return EntityDefinition;
+    }());
     exports.EntityDefinition = EntityDefinition;
 });
-//     return EntityDefinition;
-// });
 //# sourceMappingURL=EntityDefinition.js.map

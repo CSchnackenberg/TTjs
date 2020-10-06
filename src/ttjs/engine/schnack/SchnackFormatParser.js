@@ -11,132 +11,103 @@
 // define([
 // ], function (
 // ) {
-
-"use strict";
-
-
-
-export const SchnackFormatParser = {
-};
-
-// -----------------------------------------------------
-
-let _state = 0;
-const STATE_TEXT = _state++;
-const STATE_SYMBOL = _state++;
-
-
-const EVENT_START = "start";
-const EVENT_END = "end";
-const EVENT_ERR = "error";
-
-SchnackFormatParser.EVENT_START = EVENT_START;
-SchnackFormatParser.EVENT_END = EVENT_END;
-SchnackFormatParser.EVENT_ERR = EVENT_ERR;
-
-
-// -----------------------------------------------------
-
-/**
- * Can parse this:
- *
- * 111{a:222{b:333}444}555
- *     ^     ^
- *     |     second symbol: "b"
- *     first Symbol: "a"
- *
- * NOTE: Potentially puts heavy load on GC
- *
- * const cb = (typ, symbol, stack, raw, rawIndex) => {
- *      console.log(typ, symbol, stack, raw, rawIndex);
- * }
- * const txt = parse("a{b:xxx{c:yyy}zzz}", cb);
- * console.log(txt);
- *
- * // output:
- * > start b [ 'b' ] a 1
- * > start c [ 'b', 'c' ] axxx 4
- * > end c [ 'b' ] axxxyyy 7
- * > end b [] axxxyyyzzz 10
- * > axxxyyyzzz
- *
- */
-SchnackFormatParser.parse = function(formatedText, callback) {
-    let state = STATE_TEXT;
-    const symbolStack = [];
-    let symbol = "";
-    let rawCharIndex = 0;
-    let rawText = "";
-
-    for (let i=0; i<formatedText.length; i++) {
-        const c = formatedText[i];
-
-        if (state == STATE_SYMBOL) {
-            if (c == ':') {
-                state = STATE_TEXT;
-                symbolStack.push(symbol);
-                if (callback)
-                    callback(EVENT_START, symbol, symbolStack, rawText, rawCharIndex);
-            }
-            else {
-                symbol += c;
-                continue;
-            }
-        }
-        else if (state == STATE_TEXT) {
-            if (c == '{' && (i == 0 || formatedText[i - 1] != '\\')) {
-                state = STATE_SYMBOL;
-                symbol = "";
-                continue;
-            }
-            else if (c == '}' && (i == 0 || formatedText[i - 1] != '\\')) {
-                if (symbolStack.length == 0) {
-                    if (callback)
-                        callback(EVENT_ERR, null, symbolStack, rawText, rawCharIndex);
-                }
-                else {
-                    const popSym = symbolStack.pop();
-                    if (callback)
-                        callback(EVENT_END, popSym, symbolStack, rawText, rawCharIndex);
-                }
-            }
-            else {
-
-                if (c == '\\') {
-                    if (i + 1 < formatedText.length && formatedText[i + 1] != '\\') {
-                        // wee want to keep the
+define(["require", "exports"], function (require, exports) {
+    "use strict";
+    exports.__esModule = true;
+    exports.SchnackFormatParser = void 0;
+    // -----------------------------------------------------
+    var _state = 0;
+    var STATE_TEXT = _state++;
+    var STATE_SYMBOL = _state++;
+    var EVENT_START = "start";
+    var EVENT_END = "end";
+    var EVENT_ERR = "error";
+    exports.SchnackFormatParser = {
+        EVENT_START: EVENT_START,
+        EVENT_END: EVENT_END,
+        EVENT_ERR: EVENT_ERR,
+        /**
+         * Can parse this:
+         *
+         * 111{a:222{b:333}444}555
+         *     ^     ^
+         *     |     second symbol: "b"
+         *     first Symbol: "a"
+         *
+         * NOTE: Potentially puts heavy load on GC
+         *
+         * const cb = (typ, symbol, stack, raw, rawIndex) => {
+         *      console.log(typ, symbol, stack, raw, rawIndex);
+         * }
+         * const txt = parse("a{b:xxx{c:yyy}zzz}", cb);
+         * console.log(txt);
+         *
+         * // output:
+         * > start b [ 'b' ] a 1
+         * > start c [ 'b', 'c' ] axxx 4
+         * > end c [ 'b' ] axxxyyy 7
+         * > end b [] axxxyyyzzz 10
+         * > axxxyyyzzz
+         *
+         */
+        parse: function (formatedText, callback) {
+            var state = STATE_TEXT;
+            var symbolStack = [];
+            var symbol = "";
+            var rawCharIndex = 0;
+            var rawText = "";
+            for (var i = 0; i < formatedText.length; i++) {
+                var c = formatedText[i];
+                if (state == STATE_SYMBOL) {
+                    if (c == ':') {
+                        state = STATE_TEXT;
+                        symbolStack.push(symbol);
+                        if (callback)
+                            callback(EVENT_START, symbol, symbolStack, rawText, rawCharIndex);
                     }
                     else {
+                        symbol += c;
                         continue;
                     }
                 }
-
-                rawText += c;
-                rawCharIndex++;
+                else if (state == STATE_TEXT) {
+                    if (c == '{' && (i == 0 || formatedText[i - 1] != '\\')) {
+                        state = STATE_SYMBOL;
+                        symbol = "";
+                        continue;
+                    }
+                    else if (c == '}' && (i == 0 || formatedText[i - 1] != '\\')) {
+                        if (symbolStack.length == 0) {
+                            if (callback)
+                                callback(EVENT_ERR, null, symbolStack, rawText, rawCharIndex);
+                        }
+                        else {
+                            var popSym = symbolStack.pop();
+                            if (callback)
+                                callback(EVENT_END, popSym, symbolStack, rawText, rawCharIndex);
+                        }
+                    }
+                    else {
+                        if (c == '\\') {
+                            if (i + 1 < formatedText.length && formatedText[i + 1] != '\\') {
+                                // wee want to keep the
+                            }
+                            else {
+                                continue;
+                            }
+                        }
+                        rawText += c;
+                        rawCharIndex++;
+                    }
+                }
             }
+            return rawText;
         }
-    }
-    return rawText;
-};
-
+    };
+});
+// -----------------------------------------------------
+// SchnackFormatParser.parse = ;
 //     return SchnackFormatParser;
 //
 // });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//# sourceMappingURL=SchnackFormatParser.js.map

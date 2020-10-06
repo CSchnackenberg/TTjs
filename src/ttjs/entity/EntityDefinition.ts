@@ -13,23 +13,45 @@
 "use strict";
 
 /** @class  */
-export function EntityDefinition()
-{
+// export function EntityDefinition()
+// {
+//     /** @type bool static entites are always instantiated */
+//     this.isStatic = false;
+//     /** @type String */
+//     this.name = "";
+//     /** @type Array */
+//     this.components = [];
+//     /**  */
+//     this.parent = null;
+//     /** property family */
+//     this.family = [];
+//     /** unparsed properties */
+//     this.properties = {};
+//     /** information about the definition origin */
+//     this.source = {};
+// }
+
+
+export class EntityDefinition {
+
     /** @type bool static entites are always instantiated */
-    this.isStatic = false;
+    public isStatic = false;
     /** @type String */
-    this.name = "";
+    public name = "";
     /** @type Array */
-    this.components = [];
+    public components:string[] = [];
     /**  */
-    this.parent = null;
+    public parent:string = null;
     /** property family */
-    this.family = [];
+    public family:string[] = [];
     /** unparsed properties */
-    this.properties = {};
+    public properties:any = {};
     /** information about the definition origin */
-    this.source = {};
+    public source:any = {};
+    /** information about the definition origin */
+    public type:string = "";
+
+    constructor() {
+
+    }
 }
-	
-//     return EntityDefinition;
-// });
