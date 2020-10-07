@@ -47,8 +47,8 @@ define(["require", "exports"], function (require, exports) {
         var state = ParseState.WAIT_FOR_ELEMENT;
         var current = null;
         var regHeader = /\[([!|*|\$])?(\w+)(?:\((\w+)\))?(?:\:([\w+\,]+))?]/;
-        var regObjectProp = /^(\w|_)*\s*{$/;
-        var regArrayProp = /^(\w|_)*\s*\[$/;
+        var regObjectProp = /^(\w|_)*\s*"{$/;
+        var regArrayProp = /^(\w|_)*\s*"\[$/;
         var regMultiStringProp = /^(\w|_)*\s*\"$/;
         var regProp = /^(\w|_)*\s*=/;
         var lines = content.split('\n');
@@ -111,7 +111,7 @@ define(["require", "exports"], function (require, exports) {
                     }
                     else if (regArrayProp.test(lineTrimmed)) { // multiline-json-array
                         seekMultiLine = true;
-                        multiLineTerminator = "]";
+                        multiLineTerminator = ']"';
                     }
                     else if (regMultiStringProp.test(lineTrimmed)) { // multiline-string
                         seekMultiLine = true;
@@ -119,7 +119,7 @@ define(["require", "exports"], function (require, exports) {
                     }
                     else if (regObjectProp.test(lineTrimmed)) { // multiline-json-object
                         seekMultiLine = true;
-                        multiLineTerminator = "}";
+                        multiLineTerminator = '}"';
                     }
                     else {
                         console.error("Cannot parse property. Line:", i + 1, ":", line);
@@ -146,12 +146,12 @@ define(["require", "exports"], function (require, exports) {
                             continue;
                         }
                         else {
-                            var multiLineKey = lineTrimmed.substring(0, lineTrimmed.length - 1).trim();
+                            var multiLineKey = lineTrimmed.substring(0, lineTrimmed.length - multiLineTerminator.length).trim();
                             switch (multiLineTerminator) {
-                                case ']':
+                                case ']"':
                                     current.properties[multiLineKey] = "[ " + multiLineVal + " ]";
                                     break;
-                                case '}':
+                                case '}"':
                                     current.properties[multiLineKey] = "{ " + multiLineVal + " }";
                                     break;
                                 case '"':

@@ -16,7 +16,7 @@ define(["require", "exports", "@ttjs/entity/edf/EDFParser", "@ttjs/entity/Entity
             this.result = result;
             this.edfMap = {};
             this.pending = [];
-            this.definitions = [];
+            this.definitions = {};
             this.pending.push(startEDF);
             this.loadNextEDF();
         }
@@ -106,20 +106,21 @@ define(["require", "exports", "@ttjs/entity/edf/EDFParser", "@ttjs/entity/Entity
                     globalProps = this_2.mergeAWithB(globalProps, e.properties);
                 }
                 else if (e.entryType == EDFParser_1.EDFEntryType.PROPERTY_GROUP) {
-                    if (consumeName(e.name)) {
+                    if (!consumeName(e.name)) {
                         console.error("EDF name used more than once:", e.name);
                         return "continue";
                     }
                     var ed_1 = new EntityDefinition_1.EntityDefinition();
                     ed_1.name = e.name;
                     ed_1.type = "property";
-                    e.propertyGroups.forEach(function (pgName) { return ed_1.family.push(pgName); });
+                    e.propertyGroups.forEach(function (pgName) { return ed_1.family.push(pgName.toLowerCase()); });
                     ed_1.properties = e.properties;
-                    this_2.definitions.push(ed_1);
+                    // this.definitions.push(ed);
+                    this_2.definitions[e.name.toLowerCase()] = ed_1;
                 }
                 else if (e.entryType == EDFParser_1.EDFEntryType.ENTITY ||
                     e.entryType == EDFParser_1.EDFEntryType.INSTANCE_ENTITY) {
-                    if (consumeName(e.name)) {
+                    if (!consumeName(e.name)) {
                         console.error("EDF name used more than once:", e.name);
                         return "continue";
                     }
@@ -127,16 +128,19 @@ define(["require", "exports", "@ttjs/entity/edf/EDFParser", "@ttjs/entity/Entity
                     ed_2.name = e.name;
                     ed_2.type = "entity";
                     ed_2.isStatic = e.entryType == EDFParser_1.EDFEntryType.INSTANCE_ENTITY ? true : false;
-                    e.propertyGroups.forEach(function (pgName) { return ed_2.family.push(pgName); });
+                    e.propertyGroups.forEach(function (pgName) { return ed_2.family.push(pgName.toLowerCase()); });
                     ed_2.properties = e.properties;
                     ed_2.components = e.components;
-                    this_2.definitions.push(ed_2);
+                    ed_2.parent = e.parent.toLowerCase();
+                    // this.definitions.push(ed);
+                    this_2.definitions[e.name.toLowerCase()] = ed_2;
                 }
             };
             var this_2 = this;
             for (var i = 0; i < orderedEDFs.length; i++) {
                 _loop_2(i);
             }
+            this.result(true, this);
         };
         return EDFLoader;
     }());

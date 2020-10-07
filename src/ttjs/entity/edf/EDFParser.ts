@@ -44,8 +44,8 @@ export function parseEDF(content:string):UnlinkedEDF {
     let state:ParseState = ParseState.WAIT_FOR_ELEMENT;
     let current:UnlinkedEDFEntry = null;
     const regHeader = /\[([!|*|\$])?(\w+)(?:\((\w+)\))?(?:\:([\w+\,]+))?]/;
-    const regObjectProp = /^(\w|_)*\s*{$/;
-    const regArrayProp = /^(\w|_)*\s*\[$/;
+    const regObjectProp = /^(\w|_)*\s*"{$/;
+    const regArrayProp = /^(\w|_)*\s*"\[$/;
     const regMultiStringProp = /^(\w|_)*\s*\"$/;
     const regProp = /^(\w|_)*\s*=/;
 
@@ -116,7 +116,7 @@ export function parseEDF(content:string):UnlinkedEDF {
                 }
                 else if (regArrayProp.test(lineTrimmed)) { // multiline-json-array
                     seekMultiLine = true;
-                    multiLineTerminator = "]";
+                    multiLineTerminator = ']"';
                 }
                 else if (regMultiStringProp.test(lineTrimmed)) { // multiline-string
                     seekMultiLine = true;
@@ -124,7 +124,7 @@ export function parseEDF(content:string):UnlinkedEDF {
                 }
                 else if (regObjectProp.test(lineTrimmed)) { // multiline-json-object
                     seekMultiLine = true;
-                    multiLineTerminator = "}";
+                    multiLineTerminator = '}"';
                 }
                 else {
                     console.error(`Cannot parse property. Line:`, i+1, ":", line);
@@ -155,12 +155,12 @@ export function parseEDF(content:string):UnlinkedEDF {
                         continue;
                     }
                     else {
-                        const multiLineKey = lineTrimmed.substring(0, lineTrimmed.length-1).trim();
+                        const multiLineKey = lineTrimmed.substring(0, lineTrimmed.length-multiLineTerminator.length).trim();
                         switch (multiLineTerminator) {
-                            case ']':
+                            case ']"':
                                 current.properties[multiLineKey] = `[ ${multiLineVal} ]`;
                                 break;
-                            case '}':
+                            case '}"':
                                 current.properties[multiLineKey] = `{ ${multiLineVal} }`;
                                 break;
                             case '"':

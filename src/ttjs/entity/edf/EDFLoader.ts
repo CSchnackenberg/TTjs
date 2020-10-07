@@ -24,7 +24,7 @@ export class EDFLoader {
 
     private edfMap:any = {};
     private pending:string[] = [];
-    public readonly definitions:EntityDefinition[] = [];
+    public readonly definitions:any = {};
 
     constructor(
         private provider:TextFileProvider,
@@ -106,6 +106,7 @@ export class EDFLoader {
 
     private link(orderedEDFs:UnlinkedEDFEntry[]):void {
 
+
         let globalProps: any = {};
         const usedNames: any = {};
         const consumeName = (name:string):boolean => {
@@ -124,20 +125,21 @@ export class EDFLoader {
                 globalProps = this.mergeAWithB(globalProps, e.properties);
             }
             else if (e.entryType == EDFEntryType.PROPERTY_GROUP) {
-                if (consumeName(e.name)) {
+                if (!consumeName(e.name)) {
                     console.error("EDF name used more than once:", e.name);
                     continue;
                 }
                 const ed = new EntityDefinition();
                 ed.name = e.name;
                 ed.type = "property";
-                e.propertyGroups.forEach(pgName => ed.family.push(pgName));
+                e.propertyGroups.forEach(pgName => ed.family.push(pgName.toLowerCase()));
                 ed.properties = e.properties;
-                this.definitions.push(ed);
+                // this.definitions.push(ed);
+                this.definitions[e.name.toLowerCase()] = ed;
             }
             else if (e.entryType == EDFEntryType.ENTITY ||
                 e.entryType == EDFEntryType.INSTANCE_ENTITY) {
-                if (consumeName(e.name)) {
+                if (!consumeName(e.name)) {
                     console.error("EDF name used more than once:", e.name);
                     continue;
                 }
@@ -145,12 +147,16 @@ export class EDFLoader {
                 ed.name = e.name;
                 ed.type = "entity";
                 ed.isStatic = e.entryType == EDFEntryType.INSTANCE_ENTITY ? true : false;
-                e.propertyGroups.forEach(pgName => ed.family.push(pgName));
+                e.propertyGroups.forEach(pgName => ed.family.push(pgName.toLowerCase()));
                 ed.properties = e.properties;
                 ed.components = e.components;
-                this.definitions.push(ed);
+                ed.parent = e.parent.toLowerCase();
+                // this.definitions.push(ed);
+                this.definitions[e.name.toLowerCase()] = ed;
             }
         }
+
+        this.result(true, this);
 
     }
 

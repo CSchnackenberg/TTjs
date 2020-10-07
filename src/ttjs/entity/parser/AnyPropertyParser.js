@@ -31,8 +31,17 @@ define(["require", "exports", "@ttjs/lib/lodash"], function (require, exports, _
          */
         parse: function (propertyName, propertyInfo, instanceValue, outProps) {
             //if (_.isEmpty(instanceValue))
-            if (typeof instanceValue === undefined)
+            var typeVal = typeof instanceValue;
+            if (typeVal === undefined)
                 return "Must not be empty";
+            try {
+                if (typeVal == "string") {
+                    outProps[propertyName] = JSON.parse(instanceValue);
+                    return;
+                }
+            }
+            catch (e) {
+            }
             // as we do not know what is inside the data we have
             // to make a deep copy. The user might change the content
             // in one entity and it should have impact on the

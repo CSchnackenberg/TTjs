@@ -16,12 +16,40 @@ const parseEDF = require("./../../src/ttjs/entity/edf/EDFParser").parseEDF;
 
 const tests = [];
 
-const debug = false;
+const debug = true;
 
 // ---------------------------------------------------------------------------------------------------------------------
 
 if (debug) {
     tests.push(["debugging", () => {
+
+        const edf1 =
+            `
+ 
+[OptionsColorSupport:GameOptionProps]
+@AlwaysActive
+@GuiNode
+@OptionsUIElement
+@OptionsUISelect
+message = ChangeColorSupportMode
+_mainIcon = main-icon-colors
+mainIcon = main-icon-highlight
+options "[
+  [
+    "no",
+    "Normal"
+  ],
+  [
+    "support",
+    "Highlight Colors"
+  ]
+]"
+ 
+`;
+
+
+        const edf1Parsed = parseEDF(edf1);
+        console.log(JSON.stringify(edf1Parsed.entries, null, 2));
 
 
     }]);
