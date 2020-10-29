@@ -15,13 +15,14 @@ import {ComponentManager} from '@ttjs/entity/ComponentManager'
 import {NumberPropertyParser} from '@ttjs/entity/parser/NumberPropertyParser'
 import {StringPropertyParser} from '@ttjs/entity/parser/StringPropertyParser'
 import {EnumPropertyParser} from '@ttjs/entity/parser/EnumPropertyParser'
+import {NumberEnumPropertyParser} from '@ttjs/entity/parser/NumberEnumPropertyParser'
 import {AnyPropertyParser} from '@ttjs/entity/parser/AnyPropertyParser'
 import {EaseFuncPropertyParser} from '@ttjs/entity/parser/EaseFuncPropertyParser'
 import {ResourceManager} from '@ttjs/entity/ResourceManager'
 import {EntityInstance} from '@ttjs/entity/EntityInstance'
 import {EntityLinker} from '@ttjs/entity/EntityLinker'
 
-"use strict";
+
 
 /**
  * @class
@@ -41,6 +42,7 @@ export function EntityFactory(resourceManager)
         "number": new NumberPropertyParser(),
         "string": new StringPropertyParser(),
         "enum": new EnumPropertyParser(),
+        "numberEnum": new NumberEnumPropertyParser(),
         "ease": new EaseFuncPropertyParser(),
         "any": new AnyPropertyParser(),
     };

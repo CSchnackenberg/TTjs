@@ -7,11 +7,10 @@
  * Released under the MIT license
  * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
  */
-define(["require", "exports", "@ttjs/util/TTTools", "@ttjs/lib/lodash", "@ttjs/entity/ComponentManager", "@ttjs/entity/parser/NumberPropertyParser", "@ttjs/entity/parser/StringPropertyParser", "@ttjs/entity/parser/EnumPropertyParser", "@ttjs/entity/parser/AnyPropertyParser", "@ttjs/entity/parser/EaseFuncPropertyParser", "@ttjs/entity/ResourceManager", "@ttjs/entity/EntityInstance", "@ttjs/entity/EntityLinker"], function (require, exports, TTTools_1, _, ComponentManager_1, NumberPropertyParser_1, StringPropertyParser_1, EnumPropertyParser_1, AnyPropertyParser_1, EaseFuncPropertyParser_1, ResourceManager_1, EntityInstance_1, EntityLinker_1) {
+define(["require", "exports", "@ttjs/util/TTTools", "@ttjs/lib/lodash", "@ttjs/entity/ComponentManager", "@ttjs/entity/parser/NumberPropertyParser", "@ttjs/entity/parser/StringPropertyParser", "@ttjs/entity/parser/EnumPropertyParser", "@ttjs/entity/parser/NumberEnumPropertyParser", "@ttjs/entity/parser/AnyPropertyParser", "@ttjs/entity/parser/EaseFuncPropertyParser", "@ttjs/entity/ResourceManager", "@ttjs/entity/EntityInstance", "@ttjs/entity/EntityLinker"], function (require, exports, TTTools_1, _, ComponentManager_1, NumberPropertyParser_1, StringPropertyParser_1, EnumPropertyParser_1, NumberEnumPropertyParser_1, AnyPropertyParser_1, EaseFuncPropertyParser_1, ResourceManager_1, EntityInstance_1, EntityLinker_1) {
     "use strict";
     exports.__esModule = true;
     exports.EntityFactory = void 0;
-    "use strict";
     /**
      * @class
      *
@@ -28,6 +27,7 @@ define(["require", "exports", "@ttjs/util/TTTools", "@ttjs/lib/lodash", "@ttjs/e
             "number": new NumberPropertyParser_1.NumberPropertyParser(),
             "string": new StringPropertyParser_1.StringPropertyParser(),
             "enum": new EnumPropertyParser_1.EnumPropertyParser(),
+            "numberEnum": new NumberEnumPropertyParser_1.NumberEnumPropertyParser(),
             "ease": new EaseFuncPropertyParser_1.EaseFuncPropertyParser(),
             "any": new AnyPropertyParser_1.AnyPropertyParser(),
         };
