@@ -140,29 +140,19 @@ define(["require", "exports"], function (require, exports) {
                     finally { if (e_1) throw e_1.error; }
                 }
             }, function (err) {
-                // TODO check: in some scenarios it seems that we get here even if a script
-                // is loaded correctly.
-                var e_2, _a;
-                var failedList = err.requireModules;
-                try {
-                    for (var failedList_1 = __values(failedList), failedList_1_1 = failedList_1.next(); !failedList_1_1.done; failedList_1_1 = failedList_1.next()) {
-                        var errScriptPath = failedList_1_1.value;
-                        var sep = errScriptPath.lastIndexOf('/');
-                        var scriptName = sep > -1 ? errScriptPath.substring(sep + 1) : errScriptPath;
-                        console.error("pending => error", scriptName, "Unable to load script.");
-                        var callbacks = _this._pending[scriptName];
-                        delete _this._pending[scriptName];
-                        _this._error[scriptName] = "Unable to load script.";
-                        for (var i_2 = 0; callbacks && i_2 < callbacks.length; i_2++)
-                            callbacks[i_2]();
-                    }
-                }
-                catch (e_2_1) { e_2 = { error: e_2_1 }; }
-                finally {
-                    try {
-                        if (failedList_1_1 && !failedList_1_1.done && (_a = failedList_1["return"])) _a.call(failedList_1);
-                    }
-                    finally { if (e_2) throw e_2.error; }
+                console.error(err);
+                var failedList = err.requireModules; // this is not reliable!
+                // for (let errScriptPath of failedList) {
+                for (var i_2 = 0; i_2 < failedList.length; i_2++) {
+                    var errScriptPath = failedList[i_2];
+                    var sep = errScriptPath.lastIndexOf('/');
+                    var scriptName = sep > -1 ? errScriptPath.substring(sep + 1) : errScriptPath;
+                    console.error("pending => error", scriptName, "Unable to load script.");
+                    var callbacks = _this._pending[scriptName];
+                    delete _this._pending[scriptName];
+                    _this._error[scriptName] = "Unable to load script.";
+                    for (var i_3 = 0; callbacks && i_3 < callbacks.length; i_3++)
+                        callbacks[i_3]();
                 }
             });
             // start callback

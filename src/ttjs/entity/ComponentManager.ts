@@ -153,12 +153,11 @@ export const ComponentManager = {
                 }
             }
         }, (err)=> {
-
-            // TODO check: in some scenarios it seems that we get here even if a script
-            // is loaded correctly.
-
-            const failedList = err.requireModules as string[];
-            for (let errScriptPath of failedList) {
+            console.error(err);
+            const failedList = err.requireModules as string[]; // this is not reliable!
+            // for (let errScriptPath of failedList) {
+            for (let i=0; i<failedList.length; i++) {
+                const errScriptPath = failedList[i];
                 const sep = errScriptPath.lastIndexOf('/');
                 const scriptName = sep > -1 ? errScriptPath.substring(sep+1) : errScriptPath;
 
