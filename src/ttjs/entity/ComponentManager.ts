@@ -102,7 +102,7 @@ export const ComponentManager = {
         var chunkCallback = function()
         {
             numPending--;
-            console.log("Pending: ", numPending);
+            //console.log("Pending: ", numPending);
             if (numPending === 0)
                 callback(thiz);
         };
@@ -118,8 +118,10 @@ export const ComponentManager = {
                 console.log("error => pending: ", k);
                 delete this._error[k];
             }
-            else
-                console.log("new => pending: ", k);
+            else {
+                //console.log("new => pending: ", k);
+            }
+
             this._pending[k] = [chunkCallback];
             scripts.push(k);
             numNew++;
@@ -231,7 +233,7 @@ export const ComponentManager = {
             return;
         }
 
-        console.log("pending => ready", className);
+        //console.log("pending => ready", className);
         delete this._pending[className];
         this._classes[className] = componentClass;
 
