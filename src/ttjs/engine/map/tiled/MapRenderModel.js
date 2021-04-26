@@ -10,7 +10,7 @@
 define(["require", "exports"], function (require, exports) {
     // define([], function () {
     "use strict";
-    exports.__esModule = true;
+    Object.defineProperty(exports, "__esModule", { value: true });
     exports.MapRenderModel = void 0;
     function MapRenderModel() {
         this._layers = [];

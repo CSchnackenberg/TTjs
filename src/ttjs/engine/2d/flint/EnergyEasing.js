@@ -52,7 +52,7 @@
 // {
 define(["require", "exports"], function (require, exports) {
     "use strict";
-    exports.__esModule = true;
+    Object.defineProperty(exports, "__esModule", { value: true });
     exports.EnergyEasing = void 0;
     var PI2X = 3.141592653;
     "use strict";

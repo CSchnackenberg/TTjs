@@ -1,6 +1,6 @@
 define(["require", "exports", "./SchnackParser", "./SchnackVar", "./SchnackVarValue", "./SchnackChunk", "./SchnackResult", "./SchnackUtil"], function (require, exports, SchnackParser_1, SchnackVar_1, SchnackVarValue_1, SchnackChunk_1, SchnackResult_1, SchnackUtil_1) {
     "use strict";
-    exports.__esModule = true;
+    Object.defineProperty(exports, "__esModule", { value: true });
     exports.SchnackInterpreter = void 0;
     // define([
     //     './SchnackParser',
@@ -18,8 +18,8 @@ define(["require", "exports", "./SchnackParser", "./SchnackVar", "./SchnackVarVa
     //     SchnackUtil,
     // ) {
     "use strict";
-    var LEVEL_DEPTH = 8;
-    var MATCH_NAME = /^[a-zA-Z][a-zA-Z0-9\._]*$/g;
+    const LEVEL_DEPTH = 8;
+    const MATCH_NAME = /^[a-zA-Z][a-zA-Z0-9\._]*$/g;
     /**
      * Creates a new SchnackInterpreter including a scope etc.
      *
@@ -48,15 +48,15 @@ define(["require", "exports", "./SchnackParser", "./SchnackVar", "./SchnackVarVa
          * It'll assert if there is already a script
          */
         initScript: function (file, alternativeScopeName) {
-            var scopeName = alternativeScopeName || file;
+            const scopeName = alternativeScopeName || file;
             this.lastFileScope = scopeName;
             this.lastFile = file;
             this.callScope = 0;
             this.ifLevel = 0;
             this.ifLevelDone = [];
-            for (var i = 0; i < LEVEL_DEPTH; i++)
+            for (let i = 0; i < LEVEL_DEPTH; i++)
                 this.ifLevelDone.push(false);
-            var _code = this.fileProvider(file);
+            const _code = this.fileProvider(file);
             this.currentParser = new SchnackParser_1.SchnackParser(scopeName, _code);
         },
         /**  executes a script from a string */
@@ -65,7 +65,7 @@ define(["require", "exports", "./SchnackParser", "./SchnackVar", "./SchnackVarVa
             this.callScope = 0;
             this.ifLevel = 0;
             this.ifLevelDone = [];
-            for (var i = 0; i < LEVEL_DEPTH; i++)
+            for (let i = 0; i < LEVEL_DEPTH; i++)
                 this.ifLevelDone.push(false);
             this.currentParser = new SchnackParser_1.SchnackParser(pseudoFileName, sourceCode);
         },
@@ -81,12 +81,12 @@ define(["require", "exports", "./SchnackParser", "./SchnackVar", "./SchnackVarVa
                 console.error("parse is null");
                 return null;
             }
-            var chunk = this.currentParser.parseNextChunk();
+            let chunk = this.currentParser.parseNextChunk();
             while (this.currentParser != null && chunk.getType() != SchnackChunk_1.SchnackChunk.CHUNK_END) {
                 if (chunk.getType() == SchnackChunk_1.SchnackChunk.CHUNK_TEXT) {
-                    var type = SchnackResult_1.SchnackResult.SCHNACKRES_TEXT;
-                    var data = [];
-                    for (var i = 0; i < chunk.getTokenCount(); i += 2) {
+                    const type = SchnackResult_1.SchnackResult.SCHNACKRES_TEXT;
+                    const data = [];
+                    for (let i = 0; i < chunk.getTokenCount(); i += 2) {
                         data.push({
                             personId: chunk.getTokenAt(i + 0),
                             text: chunk.getTokenAt(i + 1),
@@ -95,7 +95,7 @@ define(["require", "exports", "./SchnackParser", "./SchnackVar", "./SchnackVarVa
                     return new SchnackResult_1.SchnackResult(data, type);
                 }
                 else if (chunk.getType() == SchnackChunk_1.SchnackChunk.CHUNK_INSTRUCTION) {
-                    var instrToken = chunk.getTokenAt(0);
+                    const instrToken = chunk.getTokenAt(0);
                     if (chunk.getTokenCount() == 0) {
                         console.error("Error parsing script  Invalid token");
                         chunk.logError();
@@ -106,15 +106,15 @@ define(["require", "exports", "./SchnackParser", "./SchnackVar", "./SchnackVarVa
                         return new SchnackResult_1.SchnackResult(null, SchnackResult_1.SchnackResult.SCHNACKRES_FINISHED);
                     }
                     else if (instrToken == "@message") {
-                        var data = [];
-                        for (var i = 1; i < chunk.getTokenCount(); i++) {
+                        const data = [];
+                        for (let i = 1; i < chunk.getTokenCount(); i++) {
                             data.push(chunk.getTokenAt(i));
                         }
                         return new SchnackResult_1.SchnackResult(data, SchnackResult_1.SchnackResult.SCHNACKRES_MSG);
                     }
                     else if (instrToken == "@select") {
-                        var data = {};
-                        var rawQuestionVarName = chunk.getTokenAt(1);
+                        const data = {};
+                        const rawQuestionVarName = chunk.getTokenAt(1);
                         if (!this.checkVarName(rawQuestionVarName)) {
                             console.error("@select invalid character in question-varname");
                             chunk.logError();
@@ -123,16 +123,16 @@ define(["require", "exports", "./SchnackParser", "./SchnackVar", "./SchnackVarVa
                         data.questionVar = this.getVarName(rawQuestionVarName);
                         data.question = chunk.getTokenAt(2);
                         data.answerOptions = {};
-                        for (var i = 3; i < chunk.getTokenCount(); i += 2) {
-                            var insert = true;
-                            var varNameOrCondition = chunk.getTokenAt(i + 0);
-                            var varName = "";
-                            var conditionIndex = varNameOrCondition.indexOf('(');
+                        for (let i = 3; i < chunk.getTokenCount(); i += 2) {
+                            let insert = true;
+                            const varNameOrCondition = chunk.getTokenAt(i + 0);
+                            let varName = "";
+                            let conditionIndex = varNameOrCondition.indexOf('(');
                             if (conditionIndex > 0) {
                                 varName = varNameOrCondition.substr(0, conditionIndex);
-                                var condition = varNameOrCondition.substr(conditionIndex + 1, varNameOrCondition.length - (conditionIndex + 2));
-                                var conditionParts = SchnackUtil_1.SchnackUtil.splitTrimmed(condition, ' ', true);
-                                var pseudoChunk = new SchnackChunk_1.SchnackChunk(SchnackChunk_1.SchnackChunk.CHUNK_INSTRUCTION, chunk.getLinePos());
+                                const condition = varNameOrCondition.substr(conditionIndex + 1, varNameOrCondition.length - (conditionIndex + 2));
+                                const conditionParts = SchnackUtil_1.SchnackUtil.splitTrimmed(condition, ' ', true);
+                                const pseudoChunk = new SchnackChunk_1.SchnackChunk(SchnackChunk_1.SchnackChunk.CHUNK_INSTRUCTION, chunk.getLinePos());
                                 pseudoChunk.addToken("@if");
                                 pseudoChunk.addToken(conditionParts);
                                 if (!this.checkConditionParameter(pseudoChunk)) {
@@ -171,17 +171,17 @@ define(["require", "exports", "./SchnackParser", "./SchnackVar", "./SchnackVarVa
                             return new SchnackResult_1.SchnackResult(null, SchnackResult_1.SchnackResult.SCHNACKRES_ERROR);
                         }
                         // let's fetch the target variable
-                        var rawVarName = chunk.getTokenAt(1);
-                        var isOkay = this.checkVarName(rawVarName);
+                        const rawVarName = chunk.getTokenAt(1);
+                        const isOkay = this.checkVarName(rawVarName);
                         if (!isOkay) {
                             console.error("@set invalid varname");
                             chunk.logError();
                             return new SchnackResult_1.SchnackResult(null, SchnackResult_1.SchnackResult.SCHNACKRES_ERROR);
                         }
-                        var varName = this.getVarName(rawVarName);
-                        var vv = this.storage[varName] || false;
-                        var v = new SchnackVarValue_1.SchnackVarValue(vv ? vv.getValue() : null);
-                        var operatorToken = chunk.getTokenAt(2);
+                        const varName = this.getVarName(rawVarName);
+                        const vv = this.storage[varName] || false;
+                        const v = new SchnackVarValue_1.SchnackVarValue(vv ? vv.getValue() : null);
+                        const operatorToken = chunk.getTokenAt(2);
                         // perform the operation
                         if (chunk.getTokenCount() == 3) {
                             switch (operatorToken) {
@@ -197,7 +197,7 @@ define(["require", "exports", "./SchnackParser", "./SchnackVar", "./SchnackVarVa
                             }
                         }
                         else {
-                            var varValue = chunk.getTokenAt(3);
+                            const varValue = chunk.getTokenAt(3);
                             switch (operatorToken) {
                                 case "=":
                                     v.setValue(varValue);
@@ -217,9 +217,9 @@ define(["require", "exports", "./SchnackParser", "./SchnackVar", "./SchnackVarVa
                             }
                         }
                         // get back data for reporting
-                        var scope = this.getScopeByName(varName);
-                        var oldVar = vv;
-                        var newVar = this.setVar(scope, varName, v);
+                        const scope = this.getScopeByName(varName);
+                        const oldVar = vv;
+                        const newVar = this.setVar(scope, varName, v);
                         return new SchnackResult_1.SchnackResult({
                             newVar: newVar,
                             oldVar: oldVar,
@@ -234,13 +234,13 @@ define(["require", "exports", "./SchnackParser", "./SchnackVar", "./SchnackVarVa
                         }
                         this.ifLevel++;
                         this.ifLevelDone[this.ifLevel] = false;
-                        var varNameOkay = this.checkConditionVarName(chunk);
+                        const varNameOkay = this.checkConditionVarName(chunk);
                         if (!varNameOkay) {
                             console.error("@if invalid varname");
                             chunk.logError();
                             return new SchnackResult_1.SchnackResult(null, SchnackResult_1.SchnackResult.SCHNACKRES_ERROR);
                         }
-                        var condition = this.checkCondition(chunk);
+                        const condition = this.checkCondition(chunk);
                         if (condition) {
                             this.ifLevelDone[this.ifLevel] = true;
                         }
@@ -266,13 +266,13 @@ define(["require", "exports", "./SchnackParser", "./SchnackVar", "./SchnackVarVa
                             this.skipTillEndif();
                         }
                         else {
-                            var varNameOkay = this.checkConditionVarName(chunk);
+                            const varNameOkay = this.checkConditionVarName(chunk);
                             if (!varNameOkay) {
                                 console.error("@elseif invalid varname");
                                 chunk.logError();
                                 return new SchnackResult_1.SchnackResult(null, SchnackResult_1.SchnackResult.SCHNACKRES_ERROR);
                             }
-                            var condition = this.checkCondition(chunk);
+                            const condition = this.checkCondition(chunk);
                             if (condition) {
                                 // the block has not been executed
                                 // and we fulfill the condition: lets execute it
@@ -337,7 +337,7 @@ define(["require", "exports", "./SchnackParser", "./SchnackVar", "./SchnackVarVa
          * @returns SchnackVar the created object holding the value
          */
         setVar: function (scope, name, val) {
-            var sv = new SchnackVar_1.SchnackVar(name, val);
+            const sv = new SchnackVar_1.SchnackVar(name, val);
             sv.setPersistent(true);
             sv.setScope(scope);
             this.storage[name] = sv;
@@ -364,10 +364,9 @@ define(["require", "exports", "./SchnackParser", "./SchnackVar", "./SchnackVarVa
          * flagged as persistant
          */
         getPersistentVars: function () {
-            var _this = this;
-            var out = [];
-            Object.keys(this.storage).forEach(function (k) {
-                var v = _this.storage[k];
+            const out = [];
+            Object.keys(this.storage).forEach(k => {
+                const v = this.storage[k];
                 if (v.isPersistent())
                     out.push(v);
             });
@@ -375,21 +374,19 @@ define(["require", "exports", "./SchnackParser", "./SchnackVar", "./SchnackVarVa
         },
         /** removes all variables that have map-scope. */
         releaseMapScope: function () {
-            var _this = this;
-            Object.keys(this.storage).forEach(function (k) {
-                var v = _this.storage[k];
+            Object.keys(this.storage).forEach(k => {
+                const v = this.storage[k];
                 if (v.getScope() == SchnackVar_1.SchnackVar.SCOPE_MAP) {
-                    delete _this.storage[k];
+                    delete this.storage[k];
                 }
             });
         },
         /** removes all variables that have session-scope. */
         releaseSessionScope: function () {
-            var _this = this;
-            Object.keys(this.storage).forEach(function (k) {
-                var v = _this.storage[k];
+            Object.keys(this.storage).forEach(k => {
+                const v = this.storage[k];
                 if (v.getScope() == SchnackVar_1.SchnackVar.SCOPE_SESSION) {
-                    delete _this.storage[k];
+                    delete this.storage[k];
                 }
             });
         },
@@ -404,20 +401,20 @@ define(["require", "exports", "./SchnackParser", "./SchnackVar", "./SchnackVarVa
         },
         /** checks if the given condition has a valid var name */
         checkConditionVarName: function (condition) {
-            var rawVarNameFromScript = condition.getTokenAt(1);
+            const rawVarNameFromScript = condition.getTokenAt(1);
             return this.checkVarName(rawVarNameFromScript);
         },
         /** retruns true if the condition is true */
         checkCondition: function (condition) {
             // fetch left hand var
-            var rawVarNameFromScript = condition.getTokenAt(1);
-            var varName = this.getVarName(rawVarNameFromScript);
-            var potentialVarObj = this.getVar(varName);
-            var varObj = potentialVarObj ? potentialVarObj : new SchnackVar_1.SchnackVar(varName, 0);
+            const rawVarNameFromScript = condition.getTokenAt(1);
+            const varName = this.getVarName(rawVarNameFromScript);
+            const potentialVarObj = this.getVar(varName);
+            const varObj = potentialVarObj ? potentialVarObj : new SchnackVar_1.SchnackVar(varName, 0);
             // fetch right hand value
-            var cmp = new SchnackVarValue_1.SchnackVarValue(condition.getTokenAt(3));
+            const cmp = new SchnackVarValue_1.SchnackVarValue(condition.getTokenAt(3));
             // perform condition checking
-            var cmpToken = condition.getTokenAt(2);
+            const cmpToken = condition.getTokenAt(2);
             switch (cmpToken) {
                 case "=":
                 case "==":
@@ -442,7 +439,7 @@ define(["require", "exports", "./SchnackParser", "./SchnackVar", "./SchnackVarVa
         checkConditionParameter: function (condition) {
             if (condition.getTokenCount() != 4)
                 return false;
-            var cmpToken = condition.getTokenAt(2);
+            const cmpToken = condition.getTokenAt(2);
             switch (cmpToken) {
                 case "=":
                 case "==":
@@ -458,8 +455,8 @@ define(["require", "exports", "./SchnackParser", "./SchnackVar", "./SchnackVarVa
             return true;
         },
         checkSetParameter: function (setChunk) {
-            var tokenCount = setChunk.getTokenCount();
-            var operatorToken = setChunk.getTokenAt(2);
+            const tokenCount = setChunk.getTokenCount();
+            const operatorToken = setChunk.getTokenAt(2);
             if (tokenCount == 3) {
                 if (operatorToken != "++" && operatorToken != "--") {
                     console.error("@set invalid operator:", operatorToken);
@@ -484,11 +481,11 @@ define(["require", "exports", "./SchnackParser", "./SchnackVar", "./SchnackVarVa
             return true;
         },
         skipTillEndif: function () {
-            var level = 0;
-            var chunk = this.currentParser.parseNextChunk();
+            let level = 0;
+            let chunk = this.currentParser.parseNextChunk();
             while (chunk.getType() != SchnackChunk_1.SchnackChunk.CHUNK_END) {
                 if (chunk.getType() == SchnackChunk_1.SchnackChunk.CHUNK_INSTRUCTION) {
-                    var instrToken = chunk.getTokenAt(0);
+                    const instrToken = chunk.getTokenAt(0);
                     switch (instrToken) {
                         case "@if":
                             level++;
@@ -519,7 +516,7 @@ define(["require", "exports", "./SchnackParser", "./SchnackVar", "./SchnackVarVa
                 console.error("getVarName() invalid name: " + rawName);
             if (rawName.indexOf(".") >= 0)
                 return rawName;
-            var prefix = this.currentParser.getSchnackId() + ".";
+            const prefix = this.currentParser.getSchnackId() + ".";
             return prefix + rawName;
         },
         /** checks if the given var name is valid */

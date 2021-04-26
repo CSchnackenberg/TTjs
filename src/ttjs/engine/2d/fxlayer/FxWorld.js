@@ -14,7 +14,7 @@ define(["require", "exports", "@ttjs/engine/2d/fxlayer/FxLayer"], function (requ
     // )
     // {
     "use strict";
-    exports.__esModule = true;
+    Object.defineProperty(exports, "__esModule", { value: true });
     exports.FxWorld = void 0;
     /**
      *

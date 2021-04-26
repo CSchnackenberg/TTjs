@@ -45,7 +45,7 @@
 // {
 define(["require", "exports"], function (require, exports) {
     "use strict";
-    exports.__esModule = true;
+    Object.defineProperty(exports, "__esModule", { value: true });
     exports.Alpha = void 0;
     function Alpha(alphaStart, alphaEnd) {
         this.alphaStart = alphaStart || 0;

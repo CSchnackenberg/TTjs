@@ -7,7 +7,7 @@
 // {
 define(["require", "exports"], function (require, exports) {
     "use strict";
-    exports.__esModule = true;
+    Object.defineProperty(exports, "__esModule", { value: true });
     exports.SortY = void 0;
     function SortY(offset) {
         this.offset = offset;

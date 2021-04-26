@@ -10,7 +10,7 @@
 // define(['ttjs/lib/lodash'], function(_) {
 define(["require", "exports", "@ttjs/lib/lodash"], function (require, exports, _) {
     "use strict";
-    exports.__esModule = true;
+    Object.defineProperty(exports, "__esModule", { value: true });
     exports.AnyPropertyParser = void 0;
     "use strict";
     /**
@@ -31,7 +31,7 @@ define(["require", "exports", "@ttjs/lib/lodash"], function (require, exports, _
          */
         parse: function (propertyName, propertyInfo, instanceValue, outProps) {
             //if (_.isEmpty(instanceValue))
-            var typeVal = typeof instanceValue;
+            const typeVal = typeof instanceValue;
             if (typeVal === undefined)
                 return "Must not be empty";
             try {

@@ -45,7 +45,7 @@
 // {
 define(["require", "exports"], function (require, exports) {
     "use strict";
-    exports.__esModule = true;
+    Object.defineProperty(exports, "__esModule", { value: true });
     exports.Accelerate = void 0;
     function Accelerate(x, y) {
         this.x = x || 0;

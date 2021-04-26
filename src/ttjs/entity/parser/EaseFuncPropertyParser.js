@@ -15,7 +15,7 @@
 // ) {
 define(["require", "exports", "@ttjs/lib/lodash", "@ttjs/engine/2d/flint/Easing"], function (require, exports, _, Easing_1) {
     "use strict";
-    exports.__esModule = true;
+    Object.defineProperty(exports, "__esModule", { value: true });
     exports.EaseFuncPropertyParser = void 0;
     "use strict";
     /**
@@ -44,18 +44,18 @@ define(["require", "exports", "@ttjs/lib/lodash", "@ttjs/engine/2d/flint/Easing"
      *
      * @static
      */
-    EaseFuncPropertyParser.toEaseFunc = function (easeFuncDef) {
+    EaseFuncPropertyParser.toEaseFunc = (easeFuncDef) => {
         EaseFuncPropertyParser._issue = null;
-        var easeName = "";
-        var easeMode = "inout";
+        let easeName = "";
+        let easeMode = "inout";
         // We accept string like this: Sine.in
         if (_.isString(easeFuncDef)) {
-            var splitPos = easeFuncDef.indexOf(".");
+            const splitPos = easeFuncDef.indexOf(".");
             if (splitPos == -1) { // no '.'
                 easeName = easeFuncDef;
             }
             else {
-                var parts = easeFuncDef.split(".");
+                const parts = easeFuncDef.split(".");
                 easeName = parts[0];
                 easeMode = parts[1];
             }
@@ -71,7 +71,7 @@ define(["require", "exports", "@ttjs/lib/lodash", "@ttjs/engine/2d/flint/Easing"
         }
         // to avoid (very slow) toLowerCase we simply do some
         // switching here.
-        var easeType = null;
+        let easeType = null;
         switch (easeName) {
             case "back":
             case "Back":
@@ -122,7 +122,7 @@ define(["require", "exports", "@ttjs/lib/lodash", "@ttjs/engine/2d/flint/Easing"
             EaseFuncPropertyParser._issue = "Unknown ease type: '" + easeName + "'";
             return null;
         }
-        var finalFunc = null;
+        let finalFunc = null;
         switch (easeMode) {
             case "in":
             case "In":
@@ -159,7 +159,7 @@ define(["require", "exports", "@ttjs/lib/lodash", "@ttjs/engine/2d/flint/Easing"
          * @return {Mixed} undefined: okay, string: error desc;
          */
         parse: function (propertyName, propertyInfo, instanceValue, outProps) {
-            var finalFunc = EaseFuncPropertyParser.toEaseFunc(instanceValue);
+            const finalFunc = EaseFuncPropertyParser.toEaseFunc(instanceValue);
             if (finalFunc == null) {
                 return EaseFuncPropertyParser._issue;
             }

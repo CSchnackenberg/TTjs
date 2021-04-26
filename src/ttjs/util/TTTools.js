@@ -9,7 +9,7 @@
  */
 define(["require", "exports"], function (require, exports) {
     "use strict";
-    exports.__esModule = true;
+    Object.defineProperty(exports, "__esModule", { value: true });
     exports.TTTools = exports.postJson = exports.getJson = exports.getText = void 0;
     /**
      * Loads text via HTTP(S). Uses XMLHttpRequest
@@ -19,10 +19,9 @@ define(["require", "exports"], function (require, exports) {
      * @param failed optional callback in error case
      * @param timeout when it should fail (defaults to 5secs)
      */
-    function getText(url, ok, failed, timeout) {
-        if (timeout === void 0) { timeout = 5000; }
-        var client = new XMLHttpRequest();
-        var resultResolved = false;
+    function getText(url, ok, failed, timeout = 5000) {
+        const client = new XMLHttpRequest();
+        let resultResolved = false;
         client.open('GET', url);
         client.timeout = timeout;
         client.onload = function () {
@@ -34,23 +33,23 @@ define(["require", "exports"], function (require, exports) {
             }
             else {
                 if (failed)
-                    failed("Error while loading: " + url + ". Status: " + client.status, client.status);
+                    failed(`Error while loading: ${url}. Status: ${client.status}`, client.status);
             }
             resultResolved = true;
         };
         client.onerror = function () {
             if (!resultResolved && failed)
-                failed("Error while loading: " + url + ". With status: " + client.status, client.status);
+                failed(`Error while loading: ${url}. With status: ${client.status}`, client.status);
             resultResolved = true;
         };
         client.onabort = function () {
             if (!resultResolved && failed)
-                failed("Abort while loading: " + url, client.status);
+                failed(`Abort while loading: ${url}`, client.status);
             resultResolved = true;
         };
         client.ontimeout = function () {
             if (!resultResolved && failed)
-                failed("Timeout while loading: " + url, client.status);
+                failed(`Timeout while loading: ${url}`, client.status);
             resultResolved = true;
         };
         client.send();
@@ -64,20 +63,19 @@ define(["require", "exports"], function (require, exports) {
      * @param failed
      * @param timeout
      */
-    function getJson(url, ok, failed, timeout) {
-        if (timeout === void 0) { timeout = 5000; }
-        getText(url, function (jsonStr, hs) {
-            var jsonObj = null;
+    function getJson(url, ok, failed, timeout = 5000) {
+        getText(url, (jsonStr, hs) => {
+            let jsonObj = null;
             try {
                 jsonObj = JSON.parse(jsonStr);
                 if (jsonObj === null || jsonObj === undefined) {
-                    failed("Unexpected json from request response. Object is: " + jsonObj, hs);
+                    failed(`Unexpected json from request response. Object is: ${jsonObj}`, hs);
                     return;
                 }
             }
             catch (err) {
                 if (failed)
-                    failed("Failed to convert request response to json. Error: " + err, 0);
+                    failed(`Failed to convert request response to json. Error: ${err}`, 0);
                 return;
             }
             if (ok) {
@@ -96,10 +94,9 @@ define(["require", "exports"], function (require, exports) {
      * @param failed
      * @param timeout
      */
-    function postJson(url, bodyData, ok, failed, timeout) {
-        if (timeout === void 0) { timeout = 5000; }
-        var client = new XMLHttpRequest();
-        var resultResolved = false;
+    function postJson(url, bodyData, ok, failed, timeout = 5000) {
+        const client = new XMLHttpRequest();
+        let resultResolved = false;
         client.open('POST', url);
         client.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         client.timeout = timeout;
@@ -112,33 +109,33 @@ define(["require", "exports"], function (require, exports) {
             }
             else {
                 if (failed)
-                    failed("Error while loading: " + url + ". Status: " + client.status, client.status);
+                    failed(`Error while loading: ${url}. Status: ${client.status}`, client.status);
             }
             resultResolved = true;
         };
         client.onerror = function () {
             if (!resultResolved && failed)
-                failed("Error while loading: " + url + ". With status: " + client.status, client.status);
+                failed(`Error while loading: ${url}. With status: ${client.status}`, client.status);
             resultResolved = true;
         };
         client.onabort = function () {
             if (!resultResolved && failed)
-                failed("Abort while loading: " + url, client.status);
+                failed(`Abort while loading: ${url}`, client.status);
             resultResolved = true;
         };
         client.ontimeout = function () {
             if (!resultResolved && failed)
-                failed("Timeout while loading: " + url, client.status);
+                failed(`Timeout while loading: ${url}`, client.status);
             resultResolved = true;
         };
-        var jsonStr = "";
+        let jsonStr = "";
         try {
             jsonStr = JSON.stringify(bodyData);
         }
         catch (err) {
-            setTimeout(function () {
+            setTimeout(() => {
                 if (failed) {
-                    failed("Cannot convert object to json", 0);
+                    failed(`Cannot convert object to json`, 0);
                 }
             }, 0);
             return;
@@ -199,7 +196,7 @@ define(["require", "exports"], function (require, exports) {
          **/
         combineObjects: function (a, b) {
             var ex = {};
-            ex = __assign(__assign({}, a), b);
+            ex = Object.assign(Object.assign({}, a), b);
             //$.extend(true, ex, a, b);
             return ex;
         },

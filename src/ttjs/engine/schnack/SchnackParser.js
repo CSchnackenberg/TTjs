@@ -17,7 +17,7 @@ define(["require", "exports", "./SchnackChunk", "./SchnackUtil"], function (requ
     //     SchnackUtil,
     // ) {
     "use strict";
-    exports.__esModule = true;
+    Object.defineProperty(exports, "__esModule", { value: true });
     exports.SchnackParser = void 0;
     function SchnackParser(fileName, source) {
         /** source code of the file */
@@ -57,7 +57,7 @@ define(["require", "exports", "./SchnackChunk", "./SchnackUtil"], function (requ
             }
             this.savedLine = this.readPosition;
             while (this.readPosition < this.source.length) {
-                var c = this.source[this.readPosition++];
+                const c = this.source[this.readPosition++];
                 if (c == "\r")
                     continue;
                 if (c == "\n") {
@@ -70,24 +70,24 @@ define(["require", "exports", "./SchnackChunk", "./SchnackUtil"], function (requ
             return true;
         },
         parseSchnackId: function (fileNameWithPath) {
-            var p = fileNameWithPath.lastIndexOf("/") + 1;
-            var fileName = fileNameWithPath.substring(p);
-            var dot = fileName.indexOf(".");
-            var r = fileName.toLowerCase().substring(0, dot > 0 ? dot : undefined);
+            const p = fileNameWithPath.lastIndexOf("/") + 1;
+            const fileName = fileNameWithPath.substring(p);
+            const dot = fileName.indexOf(".");
+            const r = fileName.toLowerCase().substring(0, dot > 0 ? dot : undefined);
             return r;
         },
         parseTextChunk: function (firstLine, chunk) {
-            var text = "";
+            let text = "";
             if (firstLine[0] == '[') {
-                var speaker = firstLine.substring(1, firstLine.length - 1);
+                const speaker = firstLine.substring(1, firstLine.length - 1);
                 chunk.addToken(speaker);
             }
             else {
                 chunk.addToken("");
                 text = firstLine;
             }
-            var isMore = false;
-            var line = "";
+            let isMore = false;
+            let line = "";
             while (true) {
                 isMore = this.readNextLine(this._refString);
                 line = this._refString.ref;
@@ -104,7 +104,7 @@ define(["require", "exports", "./SchnackChunk", "./SchnackUtil"], function (requ
                     }
                     continue;
                 }
-                var route = line[0];
+                let route = line[0];
                 switch (route) {
                     case '#':
                         continue;
@@ -132,19 +132,19 @@ define(["require", "exports", "./SchnackChunk", "./SchnackUtil"], function (requ
                 chunk.addToken(text);
             }
         },
-        parseInstructionChunk: function (instruction, chunk) {
+        parseInstructionChunk(instruction, chunk) {
             // something like @message music mute
             if (instruction.startsWith("@message")) {
-                var pos = instruction.indexOf(' ');
+                const pos = instruction.indexOf(' ');
                 if (pos == -1) {
                     console.error("parseInstructionChunk()" + "[line:" + this.linePos + "] Invalid command: " + instruction + ". At least one Parameter is required!");
                     return;
                 }
                 chunk.addToken(instruction.substring(0, pos));
-                var paramPart = instruction.substring(pos);
-                var parts = paramPart.split(',');
-                for (var i = 0; i < parts.length; i++) {
-                    var trimmedPart = parts[i].trim();
+                const paramPart = instruction.substring(pos);
+                const parts = paramPart.split(',');
+                for (let i = 0; i < parts.length; i++) {
+                    const trimmedPart = parts[i].trim();
                     if (trimmedPart) {
                         chunk.addToken(trimmedPart);
                     }
@@ -163,25 +163,25 @@ define(["require", "exports", "./SchnackChunk", "./SchnackUtil"], function (requ
             }
             else if (instruction == "@select") {
                 chunk.addToken(instruction);
-                var line = "";
+                let line = "";
                 while (true) {
-                    var isMore = this.readNextLine(this._refString);
-                    var line_1 = this._refString.ref;
+                    let isMore = this.readNextLine(this._refString);
+                    const line = this._refString.ref;
                     if (!isMore) {
                         console.error("parseInstructionChunk()" + "[line:" + this.linePos + "] @select without @endselect!");
                         return;
                     }
-                    if (line_1 && line_1[0] == '@' && line_1 != "@endselect") {
+                    if (line && line[0] == '@' && line != "@endselect") {
                         console.error("parseInstructionChunk()" + "[line:" + this.linePos + "] @select expects @endselect!");
                         return;
                     }
-                    if (!line_1 || line_1[0] == "#") {
+                    if (!line || line[0] == "#") {
                         continue;
                     }
-                    if (line_1 == "@endselect") {
+                    if (line == "@endselect") {
                         break;
                     }
-                    var parts = SchnackUtil_1.SchnackUtil.splitTrimmed(line_1, ':', false, 2);
+                    const parts = SchnackUtil_1.SchnackUtil.splitTrimmed(line, ':', false, 2);
                     if (parts.length == 0) {
                         console.error("parseInstructionChunk()" + "[line:" + this.linePos + "] @select expects a list of possible answers line and semicolon seperated!");
                         return;
@@ -199,11 +199,11 @@ define(["require", "exports", "./SchnackChunk", "./SchnackUtil"], function (requ
             }
         },
         parseHelperAssign: function (instruction, chunk) {
-            var parts = SchnackUtil_1.SchnackUtil.splitTrimmed(instruction, ' ', true, 4);
+            const parts = SchnackUtil_1.SchnackUtil.splitTrimmed(instruction, ' ', true, 4);
             chunk.addToken(parts);
         },
         parseHelperCondition: function (instruction, chunk) {
-            var parts = SchnackUtil_1.SchnackUtil.splitTrimmed(instruction, ' ', true, 4);
+            const parts = SchnackUtil_1.SchnackUtil.splitTrimmed(instruction, ' ', true, 4);
             chunk.addToken(parts);
         },
         getSchnackId: function () {
@@ -214,15 +214,15 @@ define(["require", "exports", "./SchnackChunk", "./SchnackUtil"], function (requ
                 this.useLastChunk = false;
                 return this.savedChunk;
             }
-            var lastLinePos = 0;
-            var isMore = false;
-            var line = "";
+            let lastLinePos = 0;
+            let isMore = false;
+            let line = "";
             while (true) {
                 lastLinePos = this.linePos;
                 isMore = this.readNextLine(this._refString);
                 line = this._refString.ref;
                 if (!isMore) {
-                    var c = new SchnackChunk_1.SchnackChunk(SchnackChunk_1.SchnackChunk.CHUNK_END);
+                    const c = new SchnackChunk_1.SchnackChunk(SchnackChunk_1.SchnackChunk.CHUNK_END);
                     c.linePos = lastLinePos;
                     return c;
                 }
@@ -236,7 +236,7 @@ define(["require", "exports", "./SchnackChunk", "./SchnackUtil"], function (requ
                 }
             }
             if (line[0] == '@') {
-                var ret = new SchnackChunk_1.SchnackChunk(SchnackChunk_1.SchnackChunk.CHUNK_INSTRUCTION);
+                const ret = new SchnackChunk_1.SchnackChunk(SchnackChunk_1.SchnackChunk.CHUNK_INSTRUCTION);
                 ret.linePos = lastLinePos;
                 ret.firstChunkLine = line;
                 this.parseInstructionChunk(line, ret);
@@ -244,7 +244,7 @@ define(["require", "exports", "./SchnackChunk", "./SchnackUtil"], function (requ
                 return ret;
             }
             else {
-                var ret = new SchnackChunk_1.SchnackChunk(SchnackChunk_1.SchnackChunk.CHUNK_TEXT);
+                const ret = new SchnackChunk_1.SchnackChunk(SchnackChunk_1.SchnackChunk.CHUNK_TEXT);
                 ret.linePos = lastLinePos;
                 ret.firstChunkLine = line;
                 this.parseTextChunk(line, ret);

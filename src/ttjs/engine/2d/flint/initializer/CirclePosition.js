@@ -11,10 +11,9 @@
 // ) {
 define(["require", "exports"], function (require, exports) {
     "use strict";
-    exports.__esModule = true;
+    Object.defineProperty(exports, "__esModule", { value: true });
     exports.CirclePosition = void 0;
-    function CirclePosition(x, y, randRadiusX, randRadiusY, ringRadius) {
-        if (ringRadius === void 0) { ringRadius = 0; }
+    function CirclePosition(x, y, randRadiusX, randRadiusY, ringRadius = 0) {
         this.randX = randRadiusX;
         this.randY = randRadiusY || randRadiusX;
         this.ringRadius = ringRadius;
@@ -27,7 +26,7 @@ define(["require", "exports"], function (require, exports) {
     ;
     CirclePosition.prototype = {
         init: function (emitter, p) {
-            var randAngle = Math.PI * 2 * Math.random();
+            const randAngle = Math.PI * 2 * Math.random();
             if (this.ringRadius > 0) {
                 p.position.x += this.pos.x + Math.cos(randAngle) * this.randX + this.ringRadius * Math.random();
                 p.position.y += this.pos.y + Math.sin(randAngle) * this.randY + this.ringRadius * Math.random();

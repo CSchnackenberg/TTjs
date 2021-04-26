@@ -15,7 +15,7 @@ define(["require", "exports", "./SchnackVarValue"], function (require, exports, 
     //     SchnackVarValue
     // ) {
     "use strict";
-    exports.__esModule = true;
+    Object.defineProperty(exports, "__esModule", { value: true });
     exports.SchnackVar = void 0;
     function SchnackVar(name, value) {
         this.name = name || "";
@@ -25,7 +25,7 @@ define(["require", "exports", "./SchnackVarValue"], function (require, exports, 
     }
     exports.SchnackVar = SchnackVar;
     // -----------------------------------------------------
-    var state = 0;
+    let state = 0;
     /** variable exists during the entire game */
     SchnackVar.SCOPE_GAME = state++;
     /** variable exists during the current map */
@@ -42,7 +42,7 @@ define(["require", "exports", "./SchnackVarValue"], function (require, exports, 
             return this.value;
         },
         dumpString: function () {
-            var out = "{";
+            let out = "{";
             switch (this.scope) {
                 case SchnackVar.SCOPE_GAME:
                     out += "[GAME]";
