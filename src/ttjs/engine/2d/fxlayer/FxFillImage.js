@@ -1,6 +1,6 @@
 define(["require", "exports", "@ttjs/engine/2d/fxlayer/FxLayer", "@ttjs/util/TTTools"], function (require, exports, FxLayer_1, TTTools_1) {
     "use strict";
-    exports.__esModule = true;
+    Object.defineProperty(exports, "__esModule", { value: true });
     exports.FxFillImage = void 0;
     // define([
     // 	'ttjs/util/TTTools',

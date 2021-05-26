@@ -45,7 +45,7 @@ define(["require", "exports"], function (require, exports) {
     // )
     // {
     "use strict";
-    exports.__esModule = true;
+    Object.defineProperty(exports, "__esModule", { value: true });
     exports.Rotation = void 0;
     function Rotation(rotStart, rotEnd) {
         this.rotStart = rotStart || 0;

@@ -6,7 +6,7 @@
  */
 define(["require", "exports"], function (require, exports) {
     "use strict";
-    exports.__esModule = true;
+    Object.defineProperty(exports, "__esModule", { value: true });
     exports.getRequestAnimationFrame2 = exports.getPerformanceNow = void 0;
     function getPerformanceNow() {
         return performance.now ||

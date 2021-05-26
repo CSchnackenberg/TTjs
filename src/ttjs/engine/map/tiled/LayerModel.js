@@ -10,7 +10,7 @@
 define(["require", "exports"], function (require, exports) {
     // define([], function () {
     "use strict";
-    exports.__esModule = true;
+    Object.defineProperty(exports, "__esModule", { value: true });
     exports.LayerModel = void 0;
     /**
      * Defines a layer model

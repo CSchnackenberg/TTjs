@@ -18,7 +18,7 @@
 // {
 define(["require", "exports", "@ttjs/util/TTTools", "@ttjs/entity/EntityDefinition"], function (require, exports, TTTools_1, EntityDefinition_1) {
     "use strict";
-    exports.__esModule = true;
+    Object.defineProperty(exports, "__esModule", { value: true });
     exports.EntityDefinitionParserJson = void 0;
     "use strict";
     /**

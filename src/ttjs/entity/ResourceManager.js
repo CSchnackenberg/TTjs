@@ -9,7 +9,7 @@
  */
 define(["require", "exports", "@ttjs/lib/lodash"], function (require, exports, _) {
     "use strict";
-    exports.__esModule = true;
+    Object.defineProperty(exports, "__esModule", { value: true });
     exports.ResourceManager = void 0;
     /** @class  */
     function ResourceManager() {

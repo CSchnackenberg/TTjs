@@ -10,7 +10,7 @@
 // define(['ttjs/lib/lodash'], function(_) {
 define(["require", "exports", "@ttjs/lib/lodash"], function (require, exports, _) {
     "use strict";
-    exports.__esModule = true;
+    Object.defineProperty(exports, "__esModule", { value: true });
     exports.EnumPropertyParser = void 0;
     "use strict";
     /**

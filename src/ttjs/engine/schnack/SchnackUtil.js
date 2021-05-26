@@ -13,7 +13,7 @@
 // ) {
 define(["require", "exports"], function (require, exports) {
     "use strict";
-    exports.__esModule = true;
+    Object.defineProperty(exports, "__esModule", { value: true });
     exports.SchnackUtil = void 0;
     exports.SchnackUtil = {
         /**
@@ -29,18 +29,16 @@ define(["require", "exports"], function (require, exports) {
          *  => ["a", "b; c; d;"]
          *
          */
-        splitTrimmed: function (inn, divider, includeAlways, maxParts) {
-            if (includeAlways === void 0) { includeAlways = false; }
-            if (maxParts === void 0) { maxParts = -1; }
-            var count = 0;
-            var res = [];
+        splitTrimmed: function (inn, divider, includeAlways = false, maxParts = -1) {
+            let count = 0;
+            const res = [];
             while (true) {
                 count++;
                 if (maxParts > 0 && count >= maxParts) {
                     res.push(inn.trim());
                     break;
                 }
-                var pos = inn.indexOf(divider);
+                const pos = inn.indexOf(divider);
                 if (pos == -1) {
                     if (res.length > 0 || includeAlways) {
                         res.push(inn.trim());

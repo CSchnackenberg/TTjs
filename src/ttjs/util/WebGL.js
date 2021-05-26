@@ -10,7 +10,7 @@
 define(["require", "exports"], function (require, exports) {
     // define([], function () {
     "use strict";
-    exports.__esModule = true;
+    Object.defineProperty(exports, "__esModule", { value: true });
     exports.WebGLUtils = void 0;
     exports.WebGLUtils = {
         /**

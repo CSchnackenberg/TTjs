@@ -46,7 +46,7 @@ define(["require", "exports", "@ttjs/engine/2d/tileRenderer/TileLayerRenderer_Ca
     // )
     // {
     "use strict";
-    exports.__esModule = true;
+    Object.defineProperty(exports, "__esModule", { value: true });
     exports.FxWorldCreator = void 0;
     /**
      * @class Object to load a FxWorld

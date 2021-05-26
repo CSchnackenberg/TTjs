@@ -9,7 +9,7 @@
  */
 define(["require", "exports"], function (require, exports) {
     "use strict";
-    exports.__esModule = true;
+    Object.defineProperty(exports, "__esModule", { value: true });
     exports.BoolPropertyParser = void 0;
     /**
      * Property parser for: number, float, real
@@ -27,7 +27,7 @@ define(["require", "exports"], function (require, exports) {
          * @return {Mixed} undefined: okay, string: error desc;
          */
         parse: function (propertyName, propertyInfo, instanceValue, outProps) {
-            var outValue = propertyInfo.def || false;
+            let outValue = propertyInfo.def || false;
             switch (instanceValue) {
                 case true:
                     outValue = true;

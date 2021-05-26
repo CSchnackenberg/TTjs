@@ -10,7 +10,7 @@
 // define(['ttjs/util/TTTools'], function(env) {
 define(["require", "exports", "@ttjs/util/TTTools"], function (require, exports, TTTools_1) {
     "use strict";
-    exports.__esModule = true;
+    Object.defineProperty(exports, "__esModule", { value: true });
     exports.Entity = void 0;
     "use strict";
     function Entity(name, spatial, properties, rawProperties) {
@@ -146,8 +146,7 @@ define(["require", "exports", "@ttjs/util/TTTools"], function (require, exports,
                     this._components[i].onDispose(this);
             }
         },
-        dump: function (ret) {
-            if (ret === void 0) { ret = false; }
+        dump: function (ret = false) {
             var len = this._components.length;
             var out = "Entity: " + this.name + "\n";
             out += "Components [" + len + "] {\n";

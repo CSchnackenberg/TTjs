@@ -19,7 +19,7 @@
 // ) {
 define(["require", "exports", "@ttjs/lib/lodash", "@ttjs/entity/Entity"], function (require, exports, _, Entity_1) {
     "use strict";
-    exports.__esModule = true;
+    Object.defineProperty(exports, "__esModule", { value: true });
     exports.EntityManager = void 0;
     "use strict";
     /**
@@ -58,7 +58,7 @@ define(["require", "exports", "@ttjs/lib/lodash", "@ttjs/entity/Entity"], functi
          *
          */
         injectEntitySync: function (instance, logger) {
-            var entity = null;
+            let entity = null;
             this.injectEntity(instance, function (e) {
                 entity = e[0];
             }, logger || console);
@@ -195,22 +195,22 @@ define(["require", "exports", "@ttjs/lib/lodash", "@ttjs/entity/Entity"], functi
             return all;
         },
         dump: function () {
-            var out = "-----------\n";
+            let out = "-----------\n";
             out += "NEW\n";
             out += "-----------\n";
-            this._newEntities.forEach(function (e) { return out += e.dump(true); });
+            this._newEntities.forEach(e => out += e.dump(true));
             out += "\n-----------\n";
             out += "ALWAYS ACTIVE\n";
             out += "-----------\n";
-            this._alwaysActives.forEach(function (e) { return out += e.dump(true); });
+            this._alwaysActives.forEach(e => out += e.dump(true));
             out += "\n-----------\n";
             out += "ACTIVE\n";
             out += "-----------\n";
-            this._actives.forEach(function (e) { return out += e.dump(true); });
+            this._actives.forEach(e => out += e.dump(true));
             out += "\n-----------\n";
             out += "IN-ACTIVE\n";
             out += "-----------\n";
-            this._deactives.forEach(function (e) { return out += e.dump(true); });
+            this._deactives.forEach(e => out += e.dump(true));
             console.log(out);
         },
         getResource: function (type, url) {
@@ -222,22 +222,21 @@ define(["require", "exports", "@ttjs/lib/lodash", "@ttjs/entity/Entity"], functi
          * @param componentName
          * @param activeOnly if false it also searches deactive entities
          */
-        findEntitiesWithComponent: function (componentName, activeOnly) {
-            if (activeOnly === void 0) { activeOnly = true; }
-            var candidates = [];
-            var len = this._actives.length;
-            for (var i = 0; i < len; i++)
+        findEntitiesWithComponent: function (componentName, activeOnly = true) {
+            const candidates = [];
+            const len = this._actives.length;
+            for (let i = 0; i < len; i++)
                 if (this._actives[i].findComponent(componentName)) {
                     candidates.push(this._actives[i]);
                 }
-            var len2 = this._alwaysActives.length;
-            for (var i = 0; i < len2; i++)
+            const len2 = this._alwaysActives.length;
+            for (let i = 0; i < len2; i++)
                 if (this._alwaysActives[i].findComponent(componentName)) {
                     candidates.push(this._alwaysActives[i]);
                 }
             if (!activeOnly) {
-                var len3 = this._deactives.length;
-                for (var i = 0; i < len3; i++)
+                const len3 = this._deactives.length;
+                for (let i = 0; i < len3; i++)
                     if (this._deactives[i].findComponent(componentName)) {
                         candidates.push(this._deactives[i]);
                     }
@@ -250,27 +249,26 @@ define(["require", "exports", "@ttjs/lib/lodash", "@ttjs/entity/Entity"], functi
          * @param componentName
          * @param activeOnly if false it also searches deactive entities
          */
-        findComponentsFromEntities: function (componentName, activeOnly) {
-            if (activeOnly === void 0) { activeOnly = true; }
-            var candidates = [];
-            var len = this._actives.length;
-            for (var i = 0; i < len; i++) {
-                var cmp = this._actives[i].findComponent(componentName);
+        findComponentsFromEntities: function (componentName, activeOnly = true) {
+            const candidates = [];
+            const len = this._actives.length;
+            for (let i = 0; i < len; i++) {
+                const cmp = this._actives[i].findComponent(componentName);
                 if (cmp) {
                     candidates.push(cmp);
                 }
             }
-            var len2 = this._alwaysActives.length;
-            for (var i = 0; i < len2; i++) {
-                var cmp = this._alwaysActives[i].findComponent(componentName);
+            const len2 = this._alwaysActives.length;
+            for (let i = 0; i < len2; i++) {
+                const cmp = this._alwaysActives[i].findComponent(componentName);
                 if (cmp) {
                     candidates.push(cmp);
                 }
             }
             if (!activeOnly) {
-                var len3 = this._deactives.length;
-                for (var i = 0; i < len3; i++) {
-                    var cmp = this._deactives[i].findComponent(componentName);
+                const len3 = this._deactives.length;
+                for (let i = 0; i < len3; i++) {
+                    const cmp = this._deactives[i].findComponent(componentName);
                     if (cmp) {
                         candidates.push(cmp);
                     }
@@ -281,22 +279,21 @@ define(["require", "exports", "@ttjs/lib/lodash", "@ttjs/entity/Entity"], functi
         /**
          * returns all entities with the given name or empty array
          */
-        findEntitiesByName: function (name, activeOnly) {
-            if (activeOnly === void 0) { activeOnly = true; }
-            var candidates = [];
-            var len = this._actives.length;
-            for (var i = 0; i < len; i++) {
+        findEntitiesByName: function (name, activeOnly = true) {
+            const candidates = [];
+            const len = this._actives.length;
+            for (let i = 0; i < len; i++) {
                 if (this._actives[i].name == name)
                     candidates.push(this._actives[i]);
             }
-            var len2 = this._alwaysActives.length;
-            for (var i = 0; i < len2; i++) {
+            const len2 = this._alwaysActives.length;
+            for (let i = 0; i < len2; i++) {
                 if (this._alwaysActives[i].name == name)
                     candidates.push(this._alwaysActives[i]);
             }
             if (!activeOnly) {
-                var len3 = this._deactives.length;
-                for (var i = 0; i < len3; i++) {
+                const len3 = this._deactives.length;
+                for (let i = 0; i < len3; i++) {
                     if (this._deactives[i].name == name)
                         candidates.push(this._deactives[i]);
                 }
@@ -310,30 +307,28 @@ define(["require", "exports", "@ttjs/lib/lodash", "@ttjs/entity/Entity"], functi
          * @param activeOnly if false one can also search for deactive entities
          * @param includeNew if true also entities in preparation are searched (useful during initialization)
          */
-        findFirstEntityWithName: function (name, activeOnly, includeNew) {
-            if (activeOnly === void 0) { activeOnly = true; }
-            if (includeNew === void 0) { includeNew = false; }
-            var candidates = [];
-            var len = this._actives.length;
-            for (var i = 0; i < len; i++) {
+        findFirstEntityWithName: function (name, activeOnly = true, includeNew = false) {
+            const candidates = [];
+            const len = this._actives.length;
+            for (let i = 0; i < len; i++) {
                 if (this._actives[i].name == name)
                     return this._actives[i];
             }
-            var len2 = this._alwaysActives.length;
-            for (var i = 0; i < len2; i++) {
+            const len2 = this._alwaysActives.length;
+            for (let i = 0; i < len2; i++) {
                 if (this._alwaysActives[i].name == name)
                     return this._alwaysActives[i];
             }
             if (!activeOnly) {
-                var len3 = this._deactives.length;
-                for (var i = 0; i < len3; i++) {
+                const len3 = this._deactives.length;
+                for (let i = 0; i < len3; i++) {
                     if (this._deactives[i].name == name)
                         return this._deactives[i];
                 }
             }
             if (includeNew) {
-                var len4 = this._newEntities.length;
-                for (var i = 0; i < len4; i++) {
+                const len4 = this._newEntities.length;
+                for (let i = 0; i < len4; i++) {
                     if (this._newEntities[i].name == name)
                         return this._newEntities[i];
                 }
@@ -355,23 +350,23 @@ define(["require", "exports", "@ttjs/lib/lodash", "@ttjs/entity/Entity"], functi
             // updateEntityActivation does not guarantee to throw away all disposed entities at once we need
             // to do this until we find no active, always active or deactive entities anymore.
             //
-            var found = 2;
-            var sanity = 500;
+            let found = 2;
+            let sanity = 500;
             do {
-                var len = this._actives.length;
-                for (var i = 0; i < len; i++) {
+                let len = this._actives.length;
+                for (let i = 0; i < len; i++) {
                     this._actives[i].dispose();
                 }
                 if (len > 0)
                     found++;
                 len = this._alwaysActives.length;
-                for (var i = 0; i < len; i++) {
+                for (let i = 0; i < len; i++) {
                     this._alwaysActives[i].dispose();
                 }
                 if (len > 0)
                     found++;
                 len = this._deactives.length;
-                for (var i = 0; i < len; i++) {
+                for (let i = 0; i < len; i++) {
                     this._deactives[i].dispose();
                 }
                 if (len > 0)

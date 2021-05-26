@@ -1,6 +1,6 @@
 define(["require", "exports"], function (require, exports) {
     "use strict";
-    exports.__esModule = true;
+    Object.defineProperty(exports, "__esModule", { value: true });
     exports.parseEDF = exports.UnlinkedEDF = exports.UnlinkedEDFEntry = exports.EDFEntryType = void 0;
     var EDFEntryType;
     (function (EDFEntryType) {
@@ -11,8 +11,8 @@ define(["require", "exports"], function (require, exports) {
         EDFEntryType[EDFEntryType["GLOBAL_PROPS"] = 4] = "GLOBAL_PROPS";
         EDFEntryType[EDFEntryType["PROPERTY_GROUP"] = 5] = "PROPERTY_GROUP";
     })(EDFEntryType = exports.EDFEntryType || (exports.EDFEntryType = {}));
-    var UnlinkedEDFEntry = /** @class */ (function () {
-        function UnlinkedEDFEntry() {
+    class UnlinkedEDFEntry {
+        constructor() {
             this.properties = {};
             this.components = [];
             this.propertyGroups = [];
@@ -20,52 +20,50 @@ define(["require", "exports"], function (require, exports) {
             this.name = "";
             this.parent = "";
         }
-        return UnlinkedEDFEntry;
-    }());
+    }
     exports.UnlinkedEDFEntry = UnlinkedEDFEntry;
-    var UnlinkedEDF = /** @class */ (function () {
-        function UnlinkedEDF() {
+    class UnlinkedEDF {
+        constructor() {
             this.entries = [];
             this.required = null;
             this.hasErrors = false;
         }
-        return UnlinkedEDF;
-    }());
+    }
     exports.UnlinkedEDF = UnlinkedEDF;
     /**
      * Reads *.edf files and created EntityDefinition objects out of it
      */
     function parseEDF(content) {
-        var ParseState;
+        let ParseState;
         (function (ParseState) {
             ParseState[ParseState["WAIT_FOR_ELEMENT"] = 0] = "WAIT_FOR_ELEMENT";
             ParseState[ParseState["IN_ELEMENT"] = 1] = "IN_ELEMENT";
             ParseState[ParseState["IN_ELEMENT_COMPONENTS"] = 2] = "IN_ELEMENT_COMPONENTS";
             ParseState[ParseState["IN_ELEMENT_PROPERTIES"] = 3] = "IN_ELEMENT_PROPERTIES";
         })(ParseState || (ParseState = {}));
-        var out = new UnlinkedEDF();
-        var state = ParseState.WAIT_FOR_ELEMENT;
-        var current = null;
-        var regHeader = /\[([!|*|\$])?(\w+)(?:\((\w+)\))?(?:\:([\w+\,]+))?]/;
-        var regObjectProp = /^(\w|_)*\s*"{$/;
-        var regArrayProp = /^(\w|_)*\s*"\[$/;
-        var regMultiStringProp = /^(\w|_)*\s*\"$/;
-        var regProp = /^(\w|_)*\s*=/;
-        var lines = content.split('\n');
-        for (var i = 0; i < lines.length; i++) {
-            var line = lines[i];
-            var lineTrimmed = line.trim();
+        const out = new UnlinkedEDF();
+        let state = ParseState.WAIT_FOR_ELEMENT;
+        let current = null;
+        const regHeader = /\[([!|*|\$])?(\w+)(?:\((\w+)\))?(?:\:([\w+\,]+))?]/;
+        const regObjectProp = /^(\w|_)*\s*"{$/;
+        const regArrayProp = /^(\w|_)*\s*"\[$/;
+        const regMultiStringProp = /^(\w|_)*\s*\"$/;
+        const regProp = /^(\w|_)*\s*=/;
+        const lines = content.split('\n');
+        for (let i = 0; i < lines.length; i++) {
+            const line = lines[i];
+            const lineTrimmed = line.trim();
             if (!lineTrimmed)
                 continue;
-            var first = lineTrimmed[0];
+            const first = lineTrimmed[0];
             if (first == '#')
                 continue;
-            var last = lineTrimmed[lineTrimmed.length - 1];
+            const last = lineTrimmed[lineTrimmed.length - 1];
             if (lineTrimmed.length <= 1) {
                 if (current != null) {
                     out.hasErrors = true;
                 }
-                console.error("Unexpected content in line:", i + 1, ":", line);
+                console.error(`Unexpected content in line:`, i + 1, ":", line);
                 continue;
             }
             if (state == ParseState.IN_ELEMENT_COMPONENTS) {
@@ -85,7 +83,7 @@ define(["require", "exports"], function (require, exports) {
                     if (current != null) {
                         out.hasErrors = true;
                     }
-                    console.error("Unexpected component in property list. Line:", i + 1, ":", line);
+                    console.error(`Unexpected component in property list. Line:`, i + 1, ":", line);
                     continue;
                 }
                 else if (first == '[') {
@@ -96,13 +94,13 @@ define(["require", "exports"], function (require, exports) {
                     current.components.push(lineTrimmed);
                 }
                 else {
-                    var seekMultiLine = false;
-                    var multiLineTerminator = "";
+                    let seekMultiLine = false;
+                    let multiLineTerminator = "";
                     if (regProp.test(lineTrimmed)) { // Key&value
-                        var pair = lineTrimmed.split('=', 2);
+                        const pair = lineTrimmed.split('=', 2);
                         if (!pair[0]) {
                             out.hasErrors = true;
-                            console.error("Property name cannot be empty. Line:", i + 1, ":", line);
+                            console.error(`Property name cannot be empty. Line:`, i + 1, ":", line);
                             continue;
                         }
                         else {
@@ -122,18 +120,18 @@ define(["require", "exports"], function (require, exports) {
                         multiLineTerminator = '}"';
                     }
                     else {
-                        console.error("Cannot parse property. Line:", i + 1, ":", line);
+                        console.error(`Cannot parse property. Line:`, i + 1, ":", line);
                         continue;
                     }
                     if (seekMultiLine) {
-                        var startLineIndex = i;
-                        var startLineStr = line;
+                        const startLineIndex = i;
+                        const startLineStr = line;
                         i++;
-                        var foundTerminator = false;
-                        var multiLineVal = "";
+                        let foundTerminator = false;
+                        let multiLineVal = "";
                         for (; i < lines.length; i++) {
-                            var scanLine = lines[i];
-                            var scanLineTrimmed = scanLine.trim();
+                            const scanLine = lines[i];
+                            const scanLineTrimmed = scanLine.trim();
                             if (scanLineTrimmed == multiLineTerminator) {
                                 foundTerminator = true;
                                 break;
@@ -141,21 +139,21 @@ define(["require", "exports"], function (require, exports) {
                             multiLineVal += scanLine + "\n";
                         }
                         if (!foundTerminator) {
-                            console.error("EOF: Multiline property never closes. Missing " + multiLineTerminator + ". Line:", startLineIndex + 1, ":", startLineStr);
+                            console.error(`EOF: Multiline property never closes. Missing ${multiLineTerminator}. Line:`, startLineIndex + 1, ":", startLineStr);
                             out.hasErrors = true;
                             continue;
                         }
                         else {
-                            var multiLineKey = lineTrimmed.substring(0, lineTrimmed.length - multiLineTerminator.length).trim();
+                            const multiLineKey = lineTrimmed.substring(0, lineTrimmed.length - multiLineTerminator.length).trim();
                             switch (multiLineTerminator) {
                                 case ']"':
-                                    current.properties[multiLineKey] = "[ " + multiLineVal + " ]";
+                                    current.properties[multiLineKey] = `[ ${multiLineVal} ]`;
                                     break;
                                 case '}"':
-                                    current.properties[multiLineKey] = "{ " + multiLineVal + " }";
+                                    current.properties[multiLineKey] = `{ ${multiLineVal} }`;
                                     break;
                                 case '"':
-                                    current.properties[multiLineKey] = "" + multiLineVal.substring(0, multiLineVal.length - 1);
+                                    current.properties[multiLineKey] = `${multiLineVal.substring(0, multiLineVal.length - 1)}`;
                                     break;
                             }
                             continue;
@@ -165,7 +163,7 @@ define(["require", "exports"], function (require, exports) {
             }
             if (state == ParseState.WAIT_FOR_ELEMENT) {
                 if (first != '[' || last != ']') {
-                    console.error("Unexpected content. Line:", i + 1, ":", line);
+                    console.error(`Unexpected content. Line:`, i + 1, ":", line);
                     out.hasErrors = true;
                     continue;
                 }
@@ -177,7 +175,7 @@ define(["require", "exports"], function (require, exports) {
                 }
                 else if (lineTrimmed == "[$require]") {
                     if (out.required) {
-                        console.error("Unexpected second [$require] entry. Line:", i + 1, ":", line);
+                        console.error(`Unexpected second [$require] entry. Line:`, i + 1, ":", line);
                         out.hasErrors = true;
                         continue;
                     }
@@ -187,17 +185,17 @@ define(["require", "exports"], function (require, exports) {
                     state = ParseState.IN_ELEMENT_PROPERTIES;
                 }
                 else {
-                    var regResult = regHeader.exec(lineTrimmed);
+                    const regResult = regHeader.exec(lineTrimmed);
                     if (!regResult) {
-                        console.error("Cannot parse. Line:", i + 1, ":", line);
+                        console.error(`Cannot parse. Line:`, i + 1, ":", line);
                         continue;
                     }
                     current = new UnlinkedEDFEntry();
-                    var typeInfo = regResult[1];
-                    var name_1 = regResult[2];
-                    var parent_1 = regResult[3];
-                    var propGroups = regResult[4];
-                    current.name = name_1;
+                    const typeInfo = regResult[1];
+                    const name = regResult[2];
+                    const parent = regResult[3];
+                    const propGroups = regResult[4];
+                    current.name = name;
                     current.entryType = EDFEntryType.ENTITY;
                     switch (typeInfo) {
                         case "$":
@@ -216,20 +214,20 @@ define(["require", "exports"], function (require, exports) {
                             state = ParseState.IN_ELEMENT_COMPONENTS;
                             break;
                     }
-                    if (parent_1) {
+                    if (parent) {
                         if (current.entryType == EDFEntryType.PROPERTY_GROUP) {
                             console.error("PropertyGroups cannot have parents. Line", i + 1, ":", line);
                         }
                         else {
                             state = ParseState.IN_ELEMENT_PROPERTIES;
-                            current.parent = parent_1;
+                            current.parent = parent;
                         }
                     }
                     if (propGroups) {
-                        var parts = propGroups.split(",");
-                        for (var c = 0; c < parts.length; c++) {
-                            var part = parts[c];
-                            var partTrimmed = part ? part.trim() : "";
+                        const parts = propGroups.split(",");
+                        for (let c = 0; c < parts.length; c++) {
+                            const part = parts[c];
+                            const partTrimmed = part ? part.trim() : "";
                             if (partTrimmed) {
                                 current.propertyGroups.push(partTrimmed);
                             }

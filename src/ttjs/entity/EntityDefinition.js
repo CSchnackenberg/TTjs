@@ -11,7 +11,7 @@
 // {
 define(["require", "exports"], function (require, exports) {
     "use strict";
-    exports.__esModule = true;
+    Object.defineProperty(exports, "__esModule", { value: true });
     exports.EntityDefinition = void 0;
     /** @class  */
     // export function EntityDefinition()
@@ -31,8 +31,8 @@ define(["require", "exports"], function (require, exports) {
     //     /** information about the definition origin */
     //     this.source = {};
     // }
-    var EntityDefinition = /** @class */ (function () {
-        function EntityDefinition() {
+    class EntityDefinition {
+        constructor() {
             /** @type bool static entites are always instantiated */
             this.isStatic = false;
             /** @type String */
@@ -50,8 +50,7 @@ define(["require", "exports"], function (require, exports) {
             /** information about the definition origin */
             this.type = "";
         }
-        return EntityDefinition;
-    }());
+    }
     exports.EntityDefinition = EntityDefinition;
 });
 //# sourceMappingURL=EntityDefinition.js.map
