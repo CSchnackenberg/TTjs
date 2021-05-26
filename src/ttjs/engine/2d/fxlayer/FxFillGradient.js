@@ -18,7 +18,7 @@
 // {
 define(["require", "exports", "@ttjs/engine/2d/fxlayer/FxLayer", "@ttjs/util/TTTools", "@ttjs/lib/easeljs"], function (require, exports, FxLayer_1, TTTools_1, Fx) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.__esModule = true;
     exports.FxFillGradient = void 0;
     "use strict";
     function FxFillGradient(canvas) {

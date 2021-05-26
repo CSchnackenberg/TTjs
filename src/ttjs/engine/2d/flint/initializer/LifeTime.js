@@ -45,7 +45,7 @@
 // {
 define(["require", "exports"], function (require, exports) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.__esModule = true;
     exports.LifeTime = void 0;
     function LifeTime(rangeStart, rangeEnd) {
         this.s = rangeStart || 1;

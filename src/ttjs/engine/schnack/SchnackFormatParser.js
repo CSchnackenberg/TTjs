@@ -13,15 +13,15 @@
 // ) {
 define(["require", "exports"], function (require, exports) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.__esModule = true;
     exports.SchnackFormatParser = void 0;
     // -----------------------------------------------------
-    let _state = 0;
-    const STATE_TEXT = _state++;
-    const STATE_SYMBOL = _state++;
-    const EVENT_START = "start";
-    const EVENT_END = "end";
-    const EVENT_ERR = "error";
+    var _state = 0;
+    var STATE_TEXT = _state++;
+    var STATE_SYMBOL = _state++;
+    var EVENT_START = "start";
+    var EVENT_END = "end";
+    var EVENT_ERR = "error";
     exports.SchnackFormatParser = {
         EVENT_START: EVENT_START,
         EVENT_END: EVENT_END,
@@ -51,13 +51,13 @@ define(["require", "exports"], function (require, exports) {
          *
          */
         parse: function (formatedText, callback) {
-            let state = STATE_TEXT;
-            const symbolStack = [];
-            let symbol = "";
-            let rawCharIndex = 0;
-            let rawText = "";
-            for (let i = 0; i < formatedText.length; i++) {
-                const c = formatedText[i];
+            var state = STATE_TEXT;
+            var symbolStack = [];
+            var symbol = "";
+            var rawCharIndex = 0;
+            var rawText = "";
+            for (var i = 0; i < formatedText.length; i++) {
+                var c = formatedText[i];
                 if (state == STATE_SYMBOL) {
                     if (c == ':') {
                         state = STATE_TEXT;
@@ -82,7 +82,7 @@ define(["require", "exports"], function (require, exports) {
                                 callback(EVENT_ERR, null, symbolStack, rawText, rawCharIndex);
                         }
                         else {
-                            const popSym = symbolStack.pop();
+                            var popSym = symbolStack.pop();
                             if (callback)
                                 callback(EVENT_END, popSym, symbolStack, rawText, rawCharIndex);
                         }

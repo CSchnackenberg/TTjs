@@ -80,7 +80,7 @@ define(["require", "exports", "@ttjs/engine/2d/flint/Particle", "@ttjs/engine/2d
     //     Flint,
     // ) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.__esModule = true;
     exports.Flint = void 0;
     /**
      * Facade pattern to access flint particle engine + ttjs extensions

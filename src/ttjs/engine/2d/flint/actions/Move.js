@@ -45,7 +45,7 @@
 // {
 define(["require", "exports"], function (require, exports) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.__esModule = true;
     exports.Move = void 0;
     function Move() {
     }

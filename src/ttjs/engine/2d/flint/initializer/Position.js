@@ -44,7 +44,7 @@
 // ) {
 define(["require", "exports"], function (require, exports) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.__esModule = true;
     exports.Position = void 0;
     function Position(pos) {
         var pos = pos || { x: 0, y: 0 };

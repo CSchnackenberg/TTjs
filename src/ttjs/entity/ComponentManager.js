@@ -9,7 +9,7 @@
  */
 define(["require", "exports"], function (require, exports) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.__esModule = true;
     exports.ComponentManager = void 0;
     exports.ComponentManager = {
         /** maps class-name => class/constructor */
@@ -49,6 +49,7 @@ define(["require", "exports"], function (require, exports) {
                 return "unknown";
         },
         require: function (src, callback) {
+            var _this = this;
             if (!Array.isArray(src))
                 src = [src];
             var localPending = [];
@@ -113,35 +114,46 @@ define(["require", "exports"], function (require, exports) {
                 var cb = this._pending[localPending[i]];
                 cb.push(chunkCallback);
             }
-            const reqList = [];
-            scripts.forEach(e => reqList.push(`@${this.pathPrefix}${e}`));
-            require(reqList, () => {
-                for (let errScriptPath of reqList) {
-                    const sep = errScriptPath.lastIndexOf('/');
-                    const scriptName = sep > -1 ? errScriptPath.substring(sep + 1) : errScriptPath;
-                    if (!this._classes[scriptName]) {
-                        console.error("pending => error", scriptName, "Script loaded but no Component registered");
-                        const callbacks = this._pending[scriptName];
-                        delete this._pending[scriptName];
-                        this._error[scriptName] = "Script loaded but no Component registered";
-                        for (let i = 0; callbacks && i < callbacks.length; i++)
-                            callbacks[i]();
+            var reqList = [];
+            scripts.forEach(function (e) { return reqList.push("@" + _this.pathPrefix + e); });
+            require(reqList, function () {
+                var e_1, _a;
+                try {
+                    for (var reqList_1 = __values(reqList), reqList_1_1 = reqList_1.next(); !reqList_1_1.done; reqList_1_1 = reqList_1.next()) {
+                        var errScriptPath = reqList_1_1.value;
+                        var sep = errScriptPath.lastIndexOf('/');
+                        var scriptName = sep > -1 ? errScriptPath.substring(sep + 1) : errScriptPath;
+                        if (!_this._classes[scriptName]) {
+                            console.error("pending => error", scriptName, "Script loaded but no Component registered");
+                            var callbacks = _this._pending[scriptName];
+                            delete _this._pending[scriptName];
+                            _this._error[scriptName] = "Script loaded but no Component registered";
+                            for (var i_1 = 0; callbacks && i_1 < callbacks.length; i_1++)
+                                callbacks[i_1]();
+                        }
                     }
                 }
-            }, (err) => {
+                catch (e_1_1) { e_1 = { error: e_1_1 }; }
+                finally {
+                    try {
+                        if (reqList_1_1 && !reqList_1_1.done && (_a = reqList_1["return"])) _a.call(reqList_1);
+                    }
+                    finally { if (e_1) throw e_1.error; }
+                }
+            }, function (err) {
                 console.error(err);
-                const failedList = err.requireModules; // this is not reliable!
+                var failedList = err.requireModules; // this is not reliable!
                 // for (let errScriptPath of failedList) {
-                for (let i = 0; i < failedList.length; i++) {
-                    const errScriptPath = failedList[i];
-                    const sep = errScriptPath.lastIndexOf('/');
-                    const scriptName = sep > -1 ? errScriptPath.substring(sep + 1) : errScriptPath;
+                for (var i_2 = 0; i_2 < failedList.length; i_2++) {
+                    var errScriptPath = failedList[i_2];
+                    var sep = errScriptPath.lastIndexOf('/');
+                    var scriptName = sep > -1 ? errScriptPath.substring(sep + 1) : errScriptPath;
                     console.error("pending => error", scriptName, "Unable to load script.");
-                    const callbacks = this._pending[scriptName];
-                    delete this._pending[scriptName];
-                    this._error[scriptName] = "Unable to load script.";
-                    for (let i = 0; callbacks && i < callbacks.length; i++)
-                        callbacks[i]();
+                    var callbacks = _this._pending[scriptName];
+                    delete _this._pending[scriptName];
+                    _this._error[scriptName] = "Unable to load script.";
+                    for (var i_3 = 0; callbacks && i_3 < callbacks.length; i_3++)
+                        callbacks[i_3]();
                 }
             });
             // start callback

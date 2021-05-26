@@ -11,7 +11,7 @@
 // {
 define(["require", "exports", "@ttjs/util/TTTools"], function (require, exports, TTTools_1) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.__esModule = true;
     exports.ImageResources = void 0;
     "use strict";
     function ImageResources() { }

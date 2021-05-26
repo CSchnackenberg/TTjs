@@ -9,7 +9,7 @@
  */
 define(["require", "exports", "@ttjs/lib/lodash"], function (require, exports, _) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.__esModule = true;
     exports.NumberEnumPropertyParser = void 0;
     /**
      * Property parser for: number, float, real
@@ -28,15 +28,15 @@ define(["require", "exports", "@ttjs/lib/lodash"], function (require, exports, _
          */
         parse: function (propertyName, propertyInfo, instanceValue, outProps) {
             // we only accept numbers here
-            const parsedValue = Number(instanceValue);
+            var parsedValue = Number(instanceValue);
             if (_.isNaN(parsedValue))
                 return "Value is not a number";
-            const elements = propertyInfo["allowed"];
+            var elements = propertyInfo["allowed"];
             if (!_.isArray(elements))
                 return "Error in Component! A list of valid number-enum-elements is expected.";
-            let bad = true;
-            for (let i = 0; i < elements.length; i++) {
-                const enumNum = Number(elements[i]);
+            var bad = true;
+            for (var i = 0; i < elements.length; i++) {
+                var enumNum = Number(elements[i]);
                 if (_.isNaN(enumNum))
                     return "Error in Component! Enum number allowed-enties must be of number or number compatible.";
                 if (enumNum == parsedValue) {

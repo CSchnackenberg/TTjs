@@ -10,7 +10,7 @@
 // define([], function() {
 define(["require", "exports"], function (require, exports) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.__esModule = true;
     exports.EntityInstance = void 0;
     /**
      * Description for an Entity instance in the game world

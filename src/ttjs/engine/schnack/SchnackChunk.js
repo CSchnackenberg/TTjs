@@ -13,7 +13,7 @@
 // ) {
 define(["require", "exports"], function (require, exports) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.__esModule = true;
     exports.SchnackChunk = void 0;
     /**
      * Note: Chunk, Token, ... might be cute-programming. If you are
@@ -54,7 +54,7 @@ define(["require", "exports"], function (require, exports) {
     }
     exports.SchnackChunk = SchnackChunk;
     // -----------------------------------------------------
-    let state = 0;
+    var state = 0;
     /** unknown */
     SchnackChunk.CHUNK_UNK = state++;
     /** a collection of text to print out */
@@ -70,7 +70,7 @@ define(["require", "exports"], function (require, exports) {
     SchnackChunk.prototype = {
         addToken: function (t) {
             if (Array.isArray(t)) {
-                for (let i = 0; i < t.length; i++)
+                for (var i = 0; i < t.length; i++)
                     this.tokenData.push(t[i]);
             }
             else
@@ -86,7 +86,7 @@ define(["require", "exports"], function (require, exports) {
             return this.type;
         },
         dumpLog: function () {
-            let out = "CHUNK ";
+            var out = "CHUNK ";
             switch (this.type) {
                 case SchnackChunk.CHUNK_TEXT:
                     out += "TEXT: ";
@@ -98,13 +98,13 @@ define(["require", "exports"], function (require, exports) {
                     out += "END: ";
                     break;
             }
-            for (let i = 0; i < this.tokenData.length; i++) {
+            for (var i = 0; i < this.tokenData.length; i++) {
                 out += this.tokenData[i] + " | ";
             }
             console.log("Dump: " + out);
         },
         logError: function () {
-            console.error(`Found error [line: ${this.linePos}] near: ${this.firstChunkLine}`);
+            console.error("Found error [line: " + this.linePos + "] near: " + this.firstChunkLine);
         },
         getLinePos: function () {
             return this.linePos;

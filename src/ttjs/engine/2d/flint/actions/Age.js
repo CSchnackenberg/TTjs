@@ -1,6 +1,6 @@
 define(["require", "exports", "@ttjs/engine/2d/flint/EnergyEasing"], function (require, exports, EnergyEasing_1) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.__esModule = true;
     exports.Age = void 0;
     // define([
     //     'ttjs/engine/2d/flint/EnergyEasing'

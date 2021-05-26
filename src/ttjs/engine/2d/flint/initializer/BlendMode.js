@@ -47,7 +47,7 @@
 // {
 define(["require", "exports"], function (require, exports) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.__esModule = true;
     exports.BlendMode = void 0;
     /**
      * Posible options:

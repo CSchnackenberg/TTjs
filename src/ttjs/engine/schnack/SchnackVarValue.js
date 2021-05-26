@@ -13,7 +13,7 @@
 // ) {
 define(["require", "exports"], function (require, exports) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.__esModule = true;
     exports.SchnackVarValue = void 0;
     /**
      * A switchable variable between string and number.
@@ -30,7 +30,7 @@ define(["require", "exports"], function (require, exports) {
     }
     exports.SchnackVarValue = SchnackVarValue;
     // -----------------------------------------------------
-    let state = 0;
+    var state = 0;
     /** variable exists during the entire game */
     SchnackVarValue.VAR_NUMBER = state++;
     /** variable exists during the current map */
@@ -64,9 +64,9 @@ define(["require", "exports"], function (require, exports) {
          * @param v handles: strings, numbers and SchnackVarValue instances.
          */
         setValue: function (v) {
-            const t = typeof v;
+            var t = typeof v;
             if (t == "string") {
-                const parsedValue = Number(v);
+                var parsedValue = Number(v);
                 if (Number.isNaN(parsedValue)) {
                     this.type = SchnackVarValue.VAR_STRING;
                     this._num(0);
@@ -107,7 +107,7 @@ define(["require", "exports"], function (require, exports) {
          * @param v handles strings, numbers and SchnackVarValue instances.
          */
         setValueNoParse: function (v) {
-            const t = typeof v;
+            var t = typeof v;
             if (t == "string") {
                 this.type = SchnackVarValue.VAR_STRING;
                 this._num(0);
@@ -136,7 +136,8 @@ define(["require", "exports"], function (require, exports) {
          *
          * if typeCheck is false the comparsion does not consider the types
          */
-        equals: function (sv, typeCheck = false) {
+        equals: function (sv, typeCheck) {
+            if (typeCheck === void 0) { typeCheck = false; }
             if (typeCheck && this.type != sv.type) {
                 return false;
             }
@@ -168,14 +169,14 @@ define(["require", "exports"], function (require, exports) {
         },
         incrementBy: function (sv) {
             if (sv instanceof SchnackVarValue) {
-                const numVal = sv.getAsNumber();
+                var numVal = sv.getAsNumber();
                 if (this.type == SchnackVarValue.VAR_NUMBER)
                     this.num += numVal;
                 else
                     this._convertToNumber(numVal);
             }
             else {
-                const t = typeof sv;
+                var t = typeof sv;
                 if (t == "number") {
                     if (this.type == SchnackVarValue.VAR_NUMBER)
                         this.num += sv;
@@ -183,7 +184,7 @@ define(["require", "exports"], function (require, exports) {
                         this._convertToNumber(sv);
                 }
                 else {
-                    const val = new SchnackVarValue(sv);
+                    var val = new SchnackVarValue(sv);
                     this.incrementBy(val);
                 }
             }
@@ -196,14 +197,14 @@ define(["require", "exports"], function (require, exports) {
         },
         decrementBy: function (sv) {
             if (sv instanceof SchnackVarValue) {
-                const numVal = sv.getAsNumber();
+                var numVal = sv.getAsNumber();
                 if (this.type == SchnackVarValue.VAR_NUMBER)
                     this.num -= numVal;
                 else
                     this._convertToNumber(-numVal);
             }
             else {
-                const t = typeof sv;
+                var t = typeof sv;
                 if (t == "number") {
                     if (this.type == SchnackVarValue.VAR_NUMBER)
                         this.num -= sv;
@@ -211,7 +212,7 @@ define(["require", "exports"], function (require, exports) {
                         this._convertToNumber(-sv);
                 }
                 else {
-                    const val = new SchnackVarValue(sv);
+                    var val = new SchnackVarValue(sv);
                     this.decrementBy(val);
                 }
             }
@@ -228,7 +229,7 @@ define(["require", "exports"], function (require, exports) {
                 }
             }
             else {
-                const type = typeof sv;
+                var type = typeof sv;
                 if (type == "string") {
                     if (this.type == SchnackVarValue.VAR_NUMBER) {
                         this._str(this.getAsString() + sv);
@@ -253,7 +254,7 @@ define(["require", "exports"], function (require, exports) {
             return this.type;
         },
         dumpString: function () {
-            let out = "";
+            var out = "";
             if (this.isString()) {
                 out += "[string:\"" + str + "\"]";
                 //@out.Append("[string:\"").Append(strValue).Append("\"]");

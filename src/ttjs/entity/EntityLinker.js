@@ -9,7 +9,7 @@
  */
 define(["require", "exports", "@ttjs/util/TTTools"], function (require, exports, TTTools_1) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.__esModule = true;
     exports.EntityLinker = exports.LinkedEntityDefinition = void 0;
     function LinkedEntityDefinition() {
         /** @type bool static entites are always instantiated */

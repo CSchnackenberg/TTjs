@@ -8,7 +8,7 @@
  */
 define(["require", "exports", "../../../util/WebGL", "@ttjs/lib/gl-matrix", "@ttjs/engine/2d/tileRenderer/Shader", "@ttjs/engine/2d/tileRenderer/Shader"], function (require, exports, WebGL_1, GLMatrix, Shader_1, Shader_2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.__esModule = true;
     exports.TileLayerRenderer_WebGL = void 0;
     "use strict";
     function TileLayerRenderer_WebGL() {

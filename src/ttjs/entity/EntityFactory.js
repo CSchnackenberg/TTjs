@@ -9,7 +9,7 @@
  */
 define(["require", "exports", "@ttjs/util/TTTools", "@ttjs/lib/lodash", "@ttjs/entity/ComponentManager", "@ttjs/entity/parser/NumberPropertyParser", "@ttjs/entity/parser/StringPropertyParser", "@ttjs/entity/parser/EnumPropertyParser", "@ttjs/entity/parser/NumberEnumPropertyParser", "@ttjs/entity/parser/AnyPropertyParser", "@ttjs/entity/parser/EaseFuncPropertyParser", "@ttjs/entity/ResourceManager", "@ttjs/entity/EntityInstance", "@ttjs/entity/EntityLinker"], function (require, exports, TTTools_1, _, ComponentManager_1, NumberPropertyParser_1, StringPropertyParser_1, EnumPropertyParser_1, NumberEnumPropertyParser_1, AnyPropertyParser_1, EaseFuncPropertyParser_1, ResourceManager_1, EntityInstance_1, EntityLinker_1) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.__esModule = true;
     exports.EntityFactory = void 0;
     /**
      * @class
@@ -190,7 +190,7 @@ define(["require", "exports", "@ttjs/util/TTTools", "@ttjs/lib/lodash", "@ttjs/e
                 validInstances = [];
                 len = oldValidInstances.length;
                 var requiredResources = [];
-                let errorInCmpRes = false;
+                var errorInCmpRes = false;
                 for (i = 0; i < len; i++) { // each Entity
                     instance = oldValidInstances[i];
                     instance.expectedResources = [];

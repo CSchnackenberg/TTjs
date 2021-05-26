@@ -41,7 +41,7 @@
  */
 define(["require", "exports", "@ttjs/lib/easeljs"], function (require, exports, Fx) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.__esModule = true;
     exports.BitmapAnimation = void 0;
     "use strict";
     function BitmapAnimation(spriteSheet, frameRangeStart, frameRangeEnd) {
@@ -71,7 +71,7 @@ define(["require", "exports", "@ttjs/lib/easeljs"], function (require, exports, 
                 p.sprite.gotoAndPlay(this.animName);
             }
             else if (this.animRange) {
-                const index = Math.floor(Math.random() * (this.animRange.length));
+                var index = Math.floor(Math.random() * (this.animRange.length));
                 p.sprite.gotoAndPlay(this.animRange[index]);
             }
             else {

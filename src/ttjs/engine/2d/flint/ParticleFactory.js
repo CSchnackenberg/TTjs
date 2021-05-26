@@ -1,6 +1,6 @@
 define(["require", "exports", "@ttjs/engine/2d/flint/Particle"], function (require, exports, Particle_1) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.__esModule = true;
     exports.ParticleFactory = exports.Pool = void 0;
     // define([
     //    'ttjs/engine/2d/flint/Particle'
@@ -32,7 +32,8 @@ define(["require", "exports", "@ttjs/engine/2d/flint/Particle"], function (requi
      * Class to create particles. At some point later we
      * can introduce a cached concept here.
      */
-    function ParticleFactory(useCache = false) {
+    function ParticleFactory(useCache) {
+        if (useCache === void 0) { useCache = false; }
         this._pool = useCache ? new Pool() : null;
     }
     exports.ParticleFactory = ParticleFactory;

@@ -10,7 +10,7 @@
 // define(['ttjs/lib/lodash'], function(_) {
 define(["require", "exports", "@ttjs/lib/lodash"], function (require, exports, _) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.__esModule = true;
     exports.NumberPropertyParser = void 0;
     "use strict";
     /**

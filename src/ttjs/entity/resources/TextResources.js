@@ -1,6 +1,6 @@
 define(["require", "exports", "@ttjs/util/TTTools"], function (require, exports, TTTools_1) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.__esModule = true;
     exports.TextResources = void 0;
     function TextResources() { }
     exports.TextResources = TextResources;
@@ -21,7 +21,7 @@ define(["require", "exports", "@ttjs/util/TTTools"], function (require, exports,
             // }).fail(function (xhr, status, error){
             //     callback(false, error);
             // });
-            TTTools_1.getText(url, data => callback(true, data), error => callback(false, error));
+            TTTools_1.getText(url, function (data) { return callback(true, data); }, function (error) { return callback(false, error); });
         }
     };
 });

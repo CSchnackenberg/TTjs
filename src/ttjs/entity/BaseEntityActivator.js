@@ -10,7 +10,7 @@
 // define([], function() {
 define(["require", "exports"], function (require, exports) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.__esModule = true;
     exports.BaseEntityActivator = void 0;
     /** @class base class for entity activation */
     function BaseEntityActivator() {

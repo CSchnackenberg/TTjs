@@ -11,9 +11,10 @@
 // ) {
 define(["require", "exports"], function (require, exports) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.__esModule = true;
     exports.RingBlastPosition = void 0;
-    function RingBlastPosition(x, y, randRadiusX, randRadiusY, ringRadius = 0, minVelocity, maxVelocity) {
+    function RingBlastPosition(x, y, randRadiusX, randRadiusY, ringRadius, minVelocity, maxVelocity) {
+        if (ringRadius === void 0) { ringRadius = 0; }
         this.randX = randRadiusX;
         this.randY = randRadiusY || randRadiusX;
         this.ringRadius = ringRadius;
@@ -28,9 +29,9 @@ define(["require", "exports"], function (require, exports) {
     ;
     RingBlastPosition.prototype = {
         init: function (emitter, p) {
-            const randAngle = Math.PI * 2 * Math.random();
+            var randAngle = Math.PI * 2 * Math.random();
             //p.rotation = randAngle;
-            const velPower = (this.minVel + (this.maxVel - this.minVel) * Math.random());
+            var velPower = (this.minVel + (this.maxVel - this.minVel) * Math.random());
             p.velocity.x = Math.cos(randAngle) * velPower;
             p.velocity.y = Math.sin(randAngle) * velPower;
             if (this.ringRadius > 0) {

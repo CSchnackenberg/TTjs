@@ -44,7 +44,7 @@
 // )  {
 define(["require", "exports"], function (require, exports) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.__esModule = true;
     exports.Velocity = void 0;
     function Velocity(startX, endX, startY, endY) {
         this.startX = startX || 0;

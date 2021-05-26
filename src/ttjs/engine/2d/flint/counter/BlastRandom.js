@@ -45,7 +45,7 @@ define(["require", "exports"], function (require, exports) {
     // )
     // {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.__esModule = true;
     exports.BlastRandom = void 0;
     function BlastRandom(minPerSec, maxPerSec, maxCount, started) {
         this._started = started || true;

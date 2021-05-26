@@ -1,6 +1,6 @@
 define(["require", "exports", "@ttjs/util/TTTools"], function (require, exports, TTTools_1) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.__esModule = true;
     exports.TileSetModel = void 0;
     // define(["ttjs/util/TTTools"], function (Env) {
     "use strict";

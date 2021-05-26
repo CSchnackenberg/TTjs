@@ -13,7 +13,7 @@
 // ) {
 define(["require", "exports"], function (require, exports) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.__esModule = true;
     exports.SchnackResult = void 0;
     function SchnackResult(data, type) {
         this.type = type;
@@ -21,7 +21,7 @@ define(["require", "exports"], function (require, exports) {
     }
     exports.SchnackResult = SchnackResult;
     // -----------------------------------------------------
-    let state = 0;
+    var state = 0;
     SchnackResult.SCHNACKRES_TEXT = state++;
     SchnackResult.SCHNACKRES_SELECT = state++;
     SchnackResult.SCHNACKRES_VARCHANGE = state++;

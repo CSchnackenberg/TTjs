@@ -45,7 +45,7 @@
 // {
 define(["require", "exports"], function (require, exports) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.__esModule = true;
     exports.TargetScale = void 0;
     function TargetScale(targetScale, rate) {
         this.targetScale = targetScale || 1;
