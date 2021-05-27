@@ -1,19 +1,7 @@
-/**
- * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
- *
- * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
- * Copyright (c) 2013, Johannes Brosi <mail@jbrosi.de>
- *
- * Released under the MIT license
- * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
- */
-// define(['ttjs/util/TTTools'], function(env)
-// {
 define(["require", "exports", "@ttjs/util/TTTools"], function (require, exports, TTTools_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.ImageResources = void 0;
-    "use strict";
     function ImageResources() { }
     exports.ImageResources = ImageResources;
     ;
@@ -41,6 +29,4 @@ define(["require", "exports", "@ttjs/util/TTTools"], function (require, exports,
         }
     };
 });
-// 	return ImageResources;
-// });
 //# sourceMappingURL=ImageResources.js.map

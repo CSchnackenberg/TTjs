@@ -7,12 +7,8 @@
  * Released under the MIT license
  * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
  */
-// define(['ttjs/util/TTTools'], function(env)
-// {
-
 import {TTTools as env} from "@ttjs/util/TTTools";
 
-"use strict";
 	
 export function ImageResources() {};
 
@@ -39,6 +35,3 @@ ImageResources.prototype = {
         jsImage.src = url;
     }
 };
-	
-// 	return ImageResources;
-// });
