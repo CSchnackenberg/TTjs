@@ -83,8 +83,8 @@ define(["require", "exports", "@ttjs/lib/lodash"], function (require, exports, _
                     if (existingInformation &&
                         existingInformation.state === "error")
                         console.log("Change resource state for '", existingInformation.url, "' from 'error' to 'new'");
-                    else
-                        console.log("New resource with url '", url, "'.");
+                    // else
+                    //     console.log("New resource with url '", url,"'.");
                 }
                 if (needReload) {
                     manager.storage[url] = {
@@ -108,13 +108,13 @@ define(["require", "exports", "@ttjs/lib/lodash"], function (require, exports, _
             _.forEach(this._manager, function (manager) {
                 _.forEach(manager.storage, function (resInfo) {
                     if (resInfo.state === "new") {
-                        console.log("Change resource state for '", resInfo.url, "' from 'new' to 'pending'");
+                        //console.log("Change resource state for '",resInfo.url,"' from 'new' to 'pending'");
                         resInfo.state = "pending";
                         //somethingToLoad = true;
                         thiz._loadState++;
                         manager.load(resInfo.url, function (success, res) {
                             if (success) {
-                                console.log("Change resource state for '", resInfo.url, "' from 'pending' to 'loaded'");
+                                //console.log("Change resource state for '",resInfo.url,"' from 'pending' to 'loaded'");
                                 resInfo.state = "loaded";
                                 resInfo.resource = res;
                             }
