@@ -7,23 +7,10 @@
  * Released under the MIT license
  * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
  */
-// define([
-// 	'ttjs/util/TTTools',
-// 	'ttjs/lib/lodash',
-// 	'ttjs/entity/Entity'
-// ],
-// function(
-// 	env,
-// 	_,
-// 	Entity
-// ) {
-
-// import {TTTools as env} from "@ttjs/util/TTTools";
 import * as _ from '@ttjs/lib/lodash'
 import {Entity} from '@ttjs/entity/Entity'
 
 
-"use strict";
 
 /**
  * Handles all entities.
@@ -420,6 +407,3 @@ EntityManager.prototype = {
         }
     }
 };
-//
-//     return EntityManager;
-// });

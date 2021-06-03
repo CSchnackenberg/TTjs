@@ -1,3 +1,12 @@
+/**
+ * TouchThing Js (TTjs) - JavaScript Entity/Component Game Framework
+ *
+ * Copyright (c) 2020, Christoph Schnackenberg <bluechs@gmx.de>
+ * Copyright (c) 2013, Johannes Brosi <mail@jbrosi.de>
+ *
+ * Released under the MIT license
+ * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
+ */
 define(["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
