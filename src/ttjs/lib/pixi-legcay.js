@@ -13156,7 +13156,8 @@ var PIXI = (function (exports) {
                 }
                 if (BaseTextureCache[id]) {
                     // eslint-disable-next-line no-console
-                    console.warn("BaseTexture added to the cache with an id [" + id + "] that already had an entry");
+                    //console.warn("BaseTexture added to the cache with an id [" + id + "] that already had an entry");
+                    console.log("BaseTexture added to the cache with an id [" + id + "] that already had an entry");
                 }
                 BaseTextureCache[id] = baseTexture;
             }
@@ -15337,7 +15338,7 @@ var PIXI = (function (exports) {
                 }
                 if (TextureCache[id]) {
                     // eslint-disable-next-line no-console
-                    console.warn("Texture added to the cache with an id [" + id + "] that already had an entry");
+                    console.log("Texture added to the cache with an id [" + id + "] that already had an entry");
                 }
                 TextureCache[id] = texture;
             }

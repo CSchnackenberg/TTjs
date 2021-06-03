@@ -19,7 +19,7 @@ export interface IEntity {
     dispose():void;
     isGarbage():boolean;
     getStateDescription():string;
-    sendMessage(name:string, params:any);
+    sendMessage(name:string, params?:any);
 }
 
 /**
