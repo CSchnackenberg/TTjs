@@ -7,12 +7,10 @@
  * Released under the MIT license
  * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
  */
-// define(['ttjs/util/TTTools'], function(env) {
 define(["require", "exports", "@ttjs/util/TTTools"], function (require, exports, TTTools_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Entity = void 0;
-    "use strict";
     function Entity(name, spatial, properties, rawProperties) {
         // private
         this._components = [];
@@ -45,7 +43,7 @@ define(["require", "exports", "@ttjs/util/TTTools"], function (require, exports,
     ;
     Entity.prototype = {
         getSpatial: function () {
-            return this._spatial;
+            return this.spatial;
         },
         /** properties for ... */
         getInstanceProperties: function () {

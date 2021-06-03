@@ -71,7 +71,7 @@ export function getText(
  */
 export function getJson(
     url:string,
-    ok?:(json:object, httpStatus?:number)=>void,
+    ok?:(json:any, httpStatus?:number)=>void,
     failed?:(errInfo:string, httpStatus?:number)=>void,
     timeout:number=5000
 ) {

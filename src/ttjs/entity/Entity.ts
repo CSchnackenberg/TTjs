@@ -7,11 +7,8 @@
  * Released under the MIT license
  * https://github.com/CSchnackenberg/TTjs/blob/master/LICENSE
  */
-// define(['ttjs/util/TTTools'], function(env) {
 
 import {TTTools as env} from "@ttjs/util/TTTools";
-
-"use strict";
 
 
 export function Entity(name, spatial, properties, rawProperties) {
@@ -46,7 +43,7 @@ export function Entity(name, spatial, properties, rawProperties) {
 
 Entity.prototype = {
     getSpatial: function() {
-        return this._spatial;
+        return this.spatial;
     },
     /** properties for ... */
     getInstanceProperties: function() {
