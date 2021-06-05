@@ -53,16 +53,11 @@
  * c = target value
  * d = target time
  */
-// define([
-// ], function(
-// )
-// {
 define(["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Easing = void 0;
     var PI2X = 3.141592653;
-    "use strict";
     exports.Easing = {
         Back: {
             easeIn: function (t, b, c, d, s) {
@@ -296,6 +291,4 @@ define(["require", "exports"], function (require, exports) {
         },
     };
 });
-//     return Easing;
-// });
 //# sourceMappingURL=Easing.js.map

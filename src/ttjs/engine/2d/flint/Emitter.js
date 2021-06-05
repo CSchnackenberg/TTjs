@@ -1,46 +1,38 @@
 define(["require", "exports"], function (require, exports) {
-    // define([
-    //    'ttjs/engine/2d/flint/Particle'
-    // ], function(
-    // )
-    // {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Emitter = void 0;
-    function Emitter(displayContainer, factory) {
-        /** @property {Counter} counter object */
-        this.counter = null;
-        this._started = false;
-        this._running = false;
-        this._container = displayContainer;
-        this._actions = [];
-        this._emitterActions = [];
-        this._initializer = [];
-        this._particles = [];
-        this._factory = factory;
-    }
-    exports.Emitter = Emitter;
-    ;
-    Emitter.prototype = {
-        addAction: function (action) {
+    class Emitter {
+        constructor(displayContainer, factory) {
+            this.counter = null;
+            this._started = false;
+            this._running = false;
+            this._actions = [];
+            this._emitterActions = [];
+            this._initializer = [];
+            this._particles = [];
+            this._container = displayContainer;
+            this._factory = factory;
+        }
+        addAction(action) {
             this._actions.push(action);
             return this;
-        },
-        addEmitterAction: function (action) {
+        }
+        addEmitterAction(action) {
             this._emitterActions.push(action);
             return this;
-        },
-        addInitializer: function (ini) {
+        }
+        addInitializer(ini) {
             this._initializer.push(ini);
             return this;
-        },
-        pause: function () {
+        }
+        pause() {
             this._running = false;
-        },
-        resume: function () {
+        }
+        resume() {
             this._running = true;
-        },
-        start: function () {
+        }
+        start() {
             if (!this.counter) {
                 console.error("An emitter requires a counter");
                 return;
@@ -56,14 +48,14 @@ define(["require", "exports"], function (require, exports) {
             var startParticleCount = this.counter.startEmitter(this);
             for (var i = 0; i < startParticleCount; i++)
                 this._createParticle();
-        },
-        _destroyParticle: function (p) {
+        }
+        _destroyParticle(p) {
             if (p.sprite) {
                 this._container.removeChild(p.sprite);
             }
             this._factory.destroyParticle(p);
-        },
-        _createParticle: function () {
+        }
+        _createParticle() {
             var p = this._factory.create();
             this.onInitParticle(p);
             var len = this._initializer.length;
@@ -73,14 +65,14 @@ define(["require", "exports"], function (require, exports) {
             if (p.sprite)
                 this._container.addChild(p.sprite);
             this._particles.push(p);
-        },
-        getContainer: function () {
+        }
+        getContainer() {
             return this._container;
-        },
-        onInitParticle: function (p) {
+        }
+        onInitParticle(p) {
             // overwrite if you like
-        },
-        updateOnFrame: function (time) {
+        }
+        updateOnFrame(time) {
             if (!this._running || !this._started)
                 return;
             var numNewPartilces = this.counter.spawnParticles(this, time);
@@ -114,9 +106,7 @@ define(["require", "exports"], function (require, exports) {
                 }
             }
         }
-    };
+    }
+    exports.Emitter = Emitter;
 });
-//
-//     return Emitter;
-// });
 //# sourceMappingURL=Emitter.js.map

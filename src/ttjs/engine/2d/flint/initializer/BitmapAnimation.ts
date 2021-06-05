@@ -40,44 +40,106 @@
  *
  */
 
-import * as Fx from '@ttjs/lib/easeljs'
+import * as PIXI from '@ttjs/lib/pixi-legcay'
+import {EaselSpriteSheet} from "@game/graphics/easel/EaselSpriteSheet";
+import {Particle} from "@ttjs/engine/2d/flint/Particle";
 
-"use strict";
-export function BitmapAnimation(spriteSheet, frameRangeStart, frameRangeEnd) {
+export class BitmapAnimation {
 
-    if (Array.isArray(frameRangeStart)) {
-        this.animRange = frameRangeStart;
-    }
-    else if (isNaN(frameRangeStart)) {
-        this.animName = frameRangeStart;
-    }
-    else {
-        this.s = frameRangeStart || 0;
-        this.e = frameRangeEnd || this.s;
-    }
-    this.sheet = spriteSheet;
-};
+    public animName:string;
+    public animRange:number[];
+    private s:number;
+    private e:number;
+    public sheet:EaselSpriteSheet;
 
-BitmapAnimation.prototype = {
-    init: function(emitter, p) {
+    constructor(spriteSheet:EaselSpriteSheet, frameRangeStart?:number[]|string, frameRangeEnd?:number) {
 
-        if (p.sprite) {
-            p.sprite.initAfterReset(this.sheet);
+        if (Array.isArray(frameRangeStart)) {
+            this.animRange = frameRangeStart;
+        }
+        else if (typeof frameRangeStart === "string") {
+            this.animName = frameRangeStart;
         }
         else {
-            p.sprite = new Fx.Sprite(this.sheet);
+            this.s = frameRangeStart || 0;
+            this.e = frameRangeEnd || this.s;
         }
+        this.sheet = spriteSheet;
+    };
+
+
+    init(emitter, p:Particle) {
+
+        // if (p.sprite) {
+        //     //p.sprite.initAfterReset(this.sheet);
+        //
+        // }
+        // else {
+        //     //p.sprite = new Fx.Sprite(this.sheet);
+        //     p.sprite = new PIXI.AnimatedSprite(); //this.sheet.createSpriteForAnimation()
+        // }
         if (this.animName) {
-            p.sprite.gotoAndPlay(this.animName);
-        }
-        else if (this.animRange) {
-            const index = Math.floor(Math.random() * (this.animRange.length))
-            p.sprite.gotoAndPlay(this.animRange[index]);
+            if (!p.sprite) {
+                p.sprite = this.sheet.createSpriteForAnimation(this.animName);
+            }
+            else {
+                this.sheet.applyAnimation(p.sprite, this.animName);
+            }
         }
         else {
-            var frameNmb = this.s + Math.floor(Math.random() * (this.e - this.s));
-            p.sprite.gotoAndStop(frameNmb);
+            debugger;
+            if (this.animRange) {
+                const index = Math.floor(Math.random() * (this.animRange.length))
+                p.sprite.gotoAndPlay(this.animRange[index]);
+            }
+            else {
+                var frameNmb = this.s + Math.floor(Math.random() * (this.e - this.s));
+                p.sprite.gotoAndStop(frameNmb);
+            }
         }
+
     }
-};
+
+
+}
+
+
+// export function BitmapAnimation(spriteSheet:EaselSpriteSheet, frameRangeStart, frameRangeEnd) {
+//
+//     if (Array.isArray(frameRangeStart)) {
+//         this.animRange = frameRangeStart;
+//     }
+//     else if (isNaN(frameRangeStart)) {
+//         this.animName = frameRangeStart;
+//     }
+//     else {
+//         this.s = frameRangeStart || 0;
+//         this.e = frameRangeEnd || this.s;
+//     }
+//     this.sheet = spriteSheet;
+// };
+//
+// BitmapAnimation.prototype = {
+//     init: function(emitter, p:Particle) {
+//
+//         if (p.sprite) {
+//             p.sprite.initAfterReset(this.sheet);
+//         }
+//         else {
+//             p.sprite = new Fx.Sprite(this.sheet);
+//         }
+//         if (this.animName) {
+//             //p.sprite.gotoAndPlay(this.animName);
+//
+//         }
+//         else if (this.animRange) {
+//             const index = Math.floor(Math.random() * (this.animRange.length))
+//             p.sprite.gotoAndPlay(this.animRange[index]);
+//         }
+//         else {
+//             var frameNmb = this.s + Math.floor(Math.random() * (this.e - this.s));
+//             p.sprite.gotoAndStop(frameNmb);
+//         }
+//     }
+// };
     

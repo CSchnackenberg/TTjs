@@ -39,12 +39,8 @@
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
  * 
  */
-// define([
-// ], function(
-// )
-// {
 
-"use strict";
+
 export function Blast(maxCount, started) {
     this.maxCount = maxCount;
 
@@ -76,6 +72,3 @@ Blast.prototype = {
         this._started = false;
     }
 };
-    
-//     return Blast;
-// });

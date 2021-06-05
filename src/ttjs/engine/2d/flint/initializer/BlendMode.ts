@@ -41,12 +41,6 @@
  *
  * 
  */
-// define([
-// ], function(
-// )
-// {
-
-"use strict";
 
 /**
  * Posible options:
@@ -96,9 +90,7 @@ export function BlendMode(mode) {
 BlendMode.prototype = {
     init: function(emitter, p)
     {
-        p.compositeOperation = this.mode;
+        p.blendMode = this.mode;
     }
 };
     
-//     return BlendMode;
-// });

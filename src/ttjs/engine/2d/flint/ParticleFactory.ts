@@ -41,56 +41,97 @@
  */
 import {Particle} from "@ttjs/engine/2d/flint/Particle";
 
-// define([
-//    'ttjs/engine/2d/flint/Particle'
-// ], function(
-//    Particle
-// )
-// {
+export class Pool {
 
+    private _cache:Particle[];
+    private _createdObjects:number;
 
-
-"use strict";
-
-export function Pool() {
-    this._cache = [];
-    this._createdObjects = 0;
-};
-
-Pool.prototype.putBack = function(p) {
-    this._cache.push(p);
-};
-Pool.prototype.takeOut = function(p) {
-    if (this._cache.length == 0) {
-        this._createdObjects++;
-
-        if (this._createdObjects > 10000) {
-            console.error("Created more than 10k particle objects. Likely a memory leak.");
-        }
-
-        return new Particle();
+    constructor() {
+        this._cache = [];
+        this._createdObjects = 0;
     }
-    return this._cache.pop();
-};
+
+    putBack(p:Particle) {
+        this._cache.push(p);
+    }
+
+    takeOut():Particle {
+        if (this._cache.length == 0) {
+            this._createdObjects++;
+            if (this._createdObjects > 10000) {
+                console.error("Created more than 10k particle objects. Likely a memory leak.");
+            }
+            return new Particle();
+        }
+        return this._cache.pop();
+    }
+}
+
 
 
 /**
  * Class to create particles. At some point later we
  * can introduce a cached concept here.
  */
-export function ParticleFactory(useCache = false) {
-    this._pool = useCache ? new Pool() : null;
-};
-ParticleFactory.prototype.create = function() {
-    return this._pool ? this._pool.takeOut() : new Particle();
-};
-ParticleFactory.prototype.destroyParticle = function(particle) {
-    if (this._pool) {
-        particle.sprite.reset();
-        particle.reset();
-        this._pool.putBack(particle);
+export class ParticleFactory {
+    private _pool:Pool;
+
+    constructor(useCache = false) {
+        this._pool = useCache ? new Pool() : null;
     }
-};
+
+    create():Particle {
+        return this._pool ? this._pool.takeOut() : new Particle();
+    }
+
+    destroyParticle(particle:Particle) {
+        if (this._pool) {
+            particle.sprite.visible = false; // !!!!!!!!! PIXI !!!!!!!!!! this is enough?
+            // TODO check with old sprite.reset
+            particle.reset();
+            this._pool.putBack(particle);
+        }
+    }
+
+}
+
+// export function Pool() {
+//     this._cache = [];
+//     this._createdObjects = 0;
+// };
+//
+// Pool.prototype.putBack = function(p) {
+//     this._cache.push(p);
+// };
+// Pool.prototype.takeOut = function(p) {
+//     if (this._cache.length == 0) {
+//         this._createdObjects++;
+//
+//         if (this._createdObjects > 10000) {
+//             console.error("Created more than 10k particle objects. Likely a memory leak.");
+//         }
+//
+//         return new Particle();
+//     }
+//     return this._cache.pop();
+// };
+//
+//
+// /**
+//  * Class to create particles. At some point later we
+//  * can introduce a cached concept here.
+//  */
+// export function ParticleFactory(useCache = false) {
+//     this._pool = useCache ? new Pool() : null;
+// };
+// ParticleFactory.prototype.create = function() {
+//     return this._pool ? this._pool.takeOut() : new Particle();
+// };
+// ParticleFactory.prototype.destroyParticle = function(particle) {
+//     if (this._pool) {
+//         particle.sprite.reset();
+//         particle.reset();
+//         this._pool.putBack(particle);
+//     }
+// };
     
-//     return ParticleFactory;
-// });

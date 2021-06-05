@@ -40,56 +40,54 @@
  *
  */
 import {Particle} from "@ttjs/engine/2d/flint/Particle";
-
-// define([
-//    'ttjs/engine/2d/flint/Particle'
-// ], function(
-// )
-// {
+import {ParticleFactory} from "@ttjs/engine/2d/flint/ParticleFactory";
 
 
 
-"use strict";
-export function Emitter(displayContainer, factory) {
-    /** @property {Counter} counter object */
-    this.counter = null;
+export class Emitter {
+    
+    public counter:any = null;
+    public _factory:ParticleFactory;
 
-    this._started = false;
-    this._running = false;
-    this._container = displayContainer;
-    this._actions = [];
-    this._emitterActions = [];
-    this._initializer = [];
-    this._particles = [];
-    this._factory = factory;
-};
+    public _started:boolean = false;
+    public _running:boolean = false;
+    
+    public _actions = [];
+    public _emitterActions = [];
+    public _initializer = [];
+    public _particles = [];
+    
+    public _container:PIXI.Container; // = displayContainer;
+    
+    constructor(displayContainer:PIXI.Container, factory:ParticleFactory) {
+        this._container = displayContainer;
+        this._factory = factory;
+    }
 
-Emitter.prototype = {
-
-    addAction: function(action)
+    addAction(action)
     {
         this._actions.push(action);
         return this;
-    },
-    addEmitterAction: function(action)
+    }
+    addEmitterAction(action)
     {
         this._emitterActions.push(action);
         return this;
-    },
-    addInitializer: function(ini)
+    }
+    addInitializer(ini)
     {
         this._initializer.push(ini);
         return this;
-    },
-    pause: function()
+    }
+    pause()
     {
         this._running = false;
-    },
-    resume: function()
+    }
+    resume()
     {
         this._running = true;
-    },
-    start: function()
+    }
+    start()
     {
         if (!this.counter)
         {
@@ -111,14 +109,14 @@ Emitter.prototype = {
         var startParticleCount = this.counter.startEmitter(this);
         for(var i=0; i<startParticleCount; i++)
             this._createParticle();
-    },
-    _destroyParticle: function (p) {
+    }
+    _destroyParticle (p) {
         if (p.sprite) {
             this._container.removeChild(p.sprite);
         }
         this._factory.destroyParticle(p);
-    },
-    _createParticle: function() {
+    }
+    _createParticle() {
         var p = this._factory.create();
         this.onInitParticle(p);
 
@@ -130,14 +128,14 @@ Emitter.prototype = {
         if (p.sprite)
             this._container.addChild(p.sprite);
         this._particles.push(p);
-    },
-    getContainer: function() {
+    }
+    getContainer() {
         return this._container;
-    },
-    onInitParticle: function(p) {
+    }
+    onInitParticle(p) {
         // overwrite if you like
-    },
-    updateOnFrame: function(time) {
+    }
+    updateOnFrame(time) {
         if (!this._running || !this._started)
             return;
 
@@ -175,7 +173,4 @@ Emitter.prototype = {
             }
         }
     }
-};
-//
-//     return Emitter;
-// });
+}

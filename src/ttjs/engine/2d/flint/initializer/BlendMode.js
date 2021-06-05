@@ -41,10 +41,6 @@
  *
  *
  */
-// define([
-// ], function(
-// )
-// {
 define(["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
@@ -100,10 +96,8 @@ define(["require", "exports"], function (require, exports) {
     ;
     BlendMode.prototype = {
         init: function (emitter, p) {
-            p.compositeOperation = this.mode;
+            p.blendMode = this.mode;
         }
     };
 });
-//     return BlendMode;
-// });
 //# sourceMappingURL=BlendMode.js.map

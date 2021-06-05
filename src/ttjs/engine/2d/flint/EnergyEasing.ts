@@ -46,14 +46,11 @@
  * original license for Robert Penner's classes, these specific classes are released under
  * the BSD License.
  */
-// define([
-// ], function(
-// )
-// {
+
 
 var PI2X = 3.141592653;
 
-"use strict";
+
 export const EnergyEasing = {
 
     Linear: {
@@ -146,5 +143,3 @@ export const EnergyEasing = {
 };
 	
     
-//     return EnergyEasing;
-// });

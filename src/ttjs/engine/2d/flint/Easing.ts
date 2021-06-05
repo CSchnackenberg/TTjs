@@ -53,14 +53,10 @@
  * c = target value
  * d = target time
  */
-// define([
-// ], function(
-// )
-// {
 
 var PI2X = 3.141592653;
 
-"use strict";
+
 export const Easing = {
 
     Back: {
@@ -337,6 +333,3 @@ export const Easing = {
     },
 };
 	
-    
-//     return Easing;
-// });

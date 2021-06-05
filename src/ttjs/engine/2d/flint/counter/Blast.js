@@ -39,10 +39,6 @@
  * Copyright (c) 2013, Christoph Schnackenberg <bluechs@gmx.de>
  *
  */
-// define([
-// ], function(
-// )
-// {
 define(["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
@@ -76,6 +72,4 @@ define(["require", "exports"], function (require, exports) {
         }
     };
 });
-//     return Blast;
-// });
 //# sourceMappingURL=Blast.js.map

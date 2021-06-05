@@ -106,7 +106,7 @@ define(["require", "exports", "@ttjs/util/TTTools"], function (require, exports,
                 if (this._components[i].onAfterInit)
                     hasAfterInit = true;
             }
-            if (hasAfterInit) {
+            if (hasAfterInit && this._state == "initing") {
                 for (var i = 0; i < len; i++) {
                     if (this._components[i].onAfterInit)
                         this._components[i].onAfterInit(this);
