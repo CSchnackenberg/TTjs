@@ -42,7 +42,7 @@
 
 import * as Fx from '@ttjs/lib/easeljs'
 
-"use strict";
+
 export function BitmapAnimation(spriteSheet, frameRangeStart, frameRangeEnd) {
 
     if (Array.isArray(frameRangeStart)) {

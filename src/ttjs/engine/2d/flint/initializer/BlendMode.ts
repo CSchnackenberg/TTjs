@@ -41,12 +41,8 @@
  *
  * 
  */
-// define([
-// ], function(
-// )
-// {
 
-"use strict";
+import * as Fx from '@ttjs/lib/easeljs';
 
 /**
  * Posible options:
@@ -84,21 +80,38 @@
  * @param mode
  * @constructor
  */
-export function BlendMode(mode) {
-    this.mode = mode || null;
-
-    switch(this.mode) {
-        case "add": this.mode = "lighter"; break;
-        case "subtract": this.mode = "darken"; break;
+export class BlendMode {
+    constructor(
+        public mode:Fx.CompositionOperations
+    ) {
+        this.mode = mode || null;
+        switch (this.mode as any) {
+            case "add":
+                this.mode = "lighter";
+                break;
+            case "subtract":
+                this.mode = "darken";
+                break;
+        }
     }
-};
 
-BlendMode.prototype = {
-    init: function(emitter, p)
-    {
+    init(emitter, p) {
         p.compositeOperation = this.mode;
     }
-};
-    
-//     return BlendMode;
-// });
+}
+
+// export function BlendMode(mode:Fx.CompositionOperations) {
+//     this.mode = mode || null;
+//
+//     switch(this.mode) {
+//         case "add": this.mode = "lighter"; break;
+//         case "subtract": this.mode = "darken"; break;
+//     }
+// };
+//
+// BlendMode.prototype = {
+//     init: function(emitter, p)
+//     {
+//         p.compositeOperation = this.mode;
+//     }
+// };

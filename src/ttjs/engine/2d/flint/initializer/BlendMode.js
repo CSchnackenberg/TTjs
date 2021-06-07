@@ -41,10 +41,6 @@
  *
  *
  */
-// define([
-// ], function(
-// )
-// {
 define(["require", "exports"], function (require, exports) {
     "use strict";
     exports.__esModule = true;
@@ -85,25 +81,39 @@ define(["require", "exports"], function (require, exports) {
      * @param mode
      * @constructor
      */
-    function BlendMode(mode) {
-        this.mode = mode || null;
-        switch (this.mode) {
-            case "add":
-                this.mode = "lighter";
-                break;
-            case "subtract":
-                this.mode = "darken";
-                break;
+    var BlendMode = /** @class */ (function () {
+        function BlendMode(mode) {
+            this.mode = mode;
+            this.mode = mode || null;
+            switch (this.mode) {
+                case "add":
+                    this.mode = "lighter";
+                    break;
+                case "subtract":
+                    this.mode = "darken";
+                    break;
+            }
         }
-    }
-    exports.BlendMode = BlendMode;
-    ;
-    BlendMode.prototype = {
-        init: function (emitter, p) {
+        BlendMode.prototype.init = function (emitter, p) {
             p.compositeOperation = this.mode;
-        }
-    };
+        };
+        return BlendMode;
+    }());
+    exports.BlendMode = BlendMode;
 });
-//     return BlendMode;
-// });
+// export function BlendMode(mode:Fx.CompositionOperations) {
+//     this.mode = mode || null;
+//
+//     switch(this.mode) {
+//         case "add": this.mode = "lighter"; break;
+//         case "subtract": this.mode = "darken"; break;
+//     }
+// };
+//
+// BlendMode.prototype = {
+//     init: function(emitter, p)
+//     {
+//         p.compositeOperation = this.mode;
+//     }
+// };
 //# sourceMappingURL=BlendMode.js.map

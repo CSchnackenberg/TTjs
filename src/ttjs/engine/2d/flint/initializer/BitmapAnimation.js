@@ -43,7 +43,6 @@ define(["require", "exports", "@ttjs/lib/easeljs"], function (require, exports, 
     "use strict";
     exports.__esModule = true;
     exports.BitmapAnimation = void 0;
-    "use strict";
     function BitmapAnimation(spriteSheet, frameRangeStart, frameRangeEnd) {
         if (Array.isArray(frameRangeStart)) {
             this.animRange = frameRangeStart;

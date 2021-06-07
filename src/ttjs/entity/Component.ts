@@ -59,6 +59,7 @@ import {TTTools as env} from "@ttjs/util/TTTools";
 export interface IEntity {
     props:any;
     manager:any;
+    spatial:any;
 
     getSpatial():object;
     findComponent(cmpName:string):any;
