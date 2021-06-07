@@ -8,11 +8,6 @@
  *
  * SchnackScript
  */
-// define([
-// ], function (
-// ) {
-
-"use strict";
 
 
 /**
@@ -295,6 +290,3 @@ SchnackVarValue.prototype = {
 
 };
 
-//     return SchnackVarValue;
-//
-// });

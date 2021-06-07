@@ -8,9 +8,6 @@
  *
  * SchnackScript
  */
-// define([
-// ], function (
-// ) {
 define(["require", "exports"], function (require, exports) {
     "use strict";
     exports.__esModule = true;
@@ -289,7 +286,4 @@ define(["require", "exports"], function (require, exports) {
         }
     };
 });
-//     return SchnackVarValue;
-//
-// });
 //# sourceMappingURL=SchnackVarValue.js.map
