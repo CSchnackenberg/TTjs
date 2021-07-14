@@ -64,6 +64,7 @@ define(["require", "exports"], function (require, exports) {
             var t = typeof v;
             if (t == "string") {
                 var parsedValue = Number(v);
+                // @ts-ignore
                 if (Number.isNaN(parsedValue)) {
                     this.type = SchnackVarValue.VAR_STRING;
                     this._num(0);
@@ -81,8 +82,11 @@ define(["require", "exports"], function (require, exports) {
                 this.type = SchnackVarValue.VAR_NUMBER;
             }
             else if (t == "object" && v instanceof SchnackVarValue) {
+                // @ts-ignore
                 this.num = v.num;
+                // @ts-ignore
                 this.str = v.str;
+                // @ts-ignore
                 this.type = v.type;
             }
             else if (!v) {
@@ -166,6 +170,7 @@ define(["require", "exports"], function (require, exports) {
         },
         incrementBy: function (sv) {
             if (sv instanceof SchnackVarValue) {
+                // @ts-ignore
                 var numVal = sv.getAsNumber();
                 if (this.type == SchnackVarValue.VAR_NUMBER)
                     this.num += numVal;
@@ -194,6 +199,7 @@ define(["require", "exports"], function (require, exports) {
         },
         decrementBy: function (sv) {
             if (sv instanceof SchnackVarValue) {
+                // @ts-ignore
                 var numVal = sv.getAsNumber();
                 if (this.type == SchnackVarValue.VAR_NUMBER)
                     this.num -= numVal;
@@ -217,11 +223,13 @@ define(["require", "exports"], function (require, exports) {
         concat: function (sv) {
             if (sv instanceof SchnackVarValue) {
                 if (this.type == SchnackVarValue.VAR_NUMBER) {
+                    // @ts-ignore
                     this._str(this.getAsString() + sv.getAsString());
                     this._num(0);
                     this.type = SchnackVarValue.VAR_STRING;
                 }
                 else {
+                    // @ts-ignore
                     this._str(this.str + sv.getAsString());
                 }
             }
@@ -253,11 +261,11 @@ define(["require", "exports"], function (require, exports) {
         dumpString: function () {
             var out = "";
             if (this.isString()) {
-                out += "[string:\"" + str + "\"]";
+                out += "[string:\"" + this.getAsString() + "\"]";
                 //@out.Append("[string:\"").Append(strValue).Append("\"]");
             }
             else {
-                out += "[number:\"" + str + "\"]";
+                out += "[number:\"" + this.getAsString() + "\"]";
             }
             return out;
         },
